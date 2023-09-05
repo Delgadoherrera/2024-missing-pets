@@ -1,0 +1,90 @@
+.userPetContainer{
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    position: relative;
+   background-color: rgba(140, 141, 142, 0.324); 
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 15px;
+
+
+}
+.userPetsPhotoContainer{
+    object-fit: fill;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: blue; */
+
+
+}
+.userPetsPetInfooContainer{
+    width: 30vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: green; */
+    text-align: center;
+
+
+}
+
+.userPetsPhoto{
+    background-color: rgba(0, 0, 0, 0.622);
+}
+.searchButtonUserPet{
+    /* background-color: green; */
+    height: 10%;
+    width: 100%;
+    margin-bottom:2% ;
+    background-color: rgba(173, 173, 177, 0.127);
+
+
+}
+.additionalDataContainer{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: space-around !important;
+    background-color: rgba(0, 0, 0, 0.075);
+
+
+}
+.editButtonMyPets{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgba(35, 108, 135, 0.174);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+}
+
+.detailPetPictureMyPet{
+    width: 40vw !important;
+    height: 40vw !important;
+    object-fit: cover;
+    border-radius: 50px;
+    background-color: rgba(140, 141, 142, 0.324); 
+    margin: 3%;
+    box-shadow: rgba(27, 16, 49, 0.567) 1.95px 1.95px 2.6px;
+
+}
+.descripcionMyPetsContainer{
+    font-size: 0.9rem !important;
+    text-align: center;
+}
+
+.dialogDeleteMyPet{
+font-size: 2rem !important;
+
+}
+
+.buttonAddMyPet{
+    width: 100%;
+}
+
+.slit-in-vertical{animation:slit-in-vertical .45s ease-out both}
+@keyframes slit-in-vertical{0%{transform:translateZ(-800px) rotateY(90deg);opacity:0}54%{transform:translateZ(-160px) rotateY(87deg);opacity:1}100%{transform:translateZ(0) rotateY(0)}}

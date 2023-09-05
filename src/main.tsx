@@ -6,7 +6,9 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { domain as auth0Domain, clientId, callbackUri } from "./auth.config";
 import store from "./reduxStore/appStore";
-
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import './sass/index.scss'
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(

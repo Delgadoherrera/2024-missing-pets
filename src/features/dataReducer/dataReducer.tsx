@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 
 interface UserData {
   userData: any;
@@ -19,6 +20,7 @@ interface DataState {
   refreshThisSelector: boolean;
   isOpened: boolean;
   newMarkerValue: number[];
+  showMap: boolean;
 }
 
 const initialUserData: UserData = {
@@ -40,6 +42,7 @@ const initialState: DataState = {
   refreshThisSelector: false,
   isOpened: false,
   newMarkerValue: [],
+  showMap: true,
 };
 
 const dataReducer = createSlice({
@@ -86,6 +89,10 @@ const dataReducer = createSlice({
       console.log("action payload is open", action.payload);
       state.isOpened = action.payload;
     },
+    mapOpen: (state, action: PayloadAction<boolean>) => {
+      console.log("MAP OPEN?", action.payload);
+      state.showMap = action.payload;
+    },
   },
 });
 
@@ -100,26 +107,62 @@ export const {
   imageValue,
   positionValue,
   newMarkerValue,
+  mapOpen
 } = dataReducer.actions;
 
-export const selectCount = (state: { counter: DataState }) =>
-  state.counter.file;
-export const userPet = (state: { counter: DataState }) =>
-  state.counter.dataUserPets;
-export const usersData = (state: { counter: DataState }) =>
-  state.counter.dataUser.userData;
-export const counterPetSelected = (state: { counter: DataState }) =>
-  state.counter.counterPetSelected.petSelected;
-export const counterDataForm = (state: { counter: DataState }) =>
-  state.counter.counterDataForm;
-export const lostPets = (state: { counter: DataState }) =>
-  state.counter.lostPets;
-export const refresh = (state: { counter: DataState }) =>
-  state.counter.refreshThisSelector;
-export const openModal = (state: { counter: DataState }) =>
-  state.counter.isOpened;
-export const position = (state: { counter: DataState }) => state.counter.value;
-export const markerValue = (state: { counter: DataState }) =>
-  state.counter.newMarkerValue;
+const selectCounterState = (state: { counter: DataState }) => state.counter;
 
+export const selectCount = createSelector(
+  [selectCounterState],
+  (counter) => counter.file
+);
+
+export const userPet = createSelector(
+  [selectCounterState],
+  (counter) => counter.dataUserPets
+);
+
+export const usersData = createSelector(
+  [selectCounterState],
+  (counter) => counter.dataUser.userData
+);
+export const counterPetSelected = createSelector(
+  [selectCounterState],
+  (counter) => counter.counterPetSelected.petSelected
+);
+
+export const counterDataForm = createSelector(
+  [selectCounterState],
+  (counter) => counter.counterDataForm
+);
+
+export const lostPets = createSelector(
+  [selectCounterState],
+  (counter) => counter.lostPets
+);
+
+export const refresh = createSelector(
+  [selectCounterState],
+  (counter) => counter.refreshThisSelector
+);
+
+export const openModal = createSelector(
+  [selectCounterState],
+  (counter) => counter.isOpened
+);
+
+export const position = createSelector(
+  [selectCounterState],
+  (counter) => counter.value
+);
+
+export const markerValue = createSelector(
+  [selectCounterState],
+  (counter) => counter.newMarkerValue
+);
+
+export const showMap = createSelector(
+  [selectCounterState],
+  (counter) => counter.showMap
+);
 export default dataReducer.reducer;

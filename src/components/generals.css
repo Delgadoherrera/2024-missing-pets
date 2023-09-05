@@ -1,0 +1,11 @@
+
+
+.rangeContainer{
+    display: flex;
+    height: 10%;
+    width:100%;
+/*     flex-direction: column;
+ */    justify-content: space-around;
+    align-items: center;
+}
+

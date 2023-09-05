@@ -2,6 +2,7 @@ import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonContent,
+  IonFooter,
   IonHeader,
   IonIcon,
   IonLabel,
@@ -22,7 +23,13 @@ import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
 import { useEffect } from "react";
-
+import {
+  add,
+  chevronBack,
+  chevronDown,
+  chevronForward,
+  chevronUp,
+} from "ionicons/icons";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -30,7 +37,7 @@ import "@ionic/react/css/core.css";
 import "@ionic/react/css/normalize.css";
 import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
-
+import "./components/generals.css";
 /* Optional CSS utils that can be commented out */
 import "@ionic/react/css/padding.css";
 import "@ionic/react/css/float-elements.css";
@@ -40,9 +47,13 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import { App as CapApp } from "@capacitor/app";
 import LoginButton from "./components/LoginButton";
-
+import DataRoutingApp from "./components/DataRoutingApp";
+import MapFindMyPet from "./components/MapFindMyPet";
+import FloatButton from "./components/simple/FloatButton";
+import AppBar from "./components/simple/AppBar";
 /* Theme variables */
 import "./theme/variables.css";
+import ViewStructure from "./components/main/viewStructure";
 
 setupIonicReact();
 
@@ -70,33 +81,25 @@ const App: React.FC = () => {
   }
 
   return (
-    <>
-      <IonApp>
-        {isAuthenticated ? (
-          <>
-            <p> LOGUEADO</p>
-          </>
-        ) : (
-          <IonPage>
-            <IonHeader>
-              <IonToolbar>
-                <IonTitle>Missing Pets</IonTitle>
-              </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-              <IonHeader collapse="condense">
-                <IonToolbar>
-                  <IonTitle size="small">Encuentra a tu mascota!</IonTitle>
-                </IonToolbar>
-              </IonHeader>
-              <div className="container">
-                {isAuthenticated ? null : <LoginButton />}
-              </div>
-            </IonContent>
-          </IonPage>
-        )}
-      </IonApp>
-    </>
+    <IonApp>
+      {isAuthenticated ? (
+        <DataRoutingApp />
+      ) : (
+        <IonPage>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Missing Peats</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent></IonContent>
+          <IonContent>
+            <div className="container">
+              {isAuthenticated ? null : <LoginButton />}
+            </div>
+          </IonContent>
+        </IonPage>
+      )}
+    </IonApp>
   );
 };
 
