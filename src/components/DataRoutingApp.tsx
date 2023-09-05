@@ -130,7 +130,7 @@ const RoutingComp: React.FC = () => {
           <Route exact path="/tab2">
             <Tab2 setPetDistance={setPetDistance} />
           </Route>
-          <Route path="/tab3">
+          <Route exact path="/tab3">
             <Tab3 data={props} />
           </Route>
           <Route exact path="/">

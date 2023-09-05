@@ -49,17 +49,17 @@ interface YourStateType {
 const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   const [searchingPet, setSearchingPet] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const open: any = isOpen;
   const dispatch = useDispatch();
   const pet = useSelector(counterPetSelected).petSelected;
   const searchThisPet = new PetServiceWeb();
   const positionLost: any = useSelector(newMarkerValue);
   const value = useSelector(selectCount);
   const doRefresh = useSelector(refresh);
+  const [isOpen, setIsOpen] = useState(true);
 
   const coords: any = positionLost.payload.counter.newMarkerValue;
 
-  console.log("showdoRefreshdoRefreshdoRefreshToast", doRefresh);
+  console.log("addPetaddPetaddPet", open);
 
   const searchPet = () => {
     dispatch(refreshThis(true));
@@ -71,9 +71,9 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
     }
     searchThisPet.searchMyPet(pet.idMascota, coords).then((data) => {
       setSearchingPet(true);
+      setIsOpen(false);
     });
     setShowToast(true);
-    dispatch(isOpen(false));
   };
 
   const takePicture = async () => {
@@ -87,39 +87,44 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
   return (
     <>
-      <IonModal isOpen={true}>
-        <IonPage>
-          <IonContent>
-            <IonHeader>
-              <IonToolbar>
-                <IonTitle>Agrega a tu mascota</IonTitle>
-                <IonButtons slot="end">
-                  <IonButton onClick={() => setAddPet(false)}>X</IonButton>
-                </IonButtons>
-              </IonToolbar>
-            </IonHeader>
-            {value ? (
-              value.length > 1 ? (
-                <IonImg
-                  className="imageCard"
-                  src={`data:image/jpeg;base64,${value}`}
-                  style={{
-                    width: "100vw",
-                    height: "15vh",
-                    objectFit: "contain",
-                    marginTop: "2%",
-                    zoom: "100%",
+      <IonModal isOpen={isOpen}>
+        <IonContent>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Agrega a tu mascota</IonTitle>
+              <IonButtons slot="end">
+                <IonButton
+                  onClick={() => {
+                    setIsOpen(false);
+                    setAddPet(false);
                   }}
-                />
-              ) : null
-            ) : null}
+                >
+                  X
+                </IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          {value ? (
+            value.length > 1 ? (
+              <IonImg
+                className="imageCard"
+                src={`data:image/jpeg;base64,${value}`}
+                style={{
+                  width: "100vw",
+                  height: "15vh",
+                  objectFit: "contain",
+                  marginTop: "2%",
+                  zoom: "100%",
+                }}
+              />
+            ) : null
+          ) : null}
 
-            <IonItem>
-              <IonIcon icon={camera} onClick={() => takePicture()} />
-            </IonItem>
-            <FormAddMyPet setAddPet={setAddPet} />
-          </IonContent>
-        </IonPage>
+          <IonItem>
+            <IonIcon icon={camera} onClick={() => takePicture()} />
+          </IonItem>
+          <FormAddMyPet setAddPet={setAddPet} />
+        </IonContent>
       </IonModal>
     </>
   );

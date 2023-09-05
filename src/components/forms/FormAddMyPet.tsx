@@ -139,7 +139,7 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                aria-label={field.value}
+                aria-label="tipoMascota"
                 placeholder="Tipo"
                 value={field.value}
                 slot={"start"}
@@ -166,7 +166,7 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                aria-label={field.value}
+                aria-label="pesoMascota"
                 placeholder="Peso"
                 value={field.value}
                 slot={"start"}
@@ -196,7 +196,7 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                aria-label={field.value}
+                aria-label="colorPrimario"
                 placeholder="Color primario"
                 value={field.value}
                 slot={"start"}
@@ -227,7 +227,7 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                aria-label={field.value}
+                aria-label="colorSecundario"
                 placeholder="Color secundario"
                 value={field.value}
                 slot={"start"}
@@ -266,7 +266,7 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
                 onIonChange={(e) =>
                   setValue("descripcion", e.detail.value ?? "")
                 }
-                aria-label={field.value}
+                aria-label="descripcion"
               ></IonTextarea>
             )}
             control={control}

@@ -165,7 +165,6 @@ export default function InteractiveList(data: any) {
 
   return (
     <>
-      {addPet && <ModalAddMyPet setAddPet={setAddPet} />}
       <MDBContainer
         fluid
         style={{
@@ -180,12 +179,14 @@ export default function InteractiveList(data: any) {
             className="buttonAddMyPet"
             onClick={() => {
               setAddPet(true);
+              setActionSheet(true)
             }}
           >
             Agregar mascota
           </Button>
         )}
       </MDBContainer>
+      {actionSheet && addPet && <ModalAddMyPet setAddPet={setAddPet} />}
 
       {isSelected ? (
         <>

@@ -190,6 +190,10 @@ http://ionicframework.com/docs/theming/ */
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
 
+  ion-modal{
+    background-color: red !important;
+    color:blue !important
+  }
 
   /*
    * Material Design Dark Theme
