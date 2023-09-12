@@ -6,9 +6,11 @@ import { Provider } from "react-redux";
 import App from "./App";
 import { domain as auth0Domain, clientId, callbackUri } from "./auth.config";
 import store from "./reduxStore/appStore";
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import './sass/index.scss'
+import "./sass/index.scss";
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
+
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
@@ -28,3 +30,4 @@ root.render(
     </Provider>
   </Auth0Provider>
 );
+defineCustomElements(window);

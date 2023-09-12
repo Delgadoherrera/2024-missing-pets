@@ -5,44 +5,37 @@ interface UserData {
   userData: any;
 }
 
-interface PetSelectedData {
-  petSelected: any;
-}
-
 interface DataState {
   dataUserPets: any;
   file: string;
   value: any;
   dataUser: UserData;
-  counterPetSelected: PetSelectedData;
+  petSelected: {};
   counterDataForm: any;
   lostPets: any;
   refreshThisSelector: boolean;
   isOpened: boolean;
   newMarkerValue: number[];
   showMap: boolean;
+  nearAdoptPet: any;
 }
 
 const initialUserData: UserData = {
   userData: "",
 };
-
-const initialPetSelectedData: PetSelectedData = {
-  petSelected: {},
-};
-
 const initialState: DataState = {
   dataUserPets: [],
   file: "",
   value: {},
   dataUser: initialUserData,
-  counterPetSelected: initialPetSelectedData,
   counterDataForm: {},
   lostPets: {},
   refreshThisSelector: false,
   isOpened: false,
   newMarkerValue: [],
   showMap: true,
+  petSelected: {},
+  nearAdoptPet: [],
 };
 
 const dataReducer = createSlice({
@@ -50,7 +43,7 @@ const dataReducer = createSlice({
   initialState,
   reducers: {
     positionValue: (state, action: PayloadAction<any>) => {
-      console.log("state,action", state, action);
+      console.log("Posicion del usuario:", action.payload);
       state.value = action.payload;
     },
     imageValue: (state, action: PayloadAction<any>) => {
@@ -60,37 +53,43 @@ const dataReducer = createSlice({
       state,
       action: PayloadAction<{ latitude: number; longitude: number }>
     ) => {
-      console.log("newMarker", state, action);
       state.newMarkerValue = [
         action.payload.latitude,
         action.payload.longitude,
       ];
     },
     userPets: (state, action: PayloadAction<any>) => {
+      console.log("Mascotas de usuario:", action.payload);
       state.dataUserPets = action.payload;
     },
+    adoptPets: (state, action: PayloadAction<any>) => {
+      console.log("Mascotas para adoptar:", action.payload);
+      state.nearAdoptPet = action.payload;
+    },
     userData: (state, action: PayloadAction<any>) => {
+      console.log("User data:", action.payload);
       state.dataUser.userData = action.payload;
     },
     petLost: (state, action: PayloadAction<any>) => {
+      console.log("Mascotas perdidas cercanas:", action.payload);
       state.lostPets = action.payload;
     },
     petSelected: (state, action: PayloadAction<any>) => {
-      state.counterPetSelected.petSelected = action.payload;
+      console.log("Mascota seleccionada:", action.payload);
+      state.petSelected = action.payload;
     },
     formValue: (state, action: PayloadAction<any>) => {
+      console.log("FORMVALUES", action.payload);
       state.counterDataForm = action.payload;
     },
     refreshThis: (state, action: PayloadAction<boolean>) => {
-      console.log("state,action", state, action);
+      console.log("REFRESH DISPATCHED", action.payload);
       state.refreshThisSelector = action.payload;
     },
     isOpen: (state, action: PayloadAction<boolean>) => {
-      console.log("action payload is open", action.payload);
       state.isOpened = action.payload;
     },
     mapOpen: (state, action: PayloadAction<boolean>) => {
-      console.log("MAP OPEN?", action.payload);
       state.showMap = action.payload;
     },
   },
@@ -107,7 +106,8 @@ export const {
   imageValue,
   positionValue,
   newMarkerValue,
-  mapOpen
+  mapOpen,
+  adoptPets,
 } = dataReducer.actions;
 
 const selectCounterState = (state: { counter: DataState }) => state.counter;
@@ -116,19 +116,21 @@ export const selectCount = createSelector(
   [selectCounterState],
   (counter) => counter.file
 );
-
+export const adoptPet = createSelector(
+  [selectCounterState],
+  (counter) => counter.nearAdoptPet
+);
 export const userPet = createSelector(
   [selectCounterState],
   (counter) => counter.dataUserPets
 );
-
 export const usersData = createSelector(
   [selectCounterState],
   (counter) => counter.dataUser.userData
 );
 export const counterPetSelected = createSelector(
   [selectCounterState],
-  (counter) => counter.counterPetSelected.petSelected
+  (counter) => counter.petSelected
 );
 
 export const counterDataForm = createSelector(

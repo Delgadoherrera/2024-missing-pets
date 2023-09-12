@@ -11,22 +11,26 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 import FormEditPet from "../components/forms/FormEditPet";
+
 import {
   userPet,
   petSelected,
   openModal,
   isOpen,
 } from "../features/dataReducer/dataReducer";
-
-interface ModalEditPetProps {
-  // Add your own props if needed...
+import { Pet } from "../interfaces/types";
+interface FrontCommandProps {
+  pet: Pet | null;
+  setEditPet: any;
+  handleUpdateComps: any;
 }
-
-const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
-  const isModalOpen = useSelector(isOpen); // Obtén el valor del estado isOpened
-  const open = isModalOpen.payload; // Acceder al valor booleano dentro del objeto de acción
-  const dispatch = useDispatch();
-
+const ModalEditPet: React.FC<FrontCommandProps> = ({
+  pet,
+  setEditPet,
+  handleUpdateComps,
+}) => {
+  console.log("pet", pet, "setEditPet", setEditPet);
+  const This = useSelector((userPet: any) => userPet.counter.dataUserPets);
   return (
     <IonModal isOpen={true}>
       <IonHeader>
@@ -38,7 +42,11 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <FormEditPet setEditPet={setEditPet} />
+        <FormEditPet
+          setEditPet={setEditPet}
+          pet={pet}
+          handleUpdateComps={handleUpdateComps}
+        />
       </IonContent>
     </IonModal>
   );

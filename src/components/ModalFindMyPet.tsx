@@ -40,11 +40,12 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
   const [searchingPet, setSearchingPet] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
-  const pet: any = data;
+  const pet = useSelector(
+    (petSelected: any) => petSelected.counter.petSelected
+  );
   const searchThisPet = new PetServiceWeb();
   const positionLost: any = useSelector(newMarkerValue);
   const coords: any = positionLost.payload.counter.newMarkerValue;
-
   const searchPet = () => {
     if (coords[0] === undefined || coords[1] === undefined) {
       return alert(
@@ -60,6 +61,8 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
   };
   return (
     <>
+      <MapFindMyPet />
+
       {/*       {showToast === true ? (
         <Toast
           setShowToast={setShowToast}
@@ -82,7 +85,6 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
           </IonButtons>
         </IonToolbar>
         <IonNote>Manten apretado el marcador para moverlo</IonNote>
-        <MapFindMyPet />
 
         <MDBContainer
           fluid

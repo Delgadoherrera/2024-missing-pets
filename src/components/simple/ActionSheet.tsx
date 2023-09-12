@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useIonActionSheet } from "@ionic/react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  formValue,
-  isOpen,
-  openModal,
-  petSelected,
-  refreshThis,
-} from "../../features/dataReducer/dataReducer";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { formValue, refreshThis } from "../../features/dataReducer/dataReducer";
 import { PetServiceWeb } from "../../services/PetServiceWeb";
 
 interface ActionSheetExampleProps {
@@ -34,7 +27,7 @@ const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
         uploadNewPet.deletePet(petToDelete.idMascota).then((data) => {
           dispatch(formValue({} || 10));
           setShowActionSheet(false);
-          // dispatch(refreshThis(true));
+          dispatch(refreshThis(true));
         });
         break;
       case "adoptPet":

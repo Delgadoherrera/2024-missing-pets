@@ -25,7 +25,7 @@ const Home = () => {
   const [forceRender, setForceRender] = useState(false);
   const showMaps: any = useSelector(showMap);
   const dispatch = useDispatch();
-  const key = "AIzaSyAuS7ySzpKozgZ4Ut6p22QEjnYGGyRveTc";
+  const key = "AIzaSyAWhXxfT0fS3H6QYCOLGSE-QHzeKVWG1Y0";
   let newMap: any;
   const mapRef = useRef(null);
   const position = useSelector(getPosition);

@@ -27,6 +27,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@hookform/error-message": "^2.0.1",
+    "@ionic/pwa-elements": "^3.2.2",
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
     "@mui/icons-material": "^5.14.6",
@@ -35,6 +36,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
+    "final-form": "^4.20.10",
     "ionicons": "^7.0.0",
     "mdb-react-ui-kit": "^6.2.0",
     "primeflex": "^3.3.1",
@@ -42,12 +44,14 @@
     "primereact": "^9.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-final-form": "^6.5.9",
     "react-flip-toolkit": "^7.1.0",
     "react-hook-form": "^7.45.4",
     "react-redux": "^8.1.2",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
-    "sass": "^1.66.1"
+    "sass": "^1.66.1",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@capacitor/cli": "^5.3.0",

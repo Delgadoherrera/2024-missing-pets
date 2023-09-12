@@ -30,7 +30,7 @@ import { PetServiceWeb } from "../../services/PetServiceWeb";
 import Toast from "../../components/Toast";
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-
+import { Pet } from "../../interfaces/types";
 import {
   petSelected,
   refreshThis,
@@ -38,10 +38,6 @@ import {
   isOpen,
   formValue,
 } from "../../features/dataReducer/dataReducer";
-
-interface ModalEditPetProps {
-  // Add your own props if needed...
-}
 
 interface FormData {
   nombre: string;
@@ -52,17 +48,24 @@ interface FormData {
   descripcion: string;
 }
 
-const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
+interface FrontCommandProps {
+  pet: Pet | null;
+  setEditPet: any;
+  handleUpdateComps: any;
+}
+const ModalEditPet: React.FC<FrontCommandProps> = ({
+  pet,
+  setEditPet,
+  handleUpdateComps,
+}) => {
   const [showToast, setShowToast] = useState(false);
-  const value = useSelector(formValue);
   const uploadNewPet = new PetServiceWeb();
-  const selectedPet = useSelector(petSelected);
   const dispatch = useDispatch();
-  const petToEdit =
-    selectedPet.payload?.counter?.counterPetSelected?.petSelected;
-  const refresh: any = useSelector(refreshThis);
+  const refresh: any = useSelector(
+    (refreshThis: any) => refreshThis.counter.refreshThisSelector
+  );
+  console.log("refresh", refresh);
   const [editResult, setEditResult] = useState<any>(null);
-  const isRefresh = refresh.payload.counter.isOpened?.isOpen;
   const {
     handleSubmit,
     control,
@@ -77,15 +80,15 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
 
   const onSubmit = async (data: any) => {
     dispatch(isOpen(false));
-    const newObject = combinarObjetos(petToEdit, data);
+    const newObject = combinarObjetos(pet!, data);
     try {
-      const result = await uploadNewPet.editPet(petToEdit, data);
+      const result = await uploadNewPet.editPet(pet, data);
       setEditResult(result);
       setShowToast(true);
       dispatch(formValue({} || 10));
       dispatch(refreshThis(true));
-      dispatch(petSelected(newObject));
       setEditPet(false);
+      await handleUpdateComps();
     } catch (error) {
       // Handle error if needed
     }
@@ -126,14 +129,14 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
       <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: "right" }}>
         <img
           style={{ width: "150px", height: "150px", objectFit: "cover" }}
-          src={`data:image/jpeg;base64,${petToEdit?.fotoMascota}`}
-          alt={petToEdit?.idMascota}
+          src={`data:image/jpeg;base64,${pet?.fotoMascota}`}
+          alt={pet?.nombre}
         ></img>
         <IonItem>
           <Controller
             render={({ field }) => (
               <IonInput
-                placeholder={`${petToEdit?.nombre}`}
+                placeholder={`${pet?.nombre}`}
                 value={field.value}
                 onIonChange={(e: any) => setValue("nombre", e.detail.value)}
               ></IonInput>
@@ -147,9 +150,12 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                placeholder={petToEdit?.tipoMascota}
+                placeholder={pet?.tipoMascota}
                 value={field.value}
                 onIonChange={(e) => setValue("tipoMascota", e.detail.value)}
+                aria-label="tipoMascota"
+                interface="action-sheet"
+
               >
                 <IonSelectOption value="PERRO">Perro</IonSelectOption>
                 <IonSelectOption value="GATO">Gato</IonSelectOption>
@@ -171,9 +177,12 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                placeholder={petToEdit.pesoAproximado}
+                placeholder={pet!.pesoAproximado}
                 value={field.value}
                 onIonChange={(e) => setValue("peso", e.detail.value)}
+                aria-label="peso"
+                interface="action-sheet"
+
               >
                 <IonSelectOption value="1kg/5kg">1kg/5kg</IonSelectOption>
                 <IonSelectOption value="5kg/10kg">5kg/10kg</IonSelectOption>
@@ -198,9 +207,12 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                placeholder={petToEdit.colorPrimario}
+                placeholder={pet!.colorPrimario}
                 value={field.value}
                 onIonChange={(e) => setValue("colorPrimario", e.detail.value)}
+                aria-label="colorPrimario"
+                interface="action-sheet"
+
               >
                 <IonSelectOption value="NEGRO">Negro</IonSelectOption>
                 <IonSelectOption value="BLANCO">Blanco</IonSelectOption>
@@ -226,9 +238,12 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
           <Controller
             render={({ field }) => (
               <IonSelect
-                placeholder={petToEdit.colorSecundario}
+                placeholder={pet!.colorSecundario}
                 value={field.value}
                 onIonChange={(e) => setValue("colorSecundario", e.detail.value)}
+                aria-label="colorSecundario"
+                interface="action-sheet"
+
               >
                 <IonSelectOption value="NEGRO">Negro</IonSelectOption>
                 <IonSelectOption value="BLANCO">Blanco</IonSelectOption>
@@ -253,9 +268,9 @@ const ModalEditPet = ({ setEditPet }: { setEditPet: (value: any) => void }) => {
         <IonItem>
           <IonLabel>Descripcion:</IonLabel>
           <IonTextarea
-            placeholder={petToEdit.descripcion}
+            placeholder={pet!.descripcion}
             {...register("descripcion")}
-            aria-label={petToEdit.idMascota}
+            aria-label="descripcion"
           />
         </IonItem>
         {/*     <span>

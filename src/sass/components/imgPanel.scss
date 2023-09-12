@@ -1,0 +1,21 @@
+.imgPanelOpt{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+
+
+    ion-item{
+        margin-top: 0%;
+        margin: 1%;
+        width: 100%;
+    }
+    
+    b{
+        width: 50%;
+        margin: 10px;
+        font-size: 0.9rem;
+
+}
+} 

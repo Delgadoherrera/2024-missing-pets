@@ -1,35 +1,18 @@
-import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonContent,
-  IonFooter,
   IonHeader,
-  IonIcon,
-  IonLabel,
   IonPage,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   IonTitle,
   IonToolbar,
   setupIonicReact,
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, triangle } from "ionicons/icons";
+
 import { Browser } from "@capacitor/browser";
 import { useAuth0 } from "@auth0/auth0-react";
-import Tab1 from "./pages/Tab1";
-import Tab2 from "./pages/Tab2";
-import Tab3 from "./pages/Tab3";
+
 import { useEffect } from "react";
-import {
-  add,
-  chevronBack,
-  chevronDown,
-  chevronForward,
-  chevronUp,
-} from "ionicons/icons";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -48,12 +31,11 @@ import "@ionic/react/css/display.css";
 import { App as CapApp } from "@capacitor/app";
 import LoginButton from "./components/LoginButton";
 import DataRoutingApp from "./components/DataRoutingApp";
-import MapFindMyPet from "./components/MapFindMyPet";
-import FloatButton from "./components/simple/FloatButton";
-import AppBar from "./components/simple/AppBar";
+
 /* Theme variables */
 import "./theme/variables.css";
-import ViewStructure from "./components/main/viewStructure";
+import { defineCustomElements } from "@ionic/pwa-elements/loader";
+import ModalFindMyPet from "./components/MapFindMyPet";
 
 setupIonicReact();
 
@@ -85,19 +67,20 @@ const App: React.FC = () => {
       {isAuthenticated ? (
         <DataRoutingApp />
       ) : (
-        <IonPage>
+        <>
           <IonHeader>
             <IonToolbar>
               <IonTitle>Missing Peats</IonTitle>
             </IonToolbar>
           </IonHeader>
+          <IonPage></IonPage>
           <IonContent></IonContent>
           <IonContent>
             <div className="container">
               {isAuthenticated ? null : <LoginButton />}
             </div>
           </IonContent>
-        </IonPage>
+        </>
       )}
     </IonApp>
   );

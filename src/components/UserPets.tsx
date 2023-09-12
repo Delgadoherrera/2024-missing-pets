@@ -11,12 +11,19 @@ import ModalAddMyPet from "./ModalAddMyPet";
 import ActionSheet from "./simple/ActionSheet";
 import FrontCommand from "./simple/UserPetCommandCard";
 import { Pet } from "../interfaces/types";
+import {
+  petSelected,
+  selectCount,
+  userPet,
+} from "../features/dataReducer/dataReducer";
+import { IonContent, IonPage, IonText } from "@ionic/react";
 
-export default function InteractiveList(data: any) {
-  const myPets: Pet[] = data.data.data.userPet;
-  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
+export default function InteractiveList() {
+  const myPets = useSelector(userPet);
   const dispatch = useDispatch();
-  const pet = selectedPet;
+  const pet = useSelector(
+    (petSelected: any) => petSelected.counter.petSelected
+  );
   const [showAdditionals, setShowAdditionals] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
   const [showGMaps, setShowGMap] = useState(false);
@@ -28,6 +35,26 @@ export default function InteractiveList(data: any) {
   const [deletePet, setDeletePet] = useState(false);
   const [addPet, setAddPet] = useState(false);
   const [stopSearch, setStopSearch] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [petsToMap, setPetsToMap] = useState([]);
+
+  console.log("PETSELECTES", pet);
+  useEffect(() => {
+    setPetsToMap(myPets);
+  }, [myPets, dispatch]);
+
+  const handleUpdateComps = () => {
+    setIsSelected(false);
+  };
+  useEffect(() => {
+    setPetsToMap(myPets);
+  }, [myPets]);
+  useEffect(() => {
+    if (showGMaps) {
+      setIsSelected(false);
+      setShowAdditionals(null);
+    }
+  }, []);
 
   useEffect(() => {
     if (actionSheet === false) {
@@ -36,8 +63,8 @@ export default function InteractiveList(data: any) {
       setDeletePet(false);
       setStopSearch(false);
       setIsSelected(false);
-      setShowAdditionals(null);
       setShowGMap(false);
+      setShowAdditionals(null);
     }
   }, [actionSheet]);
 
@@ -48,7 +75,6 @@ export default function InteractiveList(data: any) {
   }, []);
 
   const handleAction = (index: any, pet: any, action: any) => {
-    console.log("actions", pet, action);
     switch (action) {
       case "petLost":
         console.log("petLOST");
@@ -57,6 +83,7 @@ export default function InteractiveList(data: any) {
         break;
       case "editPet":
         setEditPet(true);
+        setActionSheet(true);
         break;
       case "adoptPet":
         console.log("adoptPet");
@@ -84,10 +111,19 @@ export default function InteractiveList(data: any) {
 
     setIsSelected(true);
   };
+  function capitalizeFirstLetter(str: any) {
+    // Verifica si la cadena está vacía o es nula
+    if (!str) {
+      return "";
+    }
+
+    // Convierte la primera letra a mayúscula y el resto de la cadena a minúscula
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
 
   const handleShowAdditionals = (index: any, pet: any) => {
     setIsSelected(true);
-    setSelectedPet(pet);
+    dispatch(petSelected(pet));
     setShowAdditionals((prevIndex) => (prevIndex === index ? null : index));
   };
   const Additionals = (index: any) => {
@@ -97,7 +133,7 @@ export default function InteractiveList(data: any) {
           src={`data:image/jpeg;base64,${pet!.fotoMascota}`}
           alt={pet!.nombre}
         ></img>
-        <div>
+        <div className="buttonsAdditionals">
           {pet!.status === 0 ? (
             <Button
               size="medium"
@@ -119,7 +155,6 @@ export default function InteractiveList(data: any) {
               Quitar de busqueda
             </Button>
           ) : null}
-
           <Button
             size="medium"
             onClick={() => {
@@ -149,7 +184,6 @@ export default function InteractiveList(data: any) {
               </Button>
             )
           )}
-
           <Button
             size="medium"
             onClick={() => {
@@ -159,9 +193,48 @@ export default function InteractiveList(data: any) {
             Eliminar
           </Button>
         </div>
+        <div className="petDetailAdditionals">
+          <IonText>
+            <b>Nombre:</b> {capitalizeFirstLetter(pet.nombre)}
+          </IonText>
+          <IonText>
+            <b> Tipo:</b> {capitalizeFirstLetter(pet.tipoMascota)}
+          </IonText>
+          <IonText>
+            <b>Color primario:</b> {capitalizeFirstLetter(pet.colorPrimario)}
+          </IonText>
+          <IonText>
+            <b>Color secundario:</b>{" "}
+            {capitalizeFirstLetter(pet.colorSecundario)}
+          </IonText>
+          <IonText>
+            <b> Peso aproximado:</b> {pet.pesoAproximado}
+          </IonText>
+
+          <IonText style={{ textAlign: "center", width: "80%" }}>
+            <b> Descripción:</b> {capitalizeFirstLetter(pet.descripcion)}
+          </IonText>
+        </div>
       </div>
     );
   };
+
+  const activeFrontMap = (pet: any) => {
+    setActionSheet(true);
+    setShowGMap(true);
+    dispatch(petSelected(pet));
+  };
+
+  if (showGMaps) {
+    return (
+      actionSheet &&
+      showGMaps && (
+        <IonContent>
+          <ModalFindMyPet setShowSearchMyPet={setActionSheet} data={pet} />
+        </IonContent>
+      )
+    );
+  }
 
   return (
     <>
@@ -179,7 +252,7 @@ export default function InteractiveList(data: any) {
             className="buttonAddMyPet"
             onClick={() => {
               setAddPet(true);
-              setActionSheet(true)
+              setActionSheet(true);
             }}
           >
             Agregar mascota
@@ -190,7 +263,13 @@ export default function InteractiveList(data: any) {
 
       {isSelected ? (
         <>
-          {editPet && <ModalEditPet setEditPet={setEditPet} />}
+          {editPet && actionSheet && (
+            <ModalEditPet
+              setEditPet={setEditPet}
+              pet={pet}
+              handleUpdateComps={handleUpdateComps}
+            />
+          )}
           {actionSheet && putAdoption && (
             <ActionSheet
               setShowActionSheet={setActionSheet}
@@ -248,7 +327,7 @@ export default function InteractiveList(data: any) {
             >
               {pet!.fotoMascota && <FolderIcon />}
             </Avatar>
-            <FrontCommand pet={pet as Pet} />
+            <FrontCommand pet={pet as Pet} activeFrontMap={activeFrontMap} />
 
             <Button
               onClick={() => {
@@ -263,8 +342,8 @@ export default function InteractiveList(data: any) {
         </>
       ) : (
         <>
-          {Array.isArray(myPets) &&
-            myPets.map((pet: any, index: any) => {
+          {Array.isArray(petsToMap) &&
+            petsToMap.map((pet: any, index: any) => {
               return (
                 <div key={index}>
                   <MDBContainer
@@ -289,7 +368,7 @@ export default function InteractiveList(data: any) {
                     >
                       {!pet.fotoMascota && <FolderIcon />}
                     </Avatar>
-                    <FrontCommand pet={pet} />
+                    <FrontCommand pet={pet} activeFrontMap={activeFrontMap} />
                     <Button
                       onClick={() => {
                         handleShowAdditionals(index, pet);

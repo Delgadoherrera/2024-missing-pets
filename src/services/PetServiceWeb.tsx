@@ -212,4 +212,29 @@ export class PetServiceWeb {
       console.error("Error adopting pet:", error);
     }
   }
+  async nearAdoptionPets(petDistance: number, position: Position): Promise<any> {
+    try {
+      const response: AxiosResponse<any> = await axios.get(
+        `https://backend.missingpets.art/mascotas/mascotasEnAdopcion/`,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+            "Content-Type": "application/json",
+            distanceSlider: petDistance,
+            latitude: position.latitude,
+            longitude: position.longitude,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error getting nearby pets:", error);
+      return null;
+    }
+  }
+
+
+
+
 }
