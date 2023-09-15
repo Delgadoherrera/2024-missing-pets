@@ -1,7 +1,14 @@
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { IonBreadcrumbs, IonButton, IonItem, IonModal, IonNote } from "@ionic/react";
+import {
+  IonBreadcrumbs,
+  IonButton,
+  IonContent,
+  IonItem,
+  IonModal,
+  IonNote,
+} from "@ionic/react";
 import { adoptPet } from "../features/dataReducer/dataReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer } from "mdb-react-ui-kit";
@@ -69,47 +76,41 @@ export default function QuiltedImageList() {
           isOpen={!!selectedImage}
           onDidDismiss={() => setSelectedImage(null)}
         >
-          <IonItem>
-            <button onClick={() => setSelectedImage(null)}> X</button>
-          </IonItem>
-          <MDBContainer className="imgPanelOpt">
+          <IonContent>
             <IonItem>
-              <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
+              <button onClick={() => setSelectedImage(null)}> X</button>
             </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Peso:</IonBreadcrumbs>
+            <MDBContainer className="imgPanelOpt">
+              <IonItem>
+                <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Peso:</IonBreadcrumbs>
 
-              <b>{selectedPet!.pesoAproximado}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
-            </IonItem>
-            <IonItem>
-              <IonButton>¡Quiero adoptar!</IonButton>
-            </IonItem>
-          </MDBContainer>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
+                <b>{selectedPet!.pesoAproximado}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
+              </IonItem>
+              <IonItem>
+                <IonButton>¡Quiero adoptar!</IonButton>
+              </IonItem>
+            </MDBContainer>
+
             <img
               src={
                 selectedImageURL && selectedImageURL.startsWith("http")
@@ -119,7 +120,7 @@ export default function QuiltedImageList() {
               alt="Selected"
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
-          </div>
+          </IonContent>
         </IonModal>
       )}
     </React.Fragment>

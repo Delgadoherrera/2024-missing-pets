@@ -4,6 +4,7 @@ import ImageListItem from "@mui/material/ImageListItem";
 import {
   IonBreadcrumbs,
   IonButton,
+  IonContent,
   IonItem,
   IonModal,
   IonNote,
@@ -75,50 +76,41 @@ const imageLostPets: React.FC = () => {
           isOpen={!!selectedImage}
           onDidDismiss={() => setSelectedImage(null)}
         >
-          <IonItem>
-            <button onClick={() => setSelectedImage(null)}> X</button>
-          </IonItem>
-          <MDBContainer className="imgPanelOpt">
+          <IonContent>
             <IonItem>
-              <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
+              <button onClick={() => setSelectedImage(null)}> X</button>
             </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Peso:</IonBreadcrumbs>
-
-              <b>{selectedPet!.pesoAproximado}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
-            </IonItem>
-            <IonItem>
-              <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
-              <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
-            </IonItem>
-            <IonItem>
-              <IonButton onClick={() => setPetFound(true)}>
-                ¡Es mi mascota!
-              </IonButton>
-            </IonItem>
-          </MDBContainer>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
+            <MDBContainer className="imgPanelOpt">
+              <IonItem>
+                <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Peso:</IonBreadcrumbs>
+                <b>{selectedPet!.pesoAproximado}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
+              </IonItem>
+              <IonItem>
+                <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
+                <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
+              </IonItem>
+              <IonItem>
+                <IonButton onClick={() => setPetFound(true)}>
+                  ¡Es mi mascota!
+                </IonButton>
+              </IonItem>
+            </MDBContainer>
             <img
               src={
                 selectedImageURL && selectedImageURL.startsWith("http")
@@ -126,9 +118,8 @@ const imageLostPets: React.FC = () => {
                   : `data:image/jpeg;base64,${selectedImageURL}`
               }
               alt="Selected"
-              style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
-          </div>
+          </IonContent>
         </IonModal>
       )}
     </React.Fragment>
