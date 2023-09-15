@@ -157,23 +157,23 @@ export class PetServiceWeb {
       console.error("Error adopting pet:", error);
     }
   }
-  async addMyPet(formData: any, file: any, email: string): Promise<any> {
+  async addMyPet(formData: any, imageBase64: string, email: string): Promise<any> {
+        console.log("IMAGEDATA:", imageBase64)
     try {
       const response: AxiosResponse<any> = await axios.post(
         "https://backend.missingpets.art/mascota/register",
         {
-          file: file,
           formData: formData,
+          imagen: imageBase64, // Cambia 'file' a 'imagen' para que coincida con el servidor
           user: email,
         },
         {
           headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
             "Content-Type": "application/json",
           },
         }
       );
+      console.log("response ADD PEt", response)
       return response.data;
     } catch (error) {
       console.error("Error adding pet:", error);

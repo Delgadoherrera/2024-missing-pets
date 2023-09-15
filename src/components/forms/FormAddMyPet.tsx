@@ -56,7 +56,6 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { PetServiceWeb } from "../../services/PetServiceWeb";
-import Toast from "../Toast";
 
 interface FormData {
   nombre: string;
@@ -68,7 +67,6 @@ interface FormData {
 }
 
 const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
-  const [showToast, setShowToast] = useState(false);
   const value = useSelector((formValue: any) => formValue.counter);
   console.log(value, "value");
   const uploadNewPet = new PetServiceWeb();
@@ -94,7 +92,6 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
     dispatch(formValue(data || 10));
     uploadNewPet.addMyPet(data, file, user.email).then((res) => {
       console.log("res upload pet:", res);
-      setShowToast(true);
 /*       dispatchAll();
  */      dispatch(refreshThis(true));
       /*      reset();
@@ -111,12 +108,6 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
   return (
     <div>
-      {showToast === true ? (
-        <Toast
-          message="Mascota cargada con éxito"
-          setShowToast={setShowToast}
-        />
-      ) : null}
       <IonItem>
         <IonLabel></IonLabel>
         <Controller

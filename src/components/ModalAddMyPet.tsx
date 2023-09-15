@@ -25,7 +25,7 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
   const takePicture = async () => {
     const image = await Camera.getPhoto({
-      quality: 90,
+      quality: 50,
       allowEditing: true,
       resultType: CameraResultType.Base64,
     });
@@ -34,7 +34,7 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
   return (
     <>
-      <IonModal isOpen={isOpen}>
+      <IonModal isOpen={isOpen}>  
         <IonContent>
           <IonHeader>
             <IonToolbar>
