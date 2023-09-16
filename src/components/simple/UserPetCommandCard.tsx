@@ -23,19 +23,19 @@ interface FrontCommandProps {
 const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
   return (
     <MDBContainer className="frontCommandCard">
-      <div className="commandContainer">
+      <div className="commandContainerI">
         <IonBadge>
           {pet.nombre ? pet.nombre.slice(0, 3).toUpperCase() : ""}...
         </IonBadge>
       </div>
-      <div className="commandContainer">
+      <div className="commandContainerII">
         {pet.status === 4 ? (
           <Button> En adopcion...</Button>
         ) : pet.status === 1 ? (
           <Button> Buscando...</Button>
         ) : null}
       </div>
-      <div className="commandContainer">
+      <div className="commandContainerIII">
         <Button>
           {pet.status === 1 && (
             <IonIcon

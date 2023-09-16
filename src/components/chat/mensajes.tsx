@@ -16,6 +16,7 @@ export default function Mensajes() {
   const { user } = useAuth0();
 
   const getAllMsg = new MensajesService();
+  console.log("emisario", emisario);
 
   useEffect(() => {
     getAllMsg.getAllMyMsg(user!.email).then((data) => {
@@ -24,6 +25,7 @@ export default function Mensajes() {
   }, []);
   let letrasUnicas: string[] = [];
   let idUnicos: string[] = [];
+  console.log("all msg mensajes", allMsg);
 
   if (allMsg.length > 0) {
     allMsg.forEach((elemento: any) => {
@@ -45,11 +47,11 @@ export default function Mensajes() {
   }
 
   useEffect(() => {
-    setFilteredMessages(letrasUnicas);
-  }, [allMsg]);
+    console.log("letrasUnicas", letrasUnicas);
+    console.log("idUnicos", idUnicos);
 
-  /*
-   */
+    setFilteredMessages(idUnicos);
+  }, [allMsg]);
 
   const clicOnMessages = (e: any) => {
     console.log(e.currentTarget.ariaLabel);
@@ -63,26 +65,22 @@ export default function Mensajes() {
 
   return (
     <div className="divMsg">
-      <p className="contactoMensajesInfo">
-        Si encuentran a tu mascota perdida, aqui te llegarán los mensajes cuando
-        intenten contactarte.
-      </p>
+      <p className="contactoMensajesInfo">No tienes mensajes.</p>
 
       {displayMessage === true ? (
         <MensajesArea updateComponent={updateComponent} idReceptor={emisario} />
       ) : (
         <p></p>
       )}
-      {filteredMessages.length > 0 ? (
+      {!displayMessage && filteredMessages.length > 0 ? (
         filteredMessages.map((one, index) => {
-          console.log("one", one);
           return (
             <Button
               key={index}
               type="button"
               label={` Chat con: ${one}`}
               icon="pi pi-users"
-              className="mensajesButton" /* badge="1" */
+              className="mensajesButton"
               badgeClassName="mensajesButton"
               aria-label={one}
               value={idUnicos[index]}

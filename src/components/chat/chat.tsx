@@ -32,16 +32,29 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const getAllMsg = new MensajesService();
 
+  console.log("CHAT", "allmsg", allMsg);
+  console.log("CHAT", "messages", messages);
+
+  useEffect(() => {
+    getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
+      console.log('idReceptor', idReceptor)
+      setAllMsg(data);
+    });
+  }, [messages]);
   useEffect(() => {
     if (chatContainerRef.current && lastMessageRef.current) {
       chatContainerRef.current.scrollTop = lastMessageRef.current.offsetTop;
     }
   }, [messages]);
   useEffect(() => {
-    getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
-      setAllMsg(data);
-    });
-  }, [messages]);
+    // Desplazar al último mensaje cuando se cargan los mensajes
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth", // Opcionalmente puedes usar 'auto' en lugar de 'smooth' para un desplazamiento instantáneo
+      });
+    }
+  }, [allMsg]);
   useEffect(() => {
     const receiveMessage = (message: any) => {
       setMessages((prevMessages) => [message, ...prevMessages]);
@@ -66,7 +79,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
-
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     if (message.length === 0) return;
@@ -79,15 +91,24 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
     };
 
     try {
+      // Primero, actualiza el estado de los mensajes
       setMessages((prevMessages) => [newMessage, ...prevMessages]);
       setMessage("");
 
+      // Luego, emite el mensaje al servidor
       socket.emit("message", newMessage);
+
+      // Agrega un timeout antes de desplazarte al último mensaje
+      setTimeout(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight;
+        }
+      }, 500); // Puedes ajustar el valor del timeout según tus preferencias
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
     }
   };
-  
   const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
