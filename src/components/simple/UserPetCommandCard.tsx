@@ -21,7 +21,6 @@ interface FrontCommandProps {
 }
 
 const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
-  console.log("activeFrontMap", activeFrontMap);
   return (
     <MDBContainer className="frontCommandCard">
       <div className="commandContainer">

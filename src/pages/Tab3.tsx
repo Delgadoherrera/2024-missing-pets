@@ -10,7 +10,10 @@ import AppBar from "../components/simple/AppBar";
 import UserPets from "../components/UserPets";
 import "./Tab1.css";
 import MapFindMyPet from "../components/MapFindMyPet";
-const Tab3 = (data: any) => {
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+const Tab3 = () => {
+  const isMapOpen = useSelector((isOpen: any) => isOpen.counter.isOpened);
   return (
     <IonPage>
       <AppBar />

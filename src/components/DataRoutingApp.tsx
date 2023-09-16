@@ -36,6 +36,9 @@ import {
   refreshThis,
   positionValue,
   adoptPets,
+  isOpen,
+  mapOpen,
+  showMap,
 } from "../features/dataReducer/dataReducer";
 import axios from "axios";
 import Chat from "../pages/Chat";
@@ -53,8 +56,11 @@ const RoutingComp: React.FC = () => {
   const getMyPets = new PetServiceWeb();
   const dispatch = useDispatch();
   const doRefresh = useSelector(refresh);
+  const isMapOpen = useSelector((mapOpen: any) => mapOpen.counter.showMap);
 
-  console.log("petDistance", petDistance);
+  useEffect(() => {
+    console.log("DATA ROUTING APP MAP", isMapOpen);
+  }, [isMapOpen]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -167,11 +173,25 @@ const RoutingComp: React.FC = () => {
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
+          <IonTabButton
+            tab="tab1"
+            href="/tab1"
+            onClick={() => {
+              dispatch(refreshThis(true));
+              dispatch(mapOpen(false));
+            }}
+          >
             <IonIcon aria-hidden="true" icon={catIcon} />
             <IonLabel>Perdidas</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
+          <IonTabButton
+            tab="tab2"
+            href="/tab2"
+            onClick={() => {
+              dispatch(refreshThis(true));
+              dispatch(mapOpen(false));
+            }}
+          >
             <IonIcon aria-hidden="true" icon={dogIcon} size="xl" />
             <IonLabel>En adopción</IonLabel>
           </IonTabButton>
@@ -179,7 +199,14 @@ const RoutingComp: React.FC = () => {
             <IonIcon aria-hidden="true" icon={dogFill} />
             <IonLabel>Mis mascotas</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="chat" href="/chat">
+          <IonTabButton
+            tab="chat"
+            href="/chat"
+            onClick={() => {
+              dispatch(refreshThis(true));
+              dispatch(mapOpen(false));
+            }}
+          >
             <IonIcon aria-hidden="true" icon={msg} />
             <IonLabel>Mensajes</IonLabel>
           </IonTabButton>

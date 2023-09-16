@@ -25,6 +25,7 @@ import {
   newMarkerValue,
   refreshThis,
   mapOpen,
+  position,
 } from "../features/dataReducer/dataReducer";
 import { PetServiceWeb } from "../services/PetServiceWeb";
 /* import Toast from "./Toast";
@@ -44,8 +45,9 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
     (petSelected: any) => petSelected.counter.petSelected
   );
   const searchThisPet = new PetServiceWeb();
-  const positionLost: any = useSelector(newMarkerValue);
-  const coords: any = positionLost.payload.counter.newMarkerValue;
+  const coords: any = useSelector(
+    (newMarkerValue: any) => newMarkerValue.counter.newMarkerValue
+  );
   const searchPet = () => {
     if (coords[0] === undefined || coords[1] === undefined) {
       return alert(
@@ -61,14 +63,6 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
   };
   return (
     <>
-      <MapFindMyPet />
-
-      {/*       {showToast === true ? (
-        <Toast
-          setShowToast={setShowToast}
-          message={`Estamos buscando a ${pet.nombre}`}
-        />
-      ) : null} */}
       <IonContent style={{ display: "flex" }} className="FindMyPetContent">
         <IonToolbar>
           <IonTitle>¿Donde buscamos?</IonTitle>
@@ -76,7 +70,6 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
             <IonButton
               onClick={() => {
                 dispatch(mapOpen(false));
-                dispatch(isOpen(false));
                 setShowSearchMyPet(false);
               }}
             >
@@ -85,7 +78,7 @@ const ModalFindMyPet: React.FC<ActionSheetExampleProps> = ({
           </IonButtons>
         </IonToolbar>
         <IonNote>Manten apretado el marcador para moverlo</IonNote>
-
+        <MapFindMyPet />
         <MDBContainer
           fluid
           style={{

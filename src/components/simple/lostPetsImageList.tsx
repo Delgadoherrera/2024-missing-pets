@@ -27,9 +27,7 @@ const imageLostPets: React.FC = () => {
   const [selectedPet, setSelectedPet] = React.useState<Pet | null>(null);
   const [petFound, setPetFound] = React.useState(false);
   const selectedImageURL = selectedImage as unknown as string;
-  console.log("petfound", petFound);
   const handleImageClick = (imgUrl: any, item: any) => {
-    console.log("item", item);
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
     setSelectedPet(item);
   };
@@ -45,8 +43,8 @@ const imageLostPets: React.FC = () => {
           rowHeight={164}
         >
           {Array.isArray(itemData) &&
-            itemData.map((item) => (
-              <ImageListItem key={item.img}>
+            itemData.map((item, key) => (
+              <ImageListItem key={key}>
                 <img
                   src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -58,8 +56,8 @@ const imageLostPets: React.FC = () => {
               </ImageListItem>
             ))}
           {Array.isArray(pets) &&
-            pets.map((item: any) => (
-              <ImageListItem key={item.img + item.img}>
+            pets.map((item: any, key:any) => (
+              <ImageListItem key={key*1000}>
                 <img
                   src={`data:image/jpeg;base64,${item!.fotoMascota}`}
                   alt={item.title}

@@ -12,11 +12,13 @@ import ActionSheet from "./simple/ActionSheet";
 import FrontCommand from "./simple/UserPetCommandCard";
 import { Pet } from "../interfaces/types";
 import {
+  isOpen,
+  mapOpen,
   petSelected,
   selectCount,
   userPet,
 } from "../features/dataReducer/dataReducer";
-import { IonContent, IonPage, IonText } from "@ionic/react";
+import { IonContent, IonText } from "@ionic/react";
 
 export default function InteractiveList() {
   const myPets = useSelector(userPet);
@@ -24,9 +26,12 @@ export default function InteractiveList() {
   const pet = useSelector(
     (petSelected: any) => petSelected.counter.petSelected
   );
+  const isMapOpen = useSelector((isOpen: any) => isOpen.counter.isOpened);
+  const showMap = useSelector((mapOpen: any) => mapOpen.counter.showMap);
+
   const [showAdditionals, setShowAdditionals] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
-  const [showGMaps, setShowGMap] = useState(false);
+  const [showGMaps, setShowGMap] = useState(isMapOpen);
   const [showAddPet, setShowAddPet] = useState(true);
   const [editPet, setEditPet] = useState(false);
   const [putAdoption, setPutAdoption] = useState(false);
@@ -38,7 +43,6 @@ export default function InteractiveList() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [petsToMap, setPetsToMap] = useState([]);
 
-  console.log("PETSELECTES", pet);
   useEffect(() => {
     setPetsToMap(myPets);
   }, [myPets, dispatch]);
@@ -46,16 +50,6 @@ export default function InteractiveList() {
   const handleUpdateComps = () => {
     setIsSelected(false);
   };
-  useEffect(() => {
-    setPetsToMap(myPets);
-  }, [myPets]);
-  useEffect(() => {
-    if (showGMaps) {
-      setIsSelected(false);
-      setShowAdditionals(null);
-    }
-  }, []);
-
   useEffect(() => {
     if (actionSheet === false) {
       setQuitAdoption(false);
@@ -69,6 +63,13 @@ export default function InteractiveList() {
   }, [actionSheet]);
 
   useEffect(() => {
+    if (showMap === false) {
+      setShowGMap(false);
+      setActionSheet(false);
+    }
+  }, [showMap]);
+
+  useEffect(() => {
     if (isSelected === false) {
       setShowAdditionals(null);
     }
@@ -80,6 +81,9 @@ export default function InteractiveList() {
         console.log("petLOST");
         setShowAddPet(false);
         setShowGMap(true);
+        setActionSheet(true);
+        dispatch(isOpen(true));
+        dispatch(mapOpen(true));
         break;
       case "editPet":
         setEditPet(true);
@@ -139,7 +143,6 @@ export default function InteractiveList() {
               size="medium"
               onClick={() => {
                 handleAction(index, pet, "petLost");
-                setActionSheet(true);
               }}
             >
               Mascota perdida
@@ -222,17 +225,16 @@ export default function InteractiveList() {
   const activeFrontMap = (pet: any) => {
     setActionSheet(true);
     setShowGMap(true);
+    dispatch(isOpen(true));
     dispatch(petSelected(pet));
+    dispatch(mapOpen(true));
   };
 
-  if (showGMaps) {
+  if (actionSheet && isMapOpen && actionSheet && showMap) {
     return (
-      actionSheet &&
-      showGMaps && (
-        <IonContent>
-          <ModalFindMyPet setShowSearchMyPet={setActionSheet} data={pet} />
-        </IonContent>
-      )
+      <IonContent>
+        <ModalFindMyPet setShowSearchMyPet={setActionSheet} data={pet} />
+      </IonContent>
     );
   }
 
@@ -302,10 +304,6 @@ export default function InteractiveList() {
               petToDelete={pet}
             />
           )}
-          {actionSheet && showGMaps && (
-            <ModalFindMyPet setShowSearchMyPet={setActionSheet} data={pet} />
-          )}
-
           <MDBContainer
             fluid
             style={{

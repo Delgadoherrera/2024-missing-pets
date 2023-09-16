@@ -33,7 +33,7 @@ const initialState: DataState = {
   refreshThisSelector: false,
   isOpened: false,
   newMarkerValue: [],
-  showMap: true,
+  showMap: false,
   petSelected: {},
   nearAdoptPet: [],
 };
@@ -43,7 +43,6 @@ const dataReducer = createSlice({
   initialState,
   reducers: {
     positionValue: (state, action: PayloadAction<any>) => {
-      console.log("Posicion del usuario:", action.payload);
       state.value = action.payload;
     },
     imageValue: (state, action: PayloadAction<any>) => {
@@ -59,37 +58,31 @@ const dataReducer = createSlice({
       ];
     },
     userPets: (state, action: PayloadAction<any>) => {
-      console.log("Mascotas de usuario:", action.payload);
       state.dataUserPets = action.payload;
     },
     adoptPets: (state, action: PayloadAction<any>) => {
-      console.log("Mascotas para adoptar:", action.payload);
       state.nearAdoptPet = action.payload;
     },
     userData: (state, action: PayloadAction<any>) => {
-      console.log("User data:", action.payload);
       state.dataUser.userData = action.payload;
     },
     petLost: (state, action: PayloadAction<any>) => {
-      console.log("Mascotas perdidas cercanas:", action.payload);
       state.lostPets = action.payload;
     },
     petSelected: (state, action: PayloadAction<any>) => {
-      console.log("Mascota seleccionada:", action.payload);
       state.petSelected = action.payload;
     },
     formValue: (state, action: PayloadAction<any>) => {
-      console.log("FORMVALUES", action.payload);
       state.counterDataForm = action.payload;
     },
     refreshThis: (state, action: PayloadAction<boolean>) => {
-      console.log("REFRESH DISPATCHED", action.payload);
       state.refreshThisSelector = action.payload;
     },
     isOpen: (state, action: PayloadAction<boolean>) => {
       state.isOpened = action.payload;
     },
     mapOpen: (state, action: PayloadAction<boolean>) => {
+      console.log('dispatch mapOpen', action.payload)
       state.showMap = action.payload;
     },
   },

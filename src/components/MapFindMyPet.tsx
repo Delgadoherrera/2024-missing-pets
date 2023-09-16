@@ -38,22 +38,25 @@ const Home = () => {
   ];
 
   useEffect(() => {
-    const createMap = async () => {
-      if (!mapRef.current) return;
+    if (showMaps) {
+      const createMap = async () => {
+        if (!mapRef.current) return;
 
-      newMap = await GoogleMap.create({
-        id: "google-map",
-        element: mapRef.current,
-        apiKey: key,
-        config: mapConfig,
-      });
+        newMap = await GoogleMap.create({
+          id: "google-map",
+          element: mapRef.current,
+          apiKey: key,
+          config: mapConfig,
+        });
 
-      newMap.setOnMarkerClickListener((marker: any) => markerClick(marker));
-      newMap.setOnMarkerDragEndListener((marker: any) => dragMarker(marker));
+        newMap.setOnMarkerClickListener((marker: any) => markerClick(marker));
+        newMap.setOnMarkerDragEndListener((marker: any) => dragMarker(marker));
 
-      addMapMarkers();
-    };
-    createMap();
+        addMapMarkers();
+      };
+      createMap();
+    }
+
     return () => {
       if (newMap) {
         console.log("destroying");
