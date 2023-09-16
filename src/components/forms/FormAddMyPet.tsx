@@ -92,12 +92,12 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
     dispatch(formValue(data || 10));
     uploadNewPet.addMyPet(data, file, user.email).then((res) => {
       console.log("res upload pet:", res);
-/*       dispatchAll();
- */      dispatch(refreshThis(true));
-      /*      reset();
+      dispatchAll();
+      dispatch(refreshThis(true));
+      reset();
       dispatch(isOpen(false));
       dispatch(refreshThis(true));
-      setAddPet(false); */
+      setAddPet(false);
     });
   };
 

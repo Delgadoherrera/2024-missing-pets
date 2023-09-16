@@ -37,7 +37,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   useEffect(() => {
     getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
-      console.log('idReceptor', idReceptor)
+      console.log("idReceptor", idReceptor);
       setAllMsg(data);
     });
   }, [messages]);
@@ -57,22 +57,23 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   }, [allMsg]);
   useEffect(() => {
     const receiveMessage = (message: any) => {
-      setMessages((prevMessages) => [message, ...prevMessages]);
-    };
-
-    socket.on("message", (receiveMessage) => {
-      try {
-        // Procesar y enviar el mensaje
-      } catch (error) {
-        console.error("Error al procesar el mensaje:", error);
+      console.log("Mensaje recibido:", message);
+  
+      // Agrega el mensaje a allMsg
+      setAllMsg((prevAllMsg) => [message, ...prevAllMsg]);
+  
+      // Verifica si el mensaje recibido es del usuario actual (para evitar duplicados)
+      if (message.emailEmisor !== user?.email) {
+        setMessages((prevMessages) => [message, ...prevMessages]);
       }
-    });
-
+    };
+  
+    socket.on("message", receiveMessage);
+  
     return () => {
       socket.off("message", receiveMessage);
     };
   }, []);
-
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =

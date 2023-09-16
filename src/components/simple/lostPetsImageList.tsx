@@ -27,12 +27,19 @@ const imageLostPets: React.FC = () => {
   const [selectedPet, setSelectedPet] = React.useState<Pet | null>(null);
   const [petFound, setPetFound] = React.useState(false);
   const selectedImageURL = selectedImage as unknown as string;
+
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
     setSelectedPet(item);
   };
   if (petFound) {
-    return <PrimerContacto open={setPetFound} idMascotaPerdida={selectedPet} />;
+    return (
+      <PrimerContacto
+        open={setPetFound}
+        idMascotaPerdida={selectedPet}
+        setSelectedImage={setSelectedImage}
+      />
+    );
   }
   return (
     <React.Fragment>
@@ -56,8 +63,8 @@ const imageLostPets: React.FC = () => {
               </ImageListItem>
             ))}
           {Array.isArray(pets) &&
-            pets.map((item: any, key:any) => (
-              <ImageListItem key={key*1000}>
+            pets.map((item: any, key: any) => (
+              <ImageListItem key={key * 1000}>
                 <img
                   src={`data:image/jpeg;base64,${item!.fotoMascota}`}
                   alt={item.title}

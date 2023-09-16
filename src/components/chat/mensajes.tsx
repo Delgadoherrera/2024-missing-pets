@@ -47,9 +47,6 @@ export default function Mensajes() {
   }
 
   useEffect(() => {
-    console.log("letrasUnicas", letrasUnicas);
-    console.log("idUnicos", idUnicos);
-
     setFilteredMessages(idUnicos);
   }, [allMsg]);
 
