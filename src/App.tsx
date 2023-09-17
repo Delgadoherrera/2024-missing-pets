@@ -1,7 +1,9 @@
 import {
   IonApp,
   IonContent,
+  IonFooter,
   IonHeader,
+  IonImg,
   IonPage,
   IonTitle,
   IonToolbar,
@@ -67,20 +69,25 @@ const App: React.FC = () => {
       {isAuthenticated ? (
         <DataRoutingApp />
       ) : (
-        <>
+        <IonContent>
           <IonHeader>
             <IonToolbar>
-              <IonTitle>Missing Peats</IonTitle>
+              <IonTitle>Missing Pets</IonTitle>
             </IonToolbar>
           </IonHeader>
-          <IonPage></IonPage>
-          <IonContent></IonContent>
-          <IonContent>
-            <div className="container">
-              {isAuthenticated ? null : <LoginButton />}
-            </div>
-          </IonContent>
-        </>
+
+          <img
+            src={
+              "https://c.pxhere.com/photos/12/6b/dog_animal_pets_puppy_pet-914137.jpg!d"
+            }
+            alt={"imgIniciio"}
+            style={{ objectFit: "cover" }}
+            className="imagenInicial"
+          ></img>
+          <div className="containerLoginButton">
+            {isAuthenticated ? null : <LoginButton />}
+          </div>
+        </IonContent>
       )}
     </IonApp>
   );
