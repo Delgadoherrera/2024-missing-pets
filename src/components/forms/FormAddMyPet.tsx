@@ -24,6 +24,7 @@ import {
   IonToggle,
   IonText,
   IonPage,
+  IonBreadcrumb,
 } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
@@ -91,13 +92,12 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
     dispatch(formValue(data || 10));
     uploadNewPet.addMyPet(data, file, user.email).then((res) => {
-      console.log("res upload pet:", res);
+      setAddPet(false);
       dispatchAll();
       dispatch(refreshThis(true));
       reset();
       dispatch(isOpen(false));
       dispatch(refreshThis(true));
-      setAddPet(false);
     });
   };
 
@@ -107,9 +107,8 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   };
 
   return (
-    <div>
-      <IonItem>
-        <IonLabel></IonLabel>
+    <div className="formsContainer">
+      <IonBreadcrumb>
         <Controller
           render={({ field }) => (
             <IonInput
@@ -123,9 +122,8 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           control={control}
           name="nombre"
         />
-      </IonItem>
-      <IonItem>
-        <IonLabel></IonLabel>
+      </IonBreadcrumb>
+      <IonBreadcrumb>
         <Controller
           render={({ field }) => (
             <IonSelect
@@ -146,13 +144,13 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           name="tipoMascota"
           rules={{ required: "This is a required field" }}
         />
-      </IonItem>
+      </IonBreadcrumb>
       <ErrorMessage
         errors={errors}
         name="tipoMascota"
         as={<div style={{ color: "red" }} />}
       />
-      <IonItem>
+      <IonBreadcrumb>
         <IonLabel></IonLabel>
         <Controller
           render={({ field }) => (
@@ -177,13 +175,13 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           name="peso"
           rules={{ required: "This is a required field" }}
         />
-      </IonItem>
+      </IonBreadcrumb>
       <ErrorMessage
         errors={errors}
         name="peso"
         as={<div style={{ color: "red" }} />}
       />
-      <IonItem>
+      <IonBreadcrumb>
         <IonLabel></IonLabel>
         <Controller
           render={({ field }) => (
@@ -209,13 +207,13 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           name="colorPrimario"
           rules={{ required: "This is a required field" }}
         />
-      </IonItem>
+      </IonBreadcrumb>
       <ErrorMessage
         errors={errors}
         name="colorPrimario"
         as={<div style={{ color: "red" }} />}
       />
-      <IonItem>
+      <IonBreadcrumb>
         <IonLabel></IonLabel>
         <Controller
           render={({ field }) => (
@@ -241,14 +239,14 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           name="colorSecundario"
           rules={{ required: "This is a required field" }}
         />
-      </IonItem>
+      </IonBreadcrumb>
       <ErrorMessage
         errors={errors}
         name="colorSecundario"
         as={<div style={{ color: "red" }} />}
       />
       {/* === ION INPUT === */}
-      <IonItem>
+      <IonBreadcrumb>
         <IonLabel></IonLabel>
         <Controller
           render={({ field }) => (
@@ -264,13 +262,13 @@ const App = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
           name="descripcion"
           rules={{ required: "This is a required field" }}
         />
-      </IonItem>
+      </IonBreadcrumb>
       <ErrorMessage
         errors={errors}
         name="descripcion"
         as={<div style={{ color: "red" }} />}
       />
-      <div>
+      <div className="sendButton">
         <IonButton onClick={onSubmit}>Enviar</IonButton>
       </div>
     </div>

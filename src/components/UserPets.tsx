@@ -28,7 +28,6 @@ export default function InteractiveList() {
   );
   const isMapOpen = useSelector((isOpen: any) => isOpen.counter.isOpened);
   const showMap = useSelector((mapOpen: any) => mapOpen.counter.showMap);
-
   const [showAdditionals, setShowAdditionals] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
   const [showGMaps, setShowGMap] = useState(isMapOpen);

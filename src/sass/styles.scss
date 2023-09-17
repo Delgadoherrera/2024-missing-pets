@@ -25,8 +25,8 @@ $green-unum: #00d22d !default;
 $gray-unum: #363636 !default;
 $lightblue: lighten($blue, 20%);
 
-$primary: $purple-unum;
-$secondary: $green-unum;
+$primary: #daeafa;
+$secondary: rgba(0, 0, 0, 0.034);
 $success: $green;
 $info: $lightblue;
 $warning: $yellow;

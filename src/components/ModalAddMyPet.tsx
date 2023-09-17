@@ -10,6 +10,7 @@ import {
   IonIcon,
   IonItem,
   IonImg,
+  IonBreadcrumb,
 } from "@ionic/react";
 import MapFindMyPet from "./MapFindMyPet";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,6 +18,7 @@ import { imageValue, selectCount } from "../features/dataReducer/dataReducer";
 import { camera } from "ionicons/icons";
 import { Camera, CameraResultType } from "@capacitor/camera";
 import FormAddMyPet from "./forms/FormAddMyPet";
+import { Typography } from "@mui/material";
 
 const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   const dispatch = useDispatch();
@@ -33,7 +35,6 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   };
 
   return (
-    <>
       <IonModal isOpen={isOpen}>  
         <IonContent>
           <IonHeader>
@@ -67,13 +68,14 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
             ) : null
           ) : null}
 
-          <IonItem>
-            <IonIcon icon={camera} onClick={() => takePicture()} />
-          </IonItem>
+          <IonBreadcrumb>
+            <IonIcon icon={camera}  size='large' onClick={() => takePicture()} />
+          Adjuntar imagen  
+
+          </IonBreadcrumb>
           <FormAddMyPet setAddPet={setAddPet} />
         </IonContent>
       </IonModal>
-    </>
   );
 };
 

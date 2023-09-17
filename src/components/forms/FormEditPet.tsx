@@ -13,7 +13,7 @@ import {
   IonContent,
   IonTextarea,
   IonRange,
-  IonItem,
+  IonBreadcrumb,
   IonInput,
   IonRadioGroup,
   IonListHeader,
@@ -24,6 +24,7 @@ import {
   IonToggle,
   IonText,
   IonPage,
+  IonNote,
 } from "@ionic/react";
 import { useSelector, useDispatch } from "react-redux";
 import { PetServiceWeb } from "../../services/PetServiceWeb";
@@ -38,6 +39,7 @@ import {
   isOpen,
   formValue,
 } from "../../features/dataReducer/dataReducer";
+import { Typography } from "@mui/material";
 
 interface FormData {
   nombre: string;
@@ -122,17 +124,20 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
   }
 
   return (
-    <div>
+    <div className="formsContainer">
       {showToast === true ? (
         <Toast setShowToast={setShowToast} message="Mascota editada" />
       ) : null}
-      <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: "right" }}>
+      <form onSubmit={handleSubmit(onSubmit)} className="formEditPet">
+        <div className="pictureModal">
         <img
           style={{ width: "150px", height: "150px", objectFit: "cover" }}
           src={`data:image/jpeg;base64,${pet?.fotoMascota}`}
           alt={pet?.nombre}
         ></img>
-        <IonItem>
+        </div>
+ 
+        <IonBreadcrumb>
           <Controller
             render={({ field }) => (
               <IonInput
@@ -144,9 +149,8 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
             control={control}
             name="nombre"
           />
-        </IonItem>
-        <IonItem>
-          <IonLabel></IonLabel>
+        </IonBreadcrumb>
+        <IonBreadcrumb>
           <Controller
             render={({ field }) => (
               <IonSelect
@@ -155,7 +159,6 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
                 onIonChange={(e) => setValue("tipoMascota", e.detail.value)}
                 aria-label="tipoMascota"
                 interface="action-sheet"
-
               >
                 <IonSelectOption value="PERRO">Perro</IonSelectOption>
                 <IonSelectOption value="GATO">Gato</IonSelectOption>
@@ -166,13 +169,13 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
             control={control}
             name="tipoMascota"
           />
-        </IonItem>
+        </IonBreadcrumb>
         <ErrorMessage
           errors={errors}
           name="tipoMascota"
           as={<div style={{ color: "red" }} />}
         />
-        <IonItem>
+        <IonBreadcrumb>
           <IonLabel></IonLabel>
           <Controller
             render={({ field }) => (
@@ -182,7 +185,6 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
                 onIonChange={(e) => setValue("peso", e.detail.value)}
                 aria-label="peso"
                 interface="action-sheet"
-
               >
                 <IonSelectOption value="1kg/5kg">1kg/5kg</IonSelectOption>
                 <IonSelectOption value="5kg/10kg">5kg/10kg</IonSelectOption>
@@ -196,13 +198,13 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
             control={control}
             name="peso"
           />
-        </IonItem>
+        </IonBreadcrumb>
         <ErrorMessage
           errors={errors}
           name="peso"
           as={<div style={{ color: "red" }} />}
         />
-        <IonItem>
+        <IonBreadcrumb>
           <IonLabel></IonLabel>
           <Controller
             render={({ field }) => (
@@ -212,7 +214,6 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
                 onIonChange={(e) => setValue("colorPrimario", e.detail.value)}
                 aria-label="colorPrimario"
                 interface="action-sheet"
-
               >
                 <IonSelectOption value="NEGRO">Negro</IonSelectOption>
                 <IonSelectOption value="BLANCO">Blanco</IonSelectOption>
@@ -227,13 +228,13 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
             control={control}
             name="colorPrimario"
           />
-        </IonItem>
+        </IonBreadcrumb>
         <ErrorMessage
           errors={errors}
           name="colorPrimario"
           as={<div style={{ color: "red" }} />}
         />
-        <IonItem>
+        <IonBreadcrumb>
           <IonLabel></IonLabel>
           <Controller
             render={({ field }) => (
@@ -243,7 +244,6 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
                 onIonChange={(e) => setValue("colorSecundario", e.detail.value)}
                 aria-label="colorSecundario"
                 interface="action-sheet"
-
               >
                 <IonSelectOption value="NEGRO">Negro</IonSelectOption>
                 <IonSelectOption value="BLANCO">Blanco</IonSelectOption>
@@ -258,21 +258,21 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
             control={control}
             name="colorSecundario"
           />
-        </IonItem>
+        </IonBreadcrumb>
         <ErrorMessage
           errors={errors}
           name="colorSecundario"
           as={<div style={{ color: "red" }} />}
         />
         {/* === ION INPUT === */}
-        <IonItem>
-          <IonLabel>Descripcion:</IonLabel>
+        <IonBreadcrumb>
+          <IonText>Descripcion:</IonText>
           <IonTextarea
-            placeholder={pet!.descripcion}
+            placeholder={"   " + pet!.descripcion}
             {...register("descripcion")}
             aria-label="descripcion"
           />
-        </IonItem>
+        </IonBreadcrumb>
         {/*     <span>
         formavalue:
         {value > 0 ? value.payload.colorPrimario : null}
@@ -283,7 +283,7 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
           as={<div style={{ color: "red" }} />}
         />
 
-        <div>
+        <div className="sendButton">
           <IonButton type="submit">Aceptar edicion</IonButton>
         </div>
       </form>

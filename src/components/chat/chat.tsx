@@ -140,7 +140,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                 {message.emailEmisor === user!.email ? (
                   <span className="spanName">{user!.name}:</span>
                 ) : (
-                  <span className="spanName">nombre emisario:</span>
+                  <span className="spanName">{idReceptor}</span>
                 )}
                 {message.mensaje}
               </p>
