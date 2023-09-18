@@ -35,7 +35,7 @@ export default function QuiltedImageList() {
   };
 
   return (
-    <React.Fragment>
+    <div className="imgListContainer">
       <IonItem>
         <ImageList
           sx={{ width: "100%", height: "100%" }}
@@ -122,7 +122,7 @@ export default function QuiltedImageList() {
           </IonContent>
         </IonModal>
       )}
-    </React.Fragment>
+    </div>
   );
 }
 function capitalizeFirstLetter(str: any) {

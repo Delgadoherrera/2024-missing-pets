@@ -15,9 +15,7 @@ const Tab2 = ({ setPetDistance }: { setPetDistance: (value: any) => void }) => {
   return (
     <IonPage>
       <AppBar />
-      <IonItem>
-        <KnobDistanceLostPet setPetDistance={setPetDistance} />
-      </IonItem>
+      <KnobDistanceLostPet setPetDistance={setPetDistance} />
       <IonContent>
         <AdoptionImageList />
       </IonContent>

@@ -6,16 +6,20 @@ import { Message } from "../../interfaces/types";
 import {
   IonButton,
   IonContent,
+  IonIcon,
   IonInput,
   IonItem,
+  IonLabel,
   IonList,
+  IonNote,
+  IonText,
 } from "@ionic/react";
+import { arrowBack } from "ionicons/icons";
 import { Button } from "@mui/material";
 
 const socket = io("backend.missingpets.art:4000", {
   transports: ["websocket"],
 });
-
 interface ChatWindowProps {
   updateComponent: () => void;
   idReceptor: any;
@@ -120,7 +124,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       <div className="chat-header">
         <h1 className="text-2xl font-bold my-2"></h1>
         <p className="backToMessages" onClick={(e) => updateComponent()}>
-          Volver a mensajes
+          <IonItem>
+            <IonIcon size="large" icon={arrowBack}></IonIcon>
+
+            <IonNote>Conversacion con {nombreEmisario}</IonNote>
+          </IonItem>
         </p>
       </div>
       <IonList className="chatMsgContainer" ref={chatContainerRef}>
@@ -143,16 +151,19 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           ))}
       </IonList>
       <div className="input-container">
-          <input
-            name="message"
-            type="text"
-            placeholder="Escribe un mensaje..."
-            onChange={handleMessage}
-            value={message}
-            autoComplete="off"
-            className="writeAMessage"
-          />
-          <Button className="buttonSendMsg" onClick={handleSubmit}>Enviar</Button>
+        <input
+          name="message"
+          type="text"
+          placeholder="Escribe un mensaje..."
+          onChange={handleMessage}
+          value={message}
+          autoComplete="off"
+          className="writeAMessage"
+        />
+        <Button className="buttonSendMsg" onClick={handleSubmit}>
+          Enviar
+        </Button>
+
       </div>
     </div>
   );

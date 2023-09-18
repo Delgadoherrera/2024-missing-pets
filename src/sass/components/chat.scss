@@ -9,6 +9,22 @@
 .divMsg {
     height: 100%;
     background-color: $white;
+
+    ion-item {
+        --border-style: none !important;
+
+    }
+
+    ion-icon {
+        color: $primary !important;
+    }
+
+    .frontCommandCard {
+        background-color: rgba(54, 49, 95, 0.119) !important;
+        padding: 20px;
+        border-radius: 40px;
+    }
+
 }
 
 .chatMsgContainer {
@@ -29,6 +45,7 @@
 
     }
 
+
     .by-me {
         background-color: $primary ;
         padding: 10px;
@@ -36,6 +53,7 @@
         margin: 10px;
         width: fit-content;
         align-self: flex-end;
+        color: $light;
     }
 
     .not-by-me {
@@ -47,6 +65,8 @@
         align-self: flex-start;
         background-color: $secondary;
     }
+
+
 }
 
 .input-container {
@@ -62,7 +82,24 @@
 
 .buttonSendMsg {
     width: 100%;
-    background-color: $third !important;
-    margin-top: 1% !important; 
+    background-color: $primary !important;
+    margin-top: 1% !important;
     border-radius: 10px !important;
+    color: $light !important;
+}
+
+.backToMessages {
+    height: 50px;
+    border: none !important;
+}
+
+.chat-header {
+    border-bottom: none !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+
+}
+
+.MuiAvatar-root {
+    background-color: $primary !important;
 }

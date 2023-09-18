@@ -1,10 +1,22 @@
-.imagenInicial{
+.imagenInicial {
     max-height: 600px;
     width: 100%;
 }
-.appBarContainer{
-    background-color: $primary;
-}
-ion-header{
+
+.appBarContainer {
     background-color: $primary !important;
+}
+
+ion-header {
+    background-color: $primary !important;
+}
+
+.p-button {
+    background-color: $primary !important;
+    padding: 2%;
+}
+
+ion-badge {
+    background-color: $primary !important;
+    fill: none !important;
 }

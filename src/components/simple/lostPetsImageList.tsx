@@ -42,7 +42,7 @@ const imageLostPets: React.FC = () => {
     );
   }
   return (
-    <React.Fragment>
+    <div className="imgListContainer">
       <IonItem>
         <ImageList
           sx={{ width: "100%", height: "100%" }}
@@ -127,7 +127,7 @@ const imageLostPets: React.FC = () => {
           </IonContent>
         </IonModal>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 function capitalizeFirstLetter(str: any) {

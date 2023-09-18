@@ -1,10 +1,14 @@
 import { MensajesService } from "../../services/MsjService";
 import { useEffect, useState } from "react";
-import { Button } from "primereact/button";
+import { Button } from "@mui/material";
 import MensajesArea from "../chat/chat";
 import { useAuth0 } from "@auth0/auth0-react";
 import { refreshThis, refresh } from "../../features/dataReducer/dataReducer";
 import { useSelector } from "react-redux";
+import { IonIcon, IonItem } from "@ionic/react";
+import Avatar from "@mui/material/Avatar";
+import { MDBContainer } from "mdb-react-ui-kit";
+import { mail } from "ionicons/icons";
 
 const getAllMsg = new MensajesService();
 
@@ -13,13 +17,18 @@ export default function Mensajes() {
   const [filteredMessages, setFilteredMessages] = useState<string[]>([]); // Proporcionar el tipo string[] para filteredMessages
   const [displayMessage, setDisplayMessage] = useState(false);
   const [emisario, setEmisario] = useState(0);
-  const [inbox, setInbox] = useState<{ [key: string]: any }>({}); // Proporcionar el tipo adecuado para inbox
   const [nombreEmisario, setNombreEmisario] = useState("");
   const doRefresh = useSelector(refresh);
   const { user } = useAuth0();
-  console.log("refreshThis", doRefresh);
-
   const getAllMsg = new MensajesService();
+  const emailToNameMap: { [key: string]: string } = {};
+  if (allMsg.length > 0) {
+    allMsg.forEach((elemento: any) => {
+      if (!emailToNameMap[elemento.emailEmisor]) {
+        emailToNameMap[elemento.emailEmisor] = elemento.nombreEmisor;
+      }
+    });
+  }
 
   useEffect(() => {
     getAllMsg.getAllMyMsg(user!.email).then((data) => {
@@ -40,26 +49,21 @@ export default function Mensajes() {
         idUnicos.push(elemento.emailEmisor);
       }
     });
-    let hash: { [key: string]: boolean } = {};
-    let filteredMsg: any = allMsg.filter(function (current: any) {
-      let exists: any = !hash[current.emailReceptor];
-      hash[current.emailEmisor] = false;
-      return exists;
-    });
   }
   useEffect(() => {
     setFilteredMessages(idUnicos);
   }, [allMsg]);
-
+  console.log("idUnicos", idUnicos);
   const clicOnMessages = (e: any) => {
     setDisplayMessage(!displayMessage);
     setEmisario(e.currentTarget.value);
     setNombreEmisario(e.currentTarget.ariaLabel);
+    const nombreEmisor = emailToNameMap[e.currentTarget.value] || ""; // Si no se encuentra el nombre, asigna una cadena vacía
+    setNombreEmisario(nombreEmisor);
   };
   const updateComponent = () => {
     setDisplayMessage(!displayMessage);
   };
-  console.log("emisario", emisario);
 
   return (
     <div className="divMsg">
@@ -71,7 +75,7 @@ export default function Mensajes() {
         <MensajesArea
           updateComponent={updateComponent}
           idReceptor={emisario}
-          nombreEmisario={idUnicos}
+          nombreEmisario={nombreEmisario}
         />
       ) : (
         <p></p>
@@ -79,19 +83,25 @@ export default function Mensajes() {
       {!displayMessage && filteredMessages.length > 0 ? (
         filteredMessages.map((one, index) => {
           return (
-            <Button
-              key={index}
-              type="button"
-              label={`${one}`}
-              icon="pi pi-users"
-              className="mensajesButton"
-              badgeClassName="mensajesButton"
-              aria-label={one}
-              value={idUnicos[index]}
-              onClick={(e) => {
-                clicOnMessages(e);
-              }}
-            />
+            <IonItem>
+              <MDBContainer className="frontCommandCard">
+                <Button
+                  key={index}
+                  type="button"
+                  aria-label={one}
+                  value={idUnicos[index]}
+                  onClick={(e) => {
+                    clicOnMessages(e);
+                  }}
+                >
+                  {emailToNameMap[one] || one}
+                </Button>
+                <IonIcon size="large" icon={mail}></IonIcon>
+
+                <Avatar alt="Remy Sharp" src={""} />
+              </MDBContainer>
+              
+            </IonItem>
           );
         })
       ) : (

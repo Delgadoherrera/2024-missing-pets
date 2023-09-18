@@ -33,15 +33,18 @@ import "@ionic/react/css/display.css";
 import { App as CapApp } from "@capacitor/app";
 import LoginButton from "./components/LoginButton";
 import DataRoutingApp from "./components/DataRoutingApp";
-
+import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
 /* Theme variables */
 import "./theme/variables.css";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import ModalFindMyPet from "./components/MapFindMyPet";
-
+import "primereact/resources/themes/lara-light-indigo/theme.css";     
+    
+//core
+import "primereact/resources/primereact.min.css"; 
 setupIonicReact();
 
-const App: React.FC = () => {
+const App: React.FC = (pageProps:any) => {
   // Get the callback handler from the Auth0 React hook
   const { handleRedirectCallback } = useAuth0();
   const { isLoading, isAuthenticated } = useAuth0();
@@ -65,31 +68,33 @@ const App: React.FC = () => {
   }
 
   return (
-    <IonApp>
-      {isAuthenticated ? (
-        <DataRoutingApp />
-      ) : (
-        <IonContent>
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Missing Pets</IonTitle>
-            </IonToolbar>
-          </IonHeader>
+    <PrimeReactProvider>
+      <IonApp {...pageProps}>
+        {isAuthenticated ? (
+          <DataRoutingApp />
+        ) : (
+          <IonContent>
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle>Missing Pets</IonTitle>
+              </IonToolbar>
+            </IonHeader>
 
-          <img
-            src={
-              "https://c.pxhere.com/photos/12/6b/dog_animal_pets_puppy_pet-914137.jpg!d"
-            }
-            alt={"imgIniciio"}
-            style={{ objectFit: "cover" }}
-            className="imagenInicial"
-          ></img>
-          <div className="containerLoginButton">
-            {isAuthenticated ? null : <LoginButton />}
-          </div>
-        </IonContent>
-      )}
-    </IonApp>
+            <img
+              src={
+                "https://c.pxhere.com/photos/12/6b/dog_animal_pets_puppy_pet-914137.jpg!d"
+              }
+              alt={"imgIniciio"}
+              style={{ objectFit: "cover" }}
+              className="imagenInicial"
+            ></img>
+            <div className="containerLoginButton">
+              {isAuthenticated ? null : <LoginButton />}
+            </div>
+          </IonContent>
+        )}
+      </IonApp>
+    </PrimeReactProvider>
   );
 };
 

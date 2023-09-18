@@ -11,8 +11,10 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import { MDBContainer } from "mdb-react-ui-kit";
-
-const KnobDistanceLostPet = ({setPetDistance,}: {
+import Slider from "@mui/material/Slider";
+const KnobDistanceLostPet = ({
+  setPetDistance,
+}: {
   setPetDistance: (value: any) => void;
 }) => {
   const [value, setValue] = useState<any>(1);
@@ -21,15 +23,13 @@ const KnobDistanceLostPet = ({setPetDistance,}: {
     setPetDistance(value);
   }, [value]);
   return (
-    <MDBContainer className="rangeContainer">
-      <IonNote style={{ margin: "5%" }}>Distancia:</IonNote>
-      <IonRange
+    <MDBContainer style={{ textAlign: "center" }} className="knobContainer">
+      <IonNote style={{ margin: "5%" }}>Distancia: {value} Km.</IonNote>
+      <Slider
         max={100}
         min={1}
-        onIonChange={(e) => setValue(e.detail.value)}
-        onIonKnobMoveEnd={() => setPetDistance(value)}
+        onChange={(e, newValue) => setValue(newValue)} // Usa newValue en lugar de e.current.value        onDragEnd={() => setPetDistance(value)}
       />
-      <IonNote style={{ margin: "5%" }}>{value} Km.</IonNote>
     </MDBContainer>
   );
 };
