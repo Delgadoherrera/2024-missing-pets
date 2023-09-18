@@ -43,6 +43,7 @@ const Example: React.FC<ExampleProps> = ({
           emisor: user!.email,
           receptor: idMascotaPerdida!.emailMascota,
           date: fechaMensaje,
+          nombreEmisor: user?.given_name || "",
         };
 
         // Agregar un retraso antes de enviar el mensaje

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import MensajesArea from "../chat/chat";
 import { useAuth0 } from "@auth0/auth0-react";
+import { refreshThis, refresh } from "../../features/dataReducer/dataReducer";
+import { useSelector } from "react-redux";
 
 const getAllMsg = new MensajesService();
 
@@ -13,19 +15,19 @@ export default function Mensajes() {
   const [emisario, setEmisario] = useState(0);
   const [inbox, setInbox] = useState<{ [key: string]: any }>({}); // Proporcionar el tipo adecuado para inbox
   const [nombreEmisario, setNombreEmisario] = useState("");
+  const doRefresh = useSelector(refresh);
   const { user } = useAuth0();
+  console.log("refreshThis", doRefresh);
 
   const getAllMsg = new MensajesService();
-  console.log("emisario", emisario);
 
   useEffect(() => {
     getAllMsg.getAllMyMsg(user!.email).then((data) => {
       setAllMsg(data);
     });
-  }, []);
+  }, [doRefresh]);
   let letrasUnicas: string[] = [];
   let idUnicos: string[] = [];
-  console.log("all msg mensajes", allMsg);
 
   if (allMsg.length > 0) {
     allMsg.forEach((elemento: any) => {
@@ -45,13 +47,11 @@ export default function Mensajes() {
       return exists;
     });
   }
-
   useEffect(() => {
     setFilteredMessages(idUnicos);
   }, [allMsg]);
 
   const clicOnMessages = (e: any) => {
-    console.log(e.currentTarget.ariaLabel);
     setDisplayMessage(!displayMessage);
     setEmisario(e.currentTarget.value);
     setNombreEmisario(e.currentTarget.ariaLabel);
@@ -59,13 +59,20 @@ export default function Mensajes() {
   const updateComponent = () => {
     setDisplayMessage(!displayMessage);
   };
+  console.log("emisario", emisario);
 
   return (
     <div className="divMsg">
-      <p className="contactoMensajesInfo">No tienes mensajes.</p>
+      {filteredMessages.length === 0 ? (
+        <p className="contactoMensajesInfo">No tienes mensajes.</p>
+      ) : null}
 
       {displayMessage === true ? (
-        <MensajesArea updateComponent={updateComponent} idReceptor={emisario} />
+        <MensajesArea
+          updateComponent={updateComponent}
+          idReceptor={emisario}
+          nombreEmisario={idUnicos}
+        />
       ) : (
         <p></p>
       )}
@@ -75,7 +82,7 @@ export default function Mensajes() {
             <Button
               key={index}
               type="button"
-              label={` Chat con: ${one}`}
+              label={`${one}`}
               icon="pi pi-users"
               className="mensajesButton"
               badgeClassName="mensajesButton"

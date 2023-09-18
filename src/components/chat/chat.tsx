@@ -10,6 +10,7 @@ import {
   IonItem,
   IonList,
 } from "@ionic/react";
+import { Button } from "@mui/material";
 
 const socket = io("backend.missingpets.art:4000", {
   transports: ["websocket"],
@@ -18,11 +19,13 @@ const socket = io("backend.missingpets.art:4000", {
 interface ChatWindowProps {
   updateComponent: () => void;
   idReceptor: any;
+  nombreEmisario: any;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
   updateComponent,
   idReceptor,
+  nombreEmisario,
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>("");
@@ -31,9 +34,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const chatContainerRef = useRef<HTMLIonListElement | null>(null);
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const getAllMsg = new MensajesService();
-
-  console.log("CHAT", "allmsg", allMsg);
-  console.log("CHAT", "messages", messages);
 
   useEffect(() => {
     getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
@@ -58,18 +58,18 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   useEffect(() => {
     const receiveMessage = (message: any) => {
       console.log("Mensaje recibido:", message);
-  
+
       // Agrega el mensaje a allMsg
       setAllMsg((prevAllMsg) => [message, ...prevAllMsg]);
-  
+
       // Verifica si el mensaje recibido es del usuario actual (para evitar duplicados)
       if (message.emailEmisor !== user?.email) {
         setMessages((prevMessages) => [message, ...prevMessages]);
       }
     };
-  
+
     socket.on("message", receiveMessage);
-  
+
     return () => {
       socket.off("message", receiveMessage);
     };
@@ -89,6 +89,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       emailEmisor: user?.email || "",
       mensaje: message,
       idReceptor: idReceptor,
+      nombreEmisor: user?.given_name || "",
     };
 
     try {
@@ -136,19 +137,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                 message.emailEmisor === user!.email ? "by-me" : "not-by-me"
               }`}
             >
-              <p className="message-text">
-                {message.emailEmisor === user!.email ? (
-                  <span className="spanName">{user!.name}:</span>
-                ) : (
-                  <span className="spanName">{idReceptor}</span>
-                )}
-                {message.mensaje}
-              </p>
+              {message.emailEmisor === user!.email ? message.mensaje : null}
+              {message.emailEmisor !== user!.email ? message.mensaje : null}
             </div>
           ))}
       </IonList>
       <div className="input-container">
-        <IonItem>
           <input
             name="message"
             type="text"
@@ -158,8 +152,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             autoComplete="off"
             className="writeAMessage"
           />
-          <IonButton onClick={handleSubmit}>Enviar</IonButton>
-        </IonItem>
+          <Button className="buttonSendMsg" onClick={handleSubmit}>Enviar</Button>
       </div>
     </div>
   );

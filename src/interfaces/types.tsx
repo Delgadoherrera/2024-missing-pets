@@ -19,4 +19,5 @@ export interface Message {
   emailEmisor: string; // Asegúrate de que esta propiedad está definida en tu objeto
   mensaje: string; // Asegúrate de que esta propiedad está definida en tu objeto
   idReceptor: string;
+  nombreEmisor: string;
 }

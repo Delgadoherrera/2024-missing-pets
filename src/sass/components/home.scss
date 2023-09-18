@@ -2,3 +2,9 @@
     max-height: 600px;
     width: 100%;
 }
+.appBarContainer{
+    background-color: $primary;
+}
+ion-header{
+    background-color: $primary !important;
+}
