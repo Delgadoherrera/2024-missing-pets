@@ -9,6 +9,8 @@ import {
   IonTitle,
   IonPage,
   IonTextarea,
+  IonNote,
+  IonItem,
 } from "@ionic/react";
 import { Button } from "@mui/material";
 import { usersData } from "../features/dataReducer/dataReducer";
@@ -34,6 +36,7 @@ const Example: React.FC<ExampleProps> = ({
   const objetoFecha = Date.now();
   const nowDate = new Date(objetoFecha);
   let fechaMensaje = nowDate.toLocaleDateString("en-ZA");
+  console.log("IDMASCOTAPERDIDA", idMascotaPerdida);
 
   useEffect(() => {
     if (send) {
@@ -44,25 +47,26 @@ const Example: React.FC<ExampleProps> = ({
           receptor: idMascotaPerdida!.emailMascota,
           date: fechaMensaje,
           nombreEmisor: user?.given_name || "",
+          fotoMascota: idMascotaPerdida!.fotoMascota,
         };
 
         // Agregar un retraso antes de enviar el mensaje
-        setTimeout(() => {
-          axios
-            .post(
-              "https://backend.missingpets.art/mensajes/nuevoMensaje",
-              msgData
-            )
-            .then((response) => {
-              open(false);
-              setSelectedImage(null);
-            });
-        }, 100); // Puedes ajustar el valor de tiempo si es necesario
+        axios
+          .post(
+            "https://backend.missingpets.art/mensajes/nuevoMensaje",
+            msgData
+          )
+          .then((response) => {
+            open(false);
+            setSelectedImage(null);
+            setSend(false);
+          });
       };
       sendMsg();
       setSend(false);
     }
-  }, [mensaje]);
+    setSend(false);
+  }, [send]);
 
   return (
     <IonModal isOpen={isOpen}>
@@ -75,19 +79,27 @@ const Example: React.FC<ExampleProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <p>Ponte en contacto con la persona: </p>
-        <p>
+        <IonNote>
           Cuando el destinatario lo vea se abrira una ventana de chat para que
           puedan acordar el encuentro.
-        </p>
-        <IonTextarea
-          placeholder="Mensaje:"
-          rows={8}
-          style={{ backgroundColor: "grey" }}
-          onIonChange={(e) => setMensaje(e.detail.value || "")}
-        ></IonTextarea>
-        <Button onClick={() => setSend(true)}>Enviar</Button>
-        <Button>Cancelar</Button>
+        </IonNote>
+        <IonItem>
+          <img
+            src={`data:image/jpeg;base64,${idMascotaPerdida!.fotoMascota}`}
+            alt={idMascotaPerdida!.descripcion}
+            loading="lazy"
+            style={{
+              objectFit: "cover",
+              width: "150px",
+              height: "150px",
+              borderRadius: "40px",
+              margin: "10px",
+            }}
+          />
+
+          <Button onClick={() => setSend(true)}>Enviar</Button>
+          <Button onClick={() => open(false)}> Cancelar</Button>
+        </IonItem>
       </IonContent>
     </IonModal>
   );

@@ -20,4 +20,5 @@ export interface Message {
   mensaje: string; // Asegúrate de que esta propiedad está definida en tu objeto
   idReceptor: string;
   nombreEmisor: string;
+  fotoMascota:string;
 }

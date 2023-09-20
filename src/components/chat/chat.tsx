@@ -4,6 +4,7 @@ import { MensajesService } from "../../services/MsjService";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Message } from "../../interfaces/types";
 import {
+  IonBreadcrumb,
   IonButton,
   IonContent,
   IonIcon,
@@ -15,19 +16,21 @@ import {
   IonText,
 } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
-import { Button } from "@mui/material";
+import { Button, Input } from "@mui/material";
 
 const socket = io("https://backend.missingpets.art");
 interface ChatWindowProps {
   updateComponent: () => void;
   idReceptor: any;
   nombreEmisario: any;
+  fotoMascota: any;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
   updateComponent,
   idReceptor,
   nombreEmisario,
+  fotoMascota,
 }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>("");
@@ -36,7 +39,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const chatContainerRef = useRef<HTMLIonListElement | null>(null);
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const getAllMsg = new MensajesService();
-
   useEffect(() => {
     getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
       setAllMsg(data);
@@ -91,6 +93,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       mensaje: message,
       idReceptor: idReceptor,
       nombreEmisor: user?.given_name || "",
+      fotoMascota: "",
     };
 
     try {
@@ -121,14 +124,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
       <div className="chat-header">
         <h1 className="text-2xl font-bold my-2"></h1>
         <p className="backToMessages" onClick={(e) => updateComponent()}>
-          <IonItem>
+          <IonBreadcrumb>
             <IonIcon size="large" icon={arrowBack}></IonIcon>
 
-            <IonNote>Conversacion con {nombreEmisario}</IonNote>
-          </IonItem>
+            <IonNote>Conversando con {nombreEmisario}</IonNote>
+          </IonBreadcrumb>
         </p>
       </div>
       <IonList className="chatMsgContainer" ref={chatContainerRef}>
+        <img src={`data:image/jpeg;base64,${fotoMascota}`}></img>
         {allMsg
           .slice()
           .reverse()
@@ -148,7 +152,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           ))}
       </IonList>
       <div className="input-container">
-        <input
+        <Input
           name="message"
           type="text"
           placeholder="Escribe un mensaje..."
@@ -160,7 +164,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
         <Button className="buttonSendMsg" onClick={handleSubmit}>
           Enviar
         </Button>
-
       </div>
     </div>
   );
