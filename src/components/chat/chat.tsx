@@ -17,9 +17,7 @@ import {
 import { arrowBack } from "ionicons/icons";
 import { Button } from "@mui/material";
 
-const socket = io("backend.missingpets.art:4000", {
-  transports: ["websocket"],
-});
+const socket = io("https://backend.missingpets.art");
 interface ChatWindowProps {
   updateComponent: () => void;
   idReceptor: any;
@@ -41,7 +39,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
 
   useEffect(() => {
     getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
-      console.log("idReceptor", idReceptor);
       setAllMsg(data);
     });
   }, [messages]);
