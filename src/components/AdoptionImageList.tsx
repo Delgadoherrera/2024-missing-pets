@@ -5,6 +5,7 @@ import {
   IonBreadcrumbs,
   IonButton,
   IonContent,
+  IonIcon,
   IonItem,
   IonModal,
   IonNote,
@@ -13,6 +14,8 @@ import { adoptPet } from "../features/dataReducer/dataReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { Pet } from "../interfaces/types";
+import dogIcon from "../assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
+import notFound from "../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
@@ -34,6 +37,27 @@ export default function QuiltedImageList() {
     setSelectedPet(item);
   };
 
+  if (Array.isArray(adoptPets) && adoptPets.length === 0) {
+    return (
+      <IonContent>
+        <IonBreadcrumbs>
+          <IonNote> No hay mascotas en adopcion</IonNote>
+          <IonIcon style={{ color: "$primary" }} icon={notFound}></IonIcon>
+        </IonBreadcrumbs>
+
+        <img
+          src={dogIcon}
+          style={{
+            objectFit: "cover",
+            color: "red",
+            position: "fixed",
+          }}
+          className="imagenInicial"
+        ></img>
+      </IonContent>
+    );
+  }
+
   return (
     <div className="imgListContainer">
       <IonItem>
@@ -42,7 +66,7 @@ export default function QuiltedImageList() {
           cols={3}
           rowHeight={164}
         >
-          {Array.isArray(itemData) &&
+          {/*    {Array.isArray(itemData) &&
             itemData.map((item, index) => (
               <ImageListItem key={index}>
                 <img
@@ -54,7 +78,7 @@ export default function QuiltedImageList() {
                   style={{ objectFit: "cover" }}
                 />
               </ImageListItem>
-            ))}
+            ))} */}
           {Array.isArray(adoptPets) &&
             adoptPets.map((item, index) => (
               <ImageListItem key={index}>

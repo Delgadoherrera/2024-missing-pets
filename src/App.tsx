@@ -12,7 +12,6 @@ import {
 
 import { Browser } from "@capacitor/browser";
 import { useAuth0 } from "@auth0/auth0-react";
-
 import { useEffect } from "react";
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,13 +37,14 @@ import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
 import "./theme/variables.css";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import ModalFindMyPet from "./components/MapFindMyPet";
-import "primereact/resources/themes/lara-light-indigo/theme.css";     
-    
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import dogIcon from "./assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
+
 //core
-import "primereact/resources/primereact.min.css"; 
+import "primereact/resources/primereact.min.css";
 setupIonicReact();
 
-const App: React.FC = (pageProps:any) => {
+const App: React.FC = (pageProps: any) => {
   // Get the callback handler from the Auth0 React hook
   const { handleRedirectCallback } = useAuth0();
   const { isLoading, isAuthenticated } = useAuth0();
@@ -81,11 +81,13 @@ const App: React.FC = (pageProps:any) => {
             </IonHeader>
 
             <img
-              src={
-                "https://c.pxhere.com/photos/12/6b/dog_animal_pets_puppy_pet-914137.jpg!d"
-              }
-              alt={"imgIniciio"}
-              style={{ objectFit: "cover" }}
+              src={dogIcon}
+              style={{
+                objectFit: "cover",
+                height: "1024",
+                color: "red",
+                position:'fixed',
+              }}
               className="imagenInicial"
             ></img>
             <div className="containerLoginButton">

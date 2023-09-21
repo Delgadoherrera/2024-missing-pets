@@ -6,7 +6,7 @@ $button-active-blue: #1669F2;
 .containerLoginButton {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 40vh;
 
     .google-btn {
         width: 184px;
@@ -14,6 +14,7 @@ $button-active-blue: #1669F2;
         background-color: $google-blue;
         border-radius: 2px;
         box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
+        z-index: 81188;
 
         .google-icon-wrapper {
             position: absolute;

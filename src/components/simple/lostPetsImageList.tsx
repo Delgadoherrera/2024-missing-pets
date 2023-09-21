@@ -5,6 +5,8 @@ import {
   IonBreadcrumbs,
   IonButton,
   IonContent,
+  IonIcon,
+  IonImg,
   IonItem,
   IonModal,
   IonNote,
@@ -16,7 +18,8 @@ import { MDBContainer } from "mdb-react-ui-kit";
 import { Button } from "@mui/material";
 import ContactoPetFound from "../ContactoPetFound";
 import PrimerContacto from "../PrimerContacto";
-
+import dogIcon from "../../assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
+import notFound from "../../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 interface FrontCommandProps {
   pet: Pet | null;
   activeFrontMap: any;
@@ -41,15 +44,34 @@ const imageLostPets: React.FC = () => {
       />
     );
   }
+  if (Array.isArray(pets) && pets.length === 0) {
+    return (
+      <IonContent>
+        <IonBreadcrumbs>
+          <IonNote> No hay mascotas perdidas</IonNote>
+          <IonIcon style={{ color: "$primary" }} icon={notFound}></IonIcon>
+        </IonBreadcrumbs>
+
+        <IonImg
+          src={dogIcon}
+          style={{
+            objectFit: "cover",
+            position: "fixed",
+          }}
+          className="imagenInicial"
+        ></IonImg>
+      </IonContent>
+    );
+  }
   return (
     <div className="imgListContainer">
       <IonItem>
         <ImageList
-          sx={{ width: "100%", height: "100%" }}
-          cols={3}
-          rowHeight={164}
+          sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
+          cols={pets.length < 3 ? 1 : 2}
+          rowHeight={pets.length < 3 ? 300 : 300}
         >
-          {Array.isArray(itemData) &&
+          {/*   {Array.isArray(itemData) &&
             itemData.map((item, key) => (
               <ImageListItem key={key}>
                 <img
@@ -61,7 +83,7 @@ const imageLostPets: React.FC = () => {
                   style={{ objectFit: "cover" }}
                 />
               </ImageListItem>
-            ))}
+            ))} */}
           {Array.isArray(pets) &&
             pets.map((item: any, key: any) => (
               <ImageListItem key={key * 1000}>
@@ -71,11 +93,16 @@ const imageLostPets: React.FC = () => {
                   loading="lazy"
                   onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
                   style={{ objectFit: "cover" }}
+                  className="imgListItem"
                 />
               </ImageListItem>
             ))}
         </ImageList>
       </IonItem>
+      {pets.length === 0 ? (
+        <IonItem>No se encontraron mascotas perdidas.</IonItem>
+      ) : null}
+
       {selectedImage && ( // Render the modal when the selectedImage is not null
         <IonModal
           isOpen={!!selectedImage}
