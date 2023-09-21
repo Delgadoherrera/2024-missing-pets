@@ -14,6 +14,7 @@ import {
 } from "@ionic/react";
 import gpsIcon from "../../assets/SVG/1891030_blue_direction_gps_location_map_icon.svg";
 import adoptIcon from "../../assets/SVG/10559959_pet_sheltering_home_donation_animal_icon.svg";
+import gpsFront from "../../assets/SVG/gpsFront.svg"; // Importa y convierte el SVG en un componente React
 
 interface FrontCommandProps {
   pet: Pet;
@@ -40,9 +41,10 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
           {pet.status === 1 && (
             <IonIcon
               aria-hidden="true"
-              icon={gpsIcon}
+              icon={gpsFront}
               size="large"
               onClick={() => activeFrontMap(pet)}
+              style={{height:'25px'}}
             />
           )}
           {pet.status === 4 && (

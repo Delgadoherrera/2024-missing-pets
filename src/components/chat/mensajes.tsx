@@ -59,10 +59,10 @@ export default function Mensajes() {
       }
     });
   }
+  console.log("idunicos", idUnicos);
   useEffect(() => {
     setFilteredMessages(idUnicos);
   }, [allMsg]);
-  console.log("idUnicos", idUnicos);
   const clicOnMessages = (e: any) => {
     setDisplayMessage(!displayMessage);
     setEmisario(e.currentTarget.value);
@@ -73,7 +73,7 @@ export default function Mensajes() {
   const updateComponent = () => {
     setDisplayMessage(!displayMessage);
   };
-
+  console.log("allmsg", allMsg);
   return (
     <div className="divMsg">
       {filteredMessages.length === 0 ? (
@@ -98,7 +98,6 @@ export default function Mensajes() {
           const fotoMascota = allMsg.find(
             (mensaje: any) => mensaje.emailEmisor === one
           )?.fotoMascota;
-          console.log("foto Mascoita", fotoMascota);
 
           return (
             <IonItem>
@@ -116,8 +115,23 @@ export default function Mensajes() {
                     {emailToNameMap[one] || one}
                   </Button>
                 </div>
-
-                <IonIcon size="large" icon={mail}></IonIcon>
+                <Button
+                  key={index}
+                  type="button"
+                  aria-label={one}
+                  value={idUnicos[index]}
+                  onClick={(e) => {
+                    clicOnMessages(e);
+                  }}
+                >
+                  <IonIcon
+                    size="large"
+                    onClick={(e) => {
+                      clicOnMessages(e);
+                    }}
+                    icon={mail}
+                  ></IonIcon>
+                </Button>
 
                 <Avatar
                   alt="Remy Sharp"

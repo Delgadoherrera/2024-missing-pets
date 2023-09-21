@@ -60,7 +60,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   }, [allMsg]);
   useEffect(() => {
     const receiveMessage = (message: any) => {
-      console.log("Mensaje recibido:", message);
 
       // Agrega el mensaje a allMsg
       setAllMsg((prevAllMsg) => [message, ...prevAllMsg]);

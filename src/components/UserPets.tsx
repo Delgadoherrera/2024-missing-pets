@@ -4,7 +4,7 @@ import { MDBContainer } from "mdb-react-ui-kit";
 import { useSelector, useDispatch } from "react-redux";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import "./UserPets.css";
-import { Avatar, Button, Typography } from "@mui/material";
+import { Avatar, Button, Input, Typography } from "@mui/material";
 import ModalEditPet from "./ModalEditPet";
 import ModalFindMyPet from "./ModalFindMyPet";
 import ModalAddMyPet from "./ModalAddMyPet";
@@ -18,7 +18,7 @@ import {
   selectCount,
   userPet,
 } from "../features/dataReducer/dataReducer";
-import { IonContent, IonText } from "@ionic/react";
+import { IonContent, IonItem, IonText } from "@ionic/react";
 
 export default function InteractiveList() {
   const myPets = useSelector(userPet);
@@ -41,6 +41,8 @@ export default function InteractiveList() {
   const [stopSearch, setStopSearch] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [petsToMap, setPetsToMap] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPets, setFilteredPets] = useState([]);
 
   useEffect(() => {
     setPetsToMap(myPets);
@@ -74,6 +76,17 @@ export default function InteractiveList() {
     }
   }, []);
 
+  useEffect(() => {
+    // Filtra las mascotas que coinciden con el término de búsqueda
+    const filtered = myPets.filter((pet: any) =>
+      pet.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log("filtered", filtered);
+    setFilteredPets(filtered);
+  }, [myPets, searchTerm]);
+  const handleSearchChange = (event: any) => {
+    setSearchTerm(event.target.value);
+  };
   const handleAction = (index: any, pet: any, action: any) => {
     switch (action) {
       case "petLost":
@@ -239,6 +252,13 @@ export default function InteractiveList() {
 
   return (
     <>
+        <Input
+          type="text"
+          placeholder="Buscar por nombre..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          style={{width:'100%'}}
+        />
       <MDBContainer
         fluid
         style={{
@@ -260,6 +280,7 @@ export default function InteractiveList() {
           </Button>
         )}
       </MDBContainer>
+
       {actionSheet && addPet && <ModalAddMyPet setAddPet={setAddPet} />}
 
       {isSelected ? (
@@ -339,8 +360,8 @@ export default function InteractiveList() {
         </>
       ) : (
         <>
-          {Array.isArray(petsToMap) &&
-            petsToMap.map((pet: any, index: any) => {
+          {Array.isArray(filteredPets) &&
+            filteredPets.map((pet: any, index: any) => {
               return (
                 <div key={index}>
                   <MDBContainer

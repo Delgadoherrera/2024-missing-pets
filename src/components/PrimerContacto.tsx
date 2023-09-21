@@ -42,7 +42,9 @@ const Example: React.FC<ExampleProps> = ({
     if (send) {
       const sendMsg = () => {
         const msgData = {
-          msg: mensaje,
+          msg: `Hola, creo que encontre a ${
+            idMascotaPerdida!.nombre
+          }!, pongamonos en contacto!`,
           emisor: user!.email,
           receptor: idMascotaPerdida!.emailMascota,
           date: fechaMensaje,
