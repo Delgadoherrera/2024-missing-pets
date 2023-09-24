@@ -2,15 +2,51 @@
 
 .p-carousel-item {
     height: 100%;
-div{
-    padding: 0 !important;
-}
+
+    div {
+        padding: 0 !important;
+    }
 
     img {
         width: 300px !important;
         height: 300px;
         object-fit: cover;
         border-radius: 20px;
-        
+
     }
-}   
+
+}
+
+.petLostCarouselDesc {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    height: 100vh !important;
+
+    button {
+        margin: 10px;
+        margin-bottom: 15px;
+    }
+
+    p {
+        margin: 2px;
+        max-width: 300px;
+    }
+
+}
+
+
+.card {
+    ul {
+        background-color: $primary;
+
+    }
+
+    .p-carousel-indicator.p-highlight button {
+        background-color: $secondary !important;
+    }
+
+    .p-carousel .p-carousel-indicators .p-carousel-indicator button {
+        background-color: $third ;
+    }
+}

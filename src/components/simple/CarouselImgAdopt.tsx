@@ -59,12 +59,9 @@ export default function BasicDemo(pets: any) {
             className="w-6 shadow-2"
           />
         </div>
-        <Button>Encontre a esta mascota</Button>
+        <Button>Quiero adoptar!</Button>
         <Typography>
           <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
-        </Typography>
-        <Typography>
-          <b>Perdida en:</b> {pets.geoAdress}
         </Typography>
         <Typography>
           <b> Peso:</b>
@@ -74,12 +71,10 @@ export default function BasicDemo(pets: any) {
           <b> Color principal</b> {capitalizeFirstLetter(pets.colorPrimario)}
         </Typography>
         <Typography>
-          {" "}
           <b> Color secundario: </b>
           {capitalizeFirstLetter(pets.colorSecundario)}
         </Typography>
         <Typography>
-          {" "}
           <b> Descripcion:</b> {capitalizeFirstLetter(pets.descripcion)}
         </Typography>
       </div>

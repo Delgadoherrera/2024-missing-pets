@@ -9,6 +9,11 @@
 .divMsg {
     height: 100%;
     background-color: $white;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 
     ion-item {
         --border-style: none !important;
@@ -24,9 +29,13 @@
         padding: 20px;
         border-radius: 10px;
         margin: 5px;
-        .buttonChatIndex{
+        width: 100vw !important;
+
+        .buttonChatIndex {
             width: 140px;
+
         }
+
     }
 
 }
@@ -40,6 +49,13 @@
     max-height: calc(76vh - 100px);
     display: flex;
     flex-direction: column;
+    width: 100vw !important;
+    img{
+        max-width: 400px;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 50px;
+    }
 
     .spanNameUser {
         background-color: rgba(0, 0, 255, 0.123) !important;

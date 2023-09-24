@@ -17,6 +17,7 @@ import { MDBContainer } from "mdb-react-ui-kit";
 import { Pet } from "../interfaces/types";
 import dogIcon from "../assets/SVG/dog-looking-up-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 import notFound from "../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
+import CarouselImg from "./simple/CarouselImgAdopt";
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
@@ -59,48 +60,36 @@ export default function QuiltedImageList() {
     );
   }
   return (
-    <div className="imgListContainer">
-      <IonItem>
-        <ImageList
-          sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
-          cols={adoptPets.length < 3 ? 1 : 2}
-          rowHeight={adoptPets.length < 3 ? 300 : 300}
-        >
-          {/*   {Array.isArray(itemData) &&
-            itemData.map((item, key) => (
-              <ImageListItem key={key}>
-                <img
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                  onClick={() => handleImageClick(item.img, item)} // Add onClick event for image click
-                  style={{ objectFit: "cover" }}
-                />
-              </ImageListItem>
-            ))} */}
-          {Array.isArray(adoptPets) &&
-            adoptPets.map((item: any, key: any) => (
-              <ImageListItem key={key * 1000}>
-                <img
-                  src={`data:image/jpeg;base64,${item!.fotoMascota}`}
-                  alt={item.title}
-                  loading="lazy"
-                  onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
-                  style={{ objectFit: "cover" }}
-                  className="imgListItem"
-                />
-              </ImageListItem>
-            ))}
-        </ImageList>
-      </IonItem>
+    <>
+      <CarouselImg pets={adoptPets} />
+      <div className="imgListContainer">
+        {/*       <IonItem>
+  <ImageList
+    sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
+    cols={adoptPets.length < 3 ? 1 : 2}
+    rowHeight={adoptPets.length < 3 ? 300 : 300}
+  >
+    {Array.isArray(adoptPets) &&
+      adoptPets.map((item: any, key: any) => (
+        <ImageListItem key={key * 1000}>
+          <img
+            src={`data:image/jpeg;base64,${item!.fotoMascota}`}
+            alt={item.title}
+            loading="lazy"
+            onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
+            style={{ objectFit: "cover" }}
+            className="imgListItem"
+          />
+        </ImageListItem>
+      ))}
+  </ImageList>
+</IonItem> */}
 
-      {selectedImage && ( // Render the modal when the selectedImage is not null
-        <IonModal
-          isOpen={!!selectedImage}
-          onDidDismiss={() => setSelectedImage(null)}
-        >
-          <IonContent>
+        {selectedImage && ( // Render the modal when the selectedImage is not null
+          <IonModal
+            isOpen={!!selectedImage}
+            onDidDismiss={() => setSelectedImage(null)}
+          >
             <IonItem>
               <button onClick={() => setSelectedImage(null)}> X</button>
             </IonItem>
@@ -144,10 +133,10 @@ export default function QuiltedImageList() {
               alt="Selected"
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
-          </IonContent>
-        </IonModal>
-      )}
-    </div>
+          </IonModal>
+        )}
+      </div>
+    </>
   );
 }
 function capitalizeFirstLetter(str: any) {
