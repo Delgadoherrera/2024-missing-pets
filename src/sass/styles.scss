@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
 $white: #fff;
 $gray-100: #f8f9fa;
 $gray-200: #e9ecef;
@@ -26,9 +27,9 @@ $gray-unum: #363636 !default;
 $lightblue: lighten($blue, 20%);
 
 $primary: #1976d2;
-$secondary: rgba(180, 232, 26, 0.626);
-$third: rgba(130, 131, 173, 0.482);
-$fourth: rgba(180, 232, 26, 0.626);
+$secondary: #dce2caa0;
+$third: #8283ad7b;
+$fourth: #b4e81aa0;
 $success: $green;
 $info: $lightblue;
 $warning: $yellow;
@@ -37,6 +38,9 @@ $light: $gray-100;
 $dark: $gray-800;
 $tooltip-bg: $gray-unum !default;
 
+* {
+    font-family: 'Comfortaa', cursive !important;
+}
 
 
 .tooltip-arrow {

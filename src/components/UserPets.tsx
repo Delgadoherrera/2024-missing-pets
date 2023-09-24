@@ -19,6 +19,7 @@ import {
   userPet,
 } from "../features/dataReducer/dataReducer";
 import { IonContent, IonItem, IonText } from "@ionic/react";
+import { InputText } from "primereact/inputtext";
 
 export default function InteractiveList() {
   const myPets = useSelector(userPet);
@@ -252,13 +253,16 @@ export default function InteractiveList() {
 
   return (
     <>
-        <Input
+      {!isSelected && (
+        <InputText
           type="text"
           placeholder="Buscar por nombre..."
           value={searchTerm}
           onChange={handleSearchChange}
-          style={{width:'100%'}}
+          style={{ width: "100%", height: "60px" }}
         />
+      )}
+
       <MDBContainer
         fluid
         style={{
@@ -335,7 +339,7 @@ export default function InteractiveList() {
             className="petsContainer"
           >
             <Avatar
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: "55px", height: "55px" }}
               className="userPetsPhoto"
               src={
                 pet!.fotoMascota !== ""
@@ -376,7 +380,7 @@ export default function InteractiveList() {
                     key={index}
                   >
                     <Avatar
-                      style={{ width: "50px", height: "50px" }}
+                      style={{ width: "55px", height: "55px" }}
                       className="userPetsPhoto"
                       src={
                         pet.fotoMascota !== ""

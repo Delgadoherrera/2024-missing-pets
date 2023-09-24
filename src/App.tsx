@@ -38,10 +38,11 @@ import "./theme/variables.css";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import ModalFindMyPet from "./components/MapFindMyPet";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-import dogIcon from "./assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
-
+import dogIcon from "./assets/SVG/6366331_animal_breed_dog_pedigree_pet_icon.svg"; // Importa y convierte el SVG en un componente React
+import Carousel from "./components/simple/Carousel";
 //core
 import "primereact/resources/primereact.min.css";
+import LoginForm from "./components/simple/LoginForm";
 setupIonicReact();
 
 const App: React.FC = (pageProps: any) => {
@@ -74,24 +75,21 @@ const App: React.FC = (pageProps: any) => {
           <DataRoutingApp />
         ) : (
           <IonContent>
-            <IonHeader>
-              <IonToolbar>
-                <IonTitle>Missing Pets</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+            
 
-            <img
+      {/*       <img
               src={dogIcon}
               style={{
                 objectFit: "cover",
-                height: "1024",
+                height: "320px",
                 color: "red",
-                position:'fixed',
+                position: "fixed",
+                top: "50%",
               }}
               className="imagenInicial"
-            ></img>
+            ></img> */}
             <div className="containerLoginButton">
-              {isAuthenticated ? null : <LoginButton />}
+              {isAuthenticated ? null : <LoginForm />}
             </div>
           </IonContent>
         )}

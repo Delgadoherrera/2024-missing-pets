@@ -2,12 +2,31 @@
     ion-item {
         --border-style: none !important
     }
+    padding: 10px;
+    height: 250px;
 
     .imgListItem {
-        border-radius: 50px;
-        width: 50 !important;
-        padding: 10px !important ;
+        border-radius: 10px;
+    }
 
+    img {
+        height: 200px !important;
+        width: 400px !important;
+        object-fit: contain!important;
+    }
+}
+
+.noPetFoundContainer {
+
+
+
+    div {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        height: 70%;
     }
 
 }

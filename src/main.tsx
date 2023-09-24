@@ -10,6 +10,9 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./sass/index.scss";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
+import 'primereact/resources/themes/saga-blue/theme.css'; // Importa el tema de PrimeReact
+import 'primereact/resources/primereact.min.css'; // Importa los estilos de PrimeReact
+import 'primeicons/primeicons.css'; // Importa las fuentes de iconos de PrimeIcons
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 

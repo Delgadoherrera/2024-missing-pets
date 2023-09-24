@@ -6,6 +6,7 @@ import {
   IonButton,
   IonContent,
   IonIcon,
+  IonImg,
   IonItem,
   IonModal,
   IonNote,
@@ -14,7 +15,7 @@ import { adoptPet } from "../features/dataReducer/dataReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { Pet } from "../interfaces/types";
-import dogIcon from "../assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
+import dogIcon from "../assets/SVG/dog-looking-up-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 import notFound from "../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
@@ -39,55 +40,55 @@ export default function QuiltedImageList() {
 
   if (Array.isArray(adoptPets) && adoptPets.length === 0) {
     return (
-      <IonContent>
-        <IonBreadcrumbs>
-          <IonNote> No hay mascotas en adopcion</IonNote>
-          <IonIcon style={{ color: "$primary" }} icon={notFound}></IonIcon>
-        </IonBreadcrumbs>
+      <IonContent className="noPetFoundContainer">
+        <div>
+          <IonNote> No hay mascotas en adopción</IonNote>
 
-        <img
-          src={dogIcon}
-          style={{
-            objectFit: "cover",
-            color: "red",
-            position: "fixed",
-          }}
-          className="imagenInicial"
-        ></img>
+          <IonImg
+            src={dogIcon}
+            style={{
+              objectFit: "cover",
+              width: "80px",
+              height: "80px",
+              opacity: "60%",
+            }}
+            className="imagenInicial"
+          ></IonImg>
+        </div>
       </IonContent>
     );
   }
-
   return (
     <div className="imgListContainer">
       <IonItem>
         <ImageList
-          sx={{ width: "100%", height: "100%" }}
-          cols={3}
-          rowHeight={164}
+          sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
+          cols={adoptPets.length < 3 ? 1 : 2}
+          rowHeight={adoptPets.length < 3 ? 300 : 300}
         >
-          {/*    {Array.isArray(itemData) &&
-            itemData.map((item, index) => (
-              <ImageListItem key={index}>
+          {/*   {Array.isArray(itemData) &&
+            itemData.map((item, key) => (
+              <ImageListItem key={key}>
                 <img
-                  src={`${item.fotoMascota}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.fotoMascota}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.title}
                   loading="lazy"
-                  onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
+                  onClick={() => handleImageClick(item.img, item)} // Add onClick event for image click
                   style={{ objectFit: "cover" }}
                 />
               </ImageListItem>
             ))} */}
           {Array.isArray(adoptPets) &&
-            adoptPets.map((item, index) => (
-              <ImageListItem key={index}>
+            adoptPets.map((item: any, key: any) => (
+              <ImageListItem key={key * 1000}>
                 <img
                   src={`data:image/jpeg;base64,${item!.fotoMascota}`}
-                  alt={item.nombre}
+                  alt={item.title}
                   loading="lazy"
                   onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
                   style={{ objectFit: "cover" }}
+                  className="imgListItem"
                 />
               </ImageListItem>
             ))}

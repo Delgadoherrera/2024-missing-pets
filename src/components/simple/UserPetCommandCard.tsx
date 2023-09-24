@@ -8,6 +8,7 @@ import {
   IonAlert,
   IonBackButton,
   IonBadge,
+  IonBreadcrumb,
   IonChip,
   IonIcon,
   IonNote,
@@ -31,9 +32,9 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
       </div>
       <div className="commandContainerII">
         {pet.status === 4 ? (
-          <Button> En adopcion...</Button>
+          <IonBreadcrumb> En adopcion...</IonBreadcrumb>
         ) : pet.status === 1 ? (
-          <Button> Buscando...</Button>
+          <IonBreadcrumb> Buscando...</IonBreadcrumb>
         ) : null}
       </div>
       <div className="commandContainerIII">

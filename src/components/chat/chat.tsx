@@ -17,6 +17,7 @@ import {
 } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
 import { Button, Input } from "@mui/material";
+import { InputText } from "primereact/inputtext";
 
 const socket = io("https://backend.missingpets.art");
 interface ChatWindowProps {
@@ -151,7 +152,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           ))}
       </IonList>
       <div className="input-container">
-        <Input
+        <InputText
           name="message"
           type="text"
           placeholder="Escribe un mensaje..."

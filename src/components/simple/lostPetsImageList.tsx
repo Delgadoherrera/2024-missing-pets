@@ -2,24 +2,33 @@ import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import {
+  IonBadge,
   IonBreadcrumbs,
   IonButton,
   IonContent,
+  IonFabButton,
   IonIcon,
   IonImg,
   IonItem,
   IonModal,
   IonNote,
+  IonTabButton,
 } from "@ionic/react";
 import { useDispatch, useSelector } from "react-redux";
 import { lostPets, petSelected } from "../../features/dataReducer/dataReducer";
 import { Pet } from "../../interfaces/types";
 import { MDBContainer } from "mdb-react-ui-kit";
-import { Button } from "@mui/material";
+import { Button, StepButton } from "@mui/material";
 import ContactoPetFound from "../ContactoPetFound";
 import PrimerContacto from "../PrimerContacto";
-import dogIcon from "../../assets/SVG/paws.svg"; // Importa y convierte el SVG en un componente React
-import notFound from "../../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
+import dogIcon from "../../assets/SVG/dog-looking-up-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
+import {
+  arrowBackCircle,
+  arrowBackCircleOutline,
+  arrowBackSharp,
+  arrowUndoCircle,
+} from "ionicons/icons";
+import CarouselImg from "../simple/CarouselImg";
 interface FrontCommandProps {
   pet: Pet | null;
   activeFrontMap: any;
@@ -46,115 +55,103 @@ const imageLostPets: React.FC = () => {
   }
   if (Array.isArray(pets) && pets.length === 0) {
     return (
-      <IonContent>
-        <IonBreadcrumbs>
+      <IonContent className="noPetFoundContainer">
+        <div>
           <IonNote> No hay mascotas perdidas</IonNote>
-          <IonIcon style={{ color: "$primary" }} icon={notFound}></IonIcon>
-        </IonBreadcrumbs>
 
-        <IonImg
-          src={dogIcon}
-          style={{
-            objectFit: "cover",
-            position: "fixed",
-          }}
-          className="imagenInicial"
-        ></IonImg>
+          <IonImg
+            src={dogIcon}
+            style={{
+              objectFit: "cover",
+              width: "80px",
+              height: "80px",
+              opacity: "60%",
+            }}
+            className="imagenInicial"
+          ></IonImg>
+        </div>
       </IonContent>
     );
   }
   return (
-    <div className="imgListContainer">
-      <IonItem>
-        <ImageList
-          sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
-          cols={pets.length < 3 ? 1 : 2}
-          rowHeight={pets.length < 3 ? 300 : 300}
-        >
-          {/*   {Array.isArray(itemData) &&
-            itemData.map((item, key) => (
-              <ImageListItem key={key}>
-                <img
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                  onClick={() => handleImageClick(item.img, item)} // Add onClick event for image click
-                  style={{ objectFit: "cover" }}
-                />
-              </ImageListItem>
-            ))} */}
-          {Array.isArray(pets) &&
-            pets.map((item: any, key: any) => (
-              <ImageListItem key={key * 1000}>
-                <img
-                  src={`data:image/jpeg;base64,${item!.fotoMascota}`}
-                  alt={item.title}
-                  loading="lazy"
-                  onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
-                  style={{ objectFit: "cover" }}
-                  className="imgListItem"
-                />
-              </ImageListItem>
-            ))}
-        </ImageList>
-      </IonItem>
-      {pets.length === 0 ? (
-        <IonItem>No se encontraron mascotas perdidas.</IonItem>
-      ) : null}
+    <>
+      <CarouselImg pets={pets} />
+      <div className="imgListContainer">
+        {/*   <ImageList
+            sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
+            cols={pets.length < 3 ? 1 : 2}
+            rowHeight={pets.length < 3 ? 50 : 100}
+          >
+            {Array.isArray(pets) &&
+              pets.map((item: any, key: any) => (
+                <ImageListItem key={key * 1000}>
+                  <img
+                    src={`data:image/jpeg;base64,${item!.fotoMascota}`}
+                    alt={item.title}
+                    loading="lazy"
+                    onClick={() => handleImageClick(item.fotoMascota, item)} // Add onClick event for image click
+                    style={{ objectFit: "cover" }}
+                    className="imgListItem"
+                  />
+                </ImageListItem>
+              ))}
+          </ImageList> */}
+        {pets.length === 0 ? (
+          <IonItem>No se encontraron mascotas perdidas.</IonItem>
+        ) : null}
 
-      {selectedImage && ( // Render the modal when the selectedImage is not null
-        <IonModal
-          isOpen={!!selectedImage}
-          onDidDismiss={() => setSelectedImage(null)}
-        >
-          <IonContent>
-            <IonItem>
-              <button onClick={() => setSelectedImage(null)}> X</button>
-            </IonItem>
-            <MDBContainer className="imgPanelOpt">
-              <IonItem>
-                <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
-                <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
-              </IonItem>
-              <IonItem>
-                <IonBreadcrumbs>Peso:</IonBreadcrumbs>
-                <b>{selectedPet!.pesoAproximado}</b>
-              </IonItem>
-              <IonItem>
-                <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
-                <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
-              </IonItem>
-              <IonItem>
-                <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
-                <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
-              </IonItem>
-              <IonItem>
-                <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
-                <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
-              </IonItem>
-              <IonItem>
-                <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
-                <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
-              </IonItem>
-              <IonItem>
+        {selectedImage && ( // Render the modal when the selectedImage is not null
+          <IonModal
+            isOpen={!!selectedImage}
+            onDidDismiss={() => setSelectedImage(null)}
+          >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <Button onClick={() => setSelectedImage(null)}>
+                  <IonIcon size="large" icon={arrowUndoCircle}></IonIcon>
+                </Button>
+              </div>
+              <MDBContainer className="imgPanelOpt">
+                <IonItem>
+                  <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
+                  <b>{capitalizeFirstLetter(selectedPet!.nombre)}</b>
+                </IonItem>
+                <IonItem>
+                  <IonBreadcrumbs>Peso:</IonBreadcrumbs>
+                  <b>{selectedPet!.pesoAproximado}</b>
+                </IonItem>
+                <IonItem>
+                  <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
+                  <b>{capitalizeFirstLetter(selectedPet!.colorPrimario)}</b>
+                </IonItem>
+                <IonItem>
+                  <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
+                  <b>{capitalizeFirstLetter(selectedPet!.colorSecundario)}</b>
+                </IonItem>
+                <IonItem>
+                  <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
+                  <b>{capitalizeFirstLetter(selectedPet!.descripcion)}</b>
+                </IonItem>
+                <IonItem>
+                  <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
+                  <b>{capitalizeFirstLetter(selectedPet!.geoAdress)}</b>
+                </IonItem>
                 <IonButton onClick={() => setPetFound(true)}>
-                  ¡Es mi mascota!
+                  ¡Encontré a esta mascota!
                 </IonButton>
-              </IonItem>
-            </MDBContainer>
-            <img
-              src={
-                selectedImageURL && selectedImageURL.startsWith("http")
-                  ? selectedImageURL
-                  : `data:image/jpeg;base64,${selectedImageURL}`
-              }
-              alt="Selected"
-            />
-          </IonContent>
-        </IonModal>
-      )}
-    </div>
+              </MDBContainer>
+              <img
+                src={
+                  selectedImageURL && selectedImageURL.startsWith("http")
+                    ? selectedImageURL
+                    : `data:image/jpeg;base64,${selectedImageURL}`
+                }
+                alt="Selected"
+              />
+          </IonModal>
+        )}
+      </div>
+      
+    </>
   );
 };
 function capitalizeFirstLetter(str: any) {

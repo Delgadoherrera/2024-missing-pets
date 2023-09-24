@@ -1,5 +1,4 @@
 .imagenInicial {
-    margin-top:5%;
     width: 100%;
 }
 
@@ -14,12 +13,56 @@ ion-header {
 .p-button {
     background-color: $primary !important;
     padding: 2%;
+
 }
 
 ion-badge {
     background-color: $primary !important;
     fill: none !important;
 }
-ion-icon{
-    color:#1976d2 !important;
+
+ion-icon {
+    color: #1976d2 !important;
+}
+
+ion-toolbar {
+    --background: none !important;
+    color: $white !important;
+
+}
+
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    justify-content:space !important;
+    position: relative;
+    bottom: 40px;
+
+
+    input {
+        width: 100%;
+        text-align: center;
+        margin:5px;
+
+    }
+    button{
+        margin: 4px;
+    }
+  
+    .imgIconHome{
+        height: 150px;
+        color: red !important;
+        margin-bottom: 40px;
+
+    }
+}
+
+
+.containerLoginButton {
+    margin: 0;
 }

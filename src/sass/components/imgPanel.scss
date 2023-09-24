@@ -1,21 +1,36 @@
-.imgPanelOpt{
+.imgPanelOpt {
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: center;
 
 
-    ion-item{
+ 
+    ion-item {
         margin-top: 0%;
         margin: 1%;
         width: 100%;
+        font-style: oblique;
+        color: $primary;
     }
-    
-    b{
+
+    b {
         width: 50%;
         margin: 10px;
         font-size: 0.9rem;
 
-}
-} 
+    }
+
+    ion-badge {
+        height: 30px;
+        display: flex;
+        font-size: 1rem !important;
+        font-weight: 100;
+        justify-content: center;
+        align-items: center;
+        margin: 3px;
+    }
+
+
+}  

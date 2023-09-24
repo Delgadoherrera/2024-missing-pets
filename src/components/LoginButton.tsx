@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Browser } from "@capacitor/browser";
 import { IonButton } from "@ionic/react";
+import loginIcon from "../assets/SVG/loginHouze.svg"; // Importa y convierte el SVG en un componente React
 
 const LoginButton: React.FC = () => {
   const { loginWithRedirect } = useAuth0();
@@ -17,17 +18,19 @@ const LoginButton: React.FC = () => {
   };
 
   return (
-    <div className="google-btn"  onClick={login}>
-      <div className="google-icon-wrapper">
-        <img
-          className="google-icon"
-          src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-        />
+    <>
+      <div className="google-btn" onClick={login}>
+        <div className="google-icon-wrapper">
+          <img
+            className="google-icon"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+          />
+        </div>
+        <p className="btn-text">
+          <p>Entrar con Google</p>
+        </p>
       </div>
-      <p className="btn-text">
-        <b>Entrar con Google</b>
-      </p>
-    </div>
+    </>
   );
 };
 

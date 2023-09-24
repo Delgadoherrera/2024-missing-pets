@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { IonIcon, IonImg, IonItem } from "@ionic/react";
 import Avatar from "@mui/material/Avatar";
 import { MDBContainer } from "mdb-react-ui-kit";
-import { mail } from "ionicons/icons";
+import { closeCircleSharp, closeOutline, earthSharp, mail, mailOpen } from "ionicons/icons";
 
 const getAllMsg = new MensajesService();
 
@@ -129,10 +129,26 @@ export default function Mensajes() {
                     onClick={(e) => {
                       clicOnMessages(e);
                     }}
-                    icon={mail}
+                    icon={mailOpen}
                   ></IonIcon>
                 </Button>
-
+                <Button
+                  key={index}
+                  type="button"
+                  aria-label={one}
+                  value={idUnicos[index]}
+                  onClick={(e) => {
+                    clicOnMessages(e);
+                  }}
+                >
+                  <IonIcon
+                    size="large"
+                    onClick={(e) => {
+                      clicOnMessages(e);
+                    }}
+                    icon={closeOutline}
+                  ></IonIcon>
+                </Button>
                 <Avatar
                   alt="Remy Sharp"
                   src={`data:image/jpeg;base64,${fotoMascota}`}
