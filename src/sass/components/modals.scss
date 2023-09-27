@@ -20,19 +20,36 @@
 .petLostCarouselDesc {
     display: flex;
     flex-direction: column;
-    align-items: center !important;
-    height: 100vh !important;
+    text-align: left !important;
 
+    ion-breadcrumbs{
+        width: 100px;
+        margin: 10px;
+    }
     button {
         margin: 10px;
         margin-bottom: 15px;
+        border-radius: 10px !important;
+        background-color: $secondary !important;
+        color: $primary !important;
+
     }
 
     p {
         margin: 2px;
         max-width: 300px;
+        
     }
 
+    b {
+        font-weight: 1000;
+        margin: 2px;
+
+    }
+
+    img{
+        padding: 5%;
+    }
 }
 
 
@@ -48,5 +65,60 @@
 
     .p-carousel .p-carousel-indicators .p-carousel-indicator button {
         background-color: $third ;
+    }
+}
+
+
+
+.modal-container {
+    .close-icon {
+        margin: 10px;
+        align-self: flex-end;
+    }
+
+
+    .imageAddIcon {
+        align-self: center !important;
+        font-size: 20px;
+    }
+
+    ion-breadcrumb {
+        padding: 10px;
+
+    }
+
+}
+
+
+.modalPrimerContacto {
+    text-align: center;
+
+    img {
+        width: 300px !important;
+        height: 300px !important;
+        padding: 30px !important;
+
+    }
+
+    ion-button {
+
+        height: 40px;
+        width: 100%;
+        padding: 0px;
+    }
+}
+
+
+.slidesContent {
+    padding: 40px;
+    img{
+        border-radius: 30px;
+        margin-bottom: 20px;
+        width: 300px !important;
+        height: 300px !important;
+        object-fit: cover;
+    }
+    button{
+        margin-bottom: 20px;
     }
 }

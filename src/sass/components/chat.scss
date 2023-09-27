@@ -25,7 +25,7 @@
     }
 
     .frontCommandCard {
-        background-color: rgba(54, 49, 95, 0.119) !important;
+        background-color: $secondary !important;
         padding: 20px;
         border-radius: 10px;
         margin: 5px;
@@ -50,7 +50,8 @@
     display: flex;
     flex-direction: column;
     width: 100vw !important;
-    img{
+
+    img {
         max-width: 400px;
         max-height: 400px;
         object-fit: cover;

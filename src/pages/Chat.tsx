@@ -10,8 +10,8 @@ import Mensajes from "../components/chat/mensajes";
 const Chat = (data: any) => {
   return (
     <IonPage>
-      <AppBar />
-      <Mensajes></Mensajes>
+{/*       <AppBar />
+ */}      <Mensajes></Mensajes>
     </IonPage>
   );
 };

@@ -253,158 +253,162 @@ export default function InteractiveList() {
 
   return (
     <>
-      {!isSelected && (
-        <InputText
-          type="text"
-          placeholder="Buscar por nombre..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          style={{ width: "100%", height: "60px" }}
-        />
-      )}
-
-      <MDBContainer
-        fluid
-        style={{
-          margin: 2,
-          display: "flex",
-          justifyContent: "space-around",
-          backgroundColor: "rgba(0, 0, 0, 0.075)",
-        }}
-      >
+      <IonContent className="addPetUserPets">
         {!isSelected && (
-          <Button
-            className="buttonAddMyPet"
-            onClick={() => {
-              setAddPet(true);
-              setActionSheet(true);
-            }}
-          >
-            Agregar mascota
-          </Button>
+          <InputText
+            type="text"
+            placeholder="Buscar por nombre..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            style={{ width: "100%", height: "60px" }}
+          />
         )}
-      </MDBContainer>
 
-      {actionSheet && addPet && <ModalAddMyPet setAddPet={setAddPet} />}
-
-      {isSelected ? (
-        <>
-          {editPet && actionSheet && (
-            <ModalEditPet
-              setEditPet={setEditPet}
-              pet={pet}
-              handleUpdateComps={handleUpdateComps}
-            />
-          )}
-          {actionSheet && putAdoption && (
-            <ActionSheet
-              setShowActionSheet={setActionSheet}
-              action={"adoptPet"}
-              header={"Poner en adopción"}
-              petToDelete={pet}
-            />
-          )}
-          {actionSheet && quitAdoption && (
-            <ActionSheet
-              setShowActionSheet={setActionSheet}
-              action={"quitAdoptPet"}
-              header={"Quitar de adopción"}
-              petToDelete={pet}
-            />
-          )}
-          {actionSheet && deletePet && (
-            <ActionSheet
-              setShowActionSheet={setActionSheet}
-              action={"delete"}
-              header={"Eliminar mascota"}
-              petToDelete={pet}
-            />
-          )}
-          {actionSheet && stopSearch && (
-            <ActionSheet
-              setShowActionSheet={setActionSheet}
-              action={"stopSearch"}
-              header={"¿Dejamos de buscar?"}
-              petToDelete={pet}
-            />
-          )}
-          <MDBContainer
-            fluid
-            style={{
-              margin: 2,
-              display: "flex",
-              justifyContent: "space-around",
-              backgroundColor: "rgba(0, 0, 0, 0.075)",
-            }}
-            className="petsContainer"
-          >
-            <Avatar
-              style={{ width: "55px", height: "55px" }}
-              className="userPetsPhoto"
-              src={
-                pet!.fotoMascota !== ""
-                  ? `data:image/jpeg;base64,${pet!.fotoMascota}`
-                  : ""
-              }
-            >
-              {pet!.fotoMascota && <FolderIcon />}
-            </Avatar>
-            <FrontCommand pet={pet as Pet} activeFrontMap={activeFrontMap} />
-
+        <MDBContainer
+          fluid
+          style={{
+            margin: 2,
+            display: "flex",
+            justifyContent: "space-around",
+            padding: 0,
+            borderRadius: "50px",
+          }}
+        >
+          {!isSelected && (
             <Button
+              className="buttonAddMyPet"
               onClick={() => {
-                setIsSelected(false);
+                setAddPet(true);
+                setActionSheet(true);
               }}
+              style={{ backgroundColor: "red" }}
             >
-              <MenuOutlinedIcon />
+              Agregar mascota
             </Button>
-          </MDBContainer>
+          )}
+        </MDBContainer>
 
-          <Additionals />
-        </>
-      ) : (
-        <>
-          {Array.isArray(filteredPets) &&
-            filteredPets.map((pet: any, index: any) => {
-              return (
-                <div key={index}>
-                  <MDBContainer
-                    fluid
-                    style={{
-                      margin: 2,
-                      display: "flex",
-                      justifyContent: "space-around",
-                      backgroundColor: "rgba(0, 0, 0, 0.075)",
-                    }}
-                    className="petsContainer"
-                    key={index}
-                  >
-                    <Avatar
-                      style={{ width: "55px", height: "55px" }}
-                      className="userPetsPhoto"
-                      src={
-                        pet.fotoMascota !== ""
-                          ? `data:image/jpeg;base64,${pet.fotoMascota}`
-                          : ""
-                      }
-                    >
-                      {!pet.fotoMascota && <FolderIcon />}
-                    </Avatar>
-                    <FrontCommand pet={pet} activeFrontMap={activeFrontMap} />
-                    <Button
-                      onClick={() => {
-                        handleShowAdditionals(index, pet);
+        {actionSheet && addPet && <ModalAddMyPet setAddPet={setAddPet} />}
+
+        {isSelected ? (
+          <>
+            {editPet && actionSheet && (
+              <ModalEditPet
+                setEditPet={setEditPet}
+                pet={pet}
+                handleUpdateComps={handleUpdateComps}
+              />
+            )}
+            {actionSheet && putAdoption && (
+              <ActionSheet
+                setShowActionSheet={setActionSheet}
+                action={"adoptPet"}
+                header={"Poner en adopción"}
+                petToDelete={pet}
+              />
+            )}
+            {actionSheet && quitAdoption && (
+              <ActionSheet
+                setShowActionSheet={setActionSheet}
+                action={"quitAdoptPet"}
+                header={"Quitar de adopción"}
+                petToDelete={pet}
+              />
+            )}
+            {actionSheet && deletePet && (
+              <ActionSheet
+                setShowActionSheet={setActionSheet}
+                action={"delete"}
+                header={"Eliminar mascota"}
+                petToDelete={pet}
+              />
+            )}
+            {actionSheet && stopSearch && (
+              <ActionSheet
+                setShowActionSheet={setActionSheet}
+                action={"stopSearch"}
+                header={"¿Dejamos de buscar?"}
+                petToDelete={pet}
+              />
+            )}
+            <MDBContainer
+              fluid
+              style={{
+                margin: 2,
+                display: "flex",
+                justifyContent: "space-around",
+                backgroundColor: "rgba(0, 0, 0, 0.075)",
+              }}
+              className="petsContainer"
+            >
+              <Avatar
+                style={{ width: "55px", height: "55px" }}
+                className="userPetsPhoto"
+                src={
+                  pet!.fotoMascota !== ""
+                    ? `data:image/jpeg;base64,${pet!.fotoMascota}`
+                    : ""
+                }
+              >
+                {pet!.fotoMascota && <FolderIcon />}
+              </Avatar>
+              <FrontCommand pet={pet as Pet} activeFrontMap={activeFrontMap} />
+
+              <Button
+                onClick={() => {
+                  setIsSelected(false);
+                }}
+              >
+                <MenuOutlinedIcon />
+              </Button>
+            </MDBContainer>
+
+            <Additionals />
+          </>
+        ) : (
+          <>
+            {Array.isArray(filteredPets) &&
+              filteredPets.map((pet: any, index: any) => {
+                return (
+                  <div key={index}>
+                    <MDBContainer
+                      fluid
+                      style={{
+                        margin: 2,
+                        display: "flex",
+                        justifyContent: "space-around",
+                        backgroundColor: "rgba(0, 0, 0, 0.075)",
                       }}
+                      className="petsContainer"
+                      key={index}
                     >
-                      <MenuOutlinedIcon />
-                    </Button>
-                  </MDBContainer>
-                  {showAdditionals === index && isSelected && <Additionals />}
-                </div>
-              );
-            })}
-        </>
-      )}
+                      <Avatar
+                        style={{ width: "55px", height: "55px" }}
+                        className="userPetsPhoto"
+                        src={
+                          pet.fotoMascota !== ""
+                            ? `data:image/jpeg;base64,${pet.fotoMascota}`
+                            : ""
+                        }
+                      >
+                        {!pet.fotoMascota && <FolderIcon />}
+                      </Avatar>
+                      <FrontCommand pet={pet} activeFrontMap={activeFrontMap} />
+                      <Button
+                        onClick={() => {
+                          handleShowAdditionals(index, pet);
+                        }}
+                      >
+                        <MenuOutlinedIcon />
+                      </Button>
+                    </MDBContainer>
+                    {showAdditionals === index && isSelected && <Additionals />}
+                  </div>
+                );
+              })}
+          </>
+        )}
+      </IonContent>
     </>
   );
 }

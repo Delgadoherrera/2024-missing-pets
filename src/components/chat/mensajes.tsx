@@ -3,12 +3,22 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import MensajesArea from "../chat/chat";
 import { useAuth0 } from "@auth0/auth0-react";
-import { refreshThis, refresh } from "../../features/dataReducer/dataReducer";
-import { useSelector } from "react-redux";
+import {
+  refreshThis,
+  refresh,
+  formValue,
+} from "../../features/dataReducer/dataReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { IonIcon, IonImg, IonItem } from "@ionic/react";
 import Avatar from "@mui/material/Avatar";
 import { MDBContainer } from "mdb-react-ui-kit";
-import { closeCircleSharp, closeOutline, earthSharp, mail, mailOpen } from "ionicons/icons";
+import {
+  closeCircleSharp,
+  closeOutline,
+  earthSharp,
+  mail,
+  mailOpen,
+} from "ionicons/icons";
 
 const getAllMsg = new MensajesService();
 
@@ -22,6 +32,7 @@ export default function Mensajes() {
   const [nombreEmisario, setNombreEmisario] = useState("");
   const doRefresh = useSelector(refresh);
   const { user } = useAuth0();
+  const dispatch = useDispatch();
   const getAllMsg = new MensajesService();
   const emailToNameMap: { [key: string]: string } = {};
   if (allMsg.length > 0) {
@@ -31,6 +42,17 @@ export default function Mensajes() {
       }
     });
   }
+
+  const deleteConv = (e: any) => {
+    console.log("deleteConv", e);
+    const data = {
+      idReceptor: user?.email,
+      idEmisor: e,
+    };
+    getAllMsg.deleteConv(data).then((data) => {
+      dispatch(refreshThis(true));
+    });
+  };
 
   useEffect(() => {
     getAllMsg.getAllMyMsg(user!.email).then((data) => {
@@ -100,29 +122,24 @@ export default function Mensajes() {
           )?.fotoMascota;
 
           return (
-            <IonItem>
+            <IonItem key={index}>
               <MDBContainer className="frontCommandCard">
                 <div className="buttonChatIndex">
                   <Button
-                    key={index}
                     type="button"
                     aria-label={one}
                     value={idUnicos[index]}
-                    onClick={(e) => {
+                    /*                     onClick={(e) => {
                       clicOnMessages(e);
-                    }}
+                    }} */
                   >
                     {emailToNameMap[one] || one}
                   </Button>
                 </div>
                 <Button
-                  key={index}
                   type="button"
                   aria-label={one}
                   value={idUnicos[index]}
-                  onClick={(e) => {
-                    clicOnMessages(e);
-                  }}
                 >
                   <IonIcon
                     size="large"
@@ -133,18 +150,14 @@ export default function Mensajes() {
                   ></IonIcon>
                 </Button>
                 <Button
-                  key={index}
                   type="button"
                   aria-label={one}
                   value={idUnicos[index]}
-                  onClick={(e) => {
-                    clicOnMessages(e);
-                  }}
                 >
                   <IonIcon
                     size="large"
-                    onClick={(e) => {
-                      clicOnMessages(e);
+                    onClick={() => {
+                      deleteConv(idUnicos[index]);
                     }}
                     icon={closeOutline}
                   ></IonIcon>

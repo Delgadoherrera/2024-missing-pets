@@ -25,6 +25,7 @@ import dogIcon from "../assets/SVG/8542014_dog_puppy_pet_icon.svg"; // Importa y
 import catIcon from "../assets/SVG/8541576_cat_pet_animal_icon.svg";
 import dogFill from "../assets/SVG/9023321_dog_fill_icon.svg";
 import msg from "../assets/SVG/4230512_chat_communication_message_icon.svg";
+import { MensajesService } from "../services/MsjService";
 
 import {
   userPets,
@@ -42,6 +43,8 @@ import {
 } from "../features/dataReducer/dataReducer";
 import axios from "axios";
 import Chat from "../pages/Chat";
+const getAllMsg = new MensajesService();
+
 const RoutingComp: React.FC = () => {
   const swiperRef = useRef(null);
   const [userPet, setUserPet] = useState([]);
@@ -57,10 +60,26 @@ const RoutingComp: React.FC = () => {
   const dispatch = useDispatch();
   const doRefresh = useSelector(refresh);
   const isMapOpen = useSelector((mapOpen: any) => mapOpen.counter.showMap);
+  const [showMessages, setShowMessages] = useState(false);
 
   useEffect(() => {
     console.log("DATA ROUTING APP MAP", isMapOpen);
   }, [isMapOpen]);
+
+  useEffect(() => {
+    getAllMsg.getAllMyMsg(user!.email).then((data) => {
+      console.log('msg usuario',data)
+      // Modifica cada mensaje para incluir la fotoMascota (si está disponible)
+      const mensajesConFoto = data.map((mensaje: any) => {
+        const fotoMascota = mensaje.fotoMascota || ""; // Si no hay foto, asigna una cadena vacía
+        return { ...mensaje, fotoMascota };
+      });
+
+      console.log('datalenghtmensajes',data.length)
+      data.length > 0 && setShowMessages(true);
+      data.length === 0 && setShowMessages(false)
+    });
+  }, [doRefresh]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -199,17 +218,19 @@ const RoutingComp: React.FC = () => {
             <IonIcon aria-hidden="true" icon={dogFill} />
             <IonLabel>Mis mascotas</IonLabel>
           </IonTabButton>
-          <IonTabButton
-            tab="chat"
-            href="/chat"
-            onClick={() => {
-              dispatch(refreshThis(true));
-              dispatch(mapOpen(false));
-            }}
-          >
-            <IonIcon aria-hidden="true" icon={msg} />
-            <IonLabel>Mensajes</IonLabel>
-          </IonTabButton>
+          {showMessages && (
+            <IonTabButton
+              tab="chat"
+              href="/chat"
+              onClick={() => {
+                dispatch(refreshThis(true));
+                dispatch(mapOpen(false));
+              }}
+            >
+              <IonIcon aria-hidden="true" icon={msg} />
+              <IonLabel>Mensajes</IonLabel>
+            </IonTabButton>
+          )}
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>

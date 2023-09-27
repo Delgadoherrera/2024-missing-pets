@@ -15,10 +15,11 @@ import {
 import MapFindMyPet from "./MapFindMyPet";
 import { useSelector, useDispatch } from "react-redux";
 import { imageValue, selectCount } from "../features/dataReducer/dataReducer";
-import { camera } from "ionicons/icons";
+import { camera, close, closeCircle } from "ionicons/icons";
 import { Camera, CameraResultType } from "@capacitor/camera";
 import FormAddMyPet from "./forms/FormAddMyPet";
 import { Typography } from "@mui/material";
+import { Button } from "primereact/button";
 
 const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   const dispatch = useDispatch();
@@ -35,47 +36,38 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
   };
 
   return (
-      <IonModal isOpen={isOpen}>  
-        <IonContent>
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Agrega a tu mascota</IonTitle>
-              <IonButtons slot="end">
-                <IonButton
-                  onClick={() => {
-                    setIsOpen(false);
-                    setAddPet(false);
-                  }}
-                >
-                  X
-                </IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          {value ? (
-            value.length > 1 ? (
-              <IonImg
-                className="imageCard"
-                src={`data:image/jpeg;base64,${value}`}
-                style={{
-                  width: "100vw",
-                  height: "15vh",
-                  objectFit: "contain",
-                  marginTop: "2%",
-                  zoom: "100%",
-                }}
-              />
-            ) : null
-          ) : null}
-
-          <IonBreadcrumb>
-            <IonIcon icon={camera}  size='large' onClick={() => takePicture()} />
-          Adjuntar imagen  
-
-          </IonBreadcrumb>
-          <FormAddMyPet setAddPet={setAddPet} />
-        </IonContent>
-      </IonModal>
+    <IonModal isOpen={isOpen} className="modal-container">
+      <IonIcon
+        onClick={() => {
+          setIsOpen(false);
+          setAddPet(false);
+          dispatch(imageValue("" || 10));
+        }}
+        icon={closeCircle}
+        size="large"
+        className="close-icon"
+      ></IonIcon>
+      {value ? (
+        value.length > 1 ? (
+          <IonImg
+            className="imageCard"
+            src={`data:image/jpeg;base64,${value}`}
+            style={{
+              width: "100vw",
+              height: "15vh",
+              objectFit: "contain",
+              marginTop: "2%",
+              zoom: "100%",
+            }}
+          />
+        ) : null
+      ) : null}
+      <IonBreadcrumb className="imageAddIcon" onClick={() => takePicture()}>
+        <IonIcon icon={camera} size="large" />
+        Adjuntar imagen
+      </IonBreadcrumb>
+      <FormAddMyPet setAddPet={setAddPet} />
+    </IonModal>
   );
 };
 

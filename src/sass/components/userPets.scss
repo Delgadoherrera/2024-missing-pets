@@ -1,20 +1,20 @@
-.additionalsUserPets{
+.additionalsUserPets {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     background-color: $white;
 
-    div{
+    div {
         display: flex;
         flex-direction: column;
         align-items: center;
         font-size: 1.0rem;
-        
+
 
     }
 
-    img{
+    img {
         width: 280px;
         height: 280px;
         object-fit: cover;
@@ -25,47 +25,70 @@
 }
 
 
-.buttonAddMyPet{
-    height: 50px !important;
-
-
+.buttonAddMyPet {
+    width: 100%;
+    background-color: $secondary !important;
+    padding: 50px !important;
 }
-.petsContainer{
+
+.petsContainer {
     display: flex;
     align-items: center;
     align-content: center;
     height: 80px;
     border-radius: 10px;
+    background-color: $secondary !important;
 }
 
-.frontCommandCard{
+.frontCommandCard {
     display: flex;
     align-items: center;
     justify-content: space-between !important;
     width: 100%;
 }
-.commandContainerI{
+
+.commandContainerI {
     display: flex;
     justify-content: center;
-    width:50px;
+    width: 80px;
 }
-.commandContainerII{
+
+.commandContainerII {
     display: flex;
     justify-content: center;
-    width:120px;
+    width: 120px;
+
+    ion-breadcrumb {
+        color: $primary !important;
+
+    }
 }
-.commandContainerIII{
+
+.commandContainerIII {
     display: flex;
     justify-content: center;
-    width:20px;
+    width: 20px;
 }
-.petDetailAdditionals{
+
+.petDetailAdditionals {
     font-size: 0.8rem;
     margin-top: 1%;
 }
 
-.buttonsAdditionals{
+.buttonsAdditionals {
     display: flex;
     flex-direction: column !important;
+    justify-content: space-evenly !important;
+    color: $primary;
     width: 100%;
+
+    button {}
+
+}
+
+.addPetUserPets {
+
+
+
+   
 }

@@ -29,6 +29,7 @@ import {
   arrowUndoCircle,
 } from "ionicons/icons";
 import CarouselImg from "../simple/CarouselImg";
+
 interface FrontCommandProps {
   pet: Pet | null;
   activeFrontMap: any;
@@ -40,6 +41,11 @@ const imageLostPets: React.FC = () => {
   const [petFound, setPetFound] = React.useState(false);
   const selectedImageURL = selectedImage as unknown as string;
 
+  React.useEffect(()=>{
+
+    console.log('selectedPetUsfx', selectedPet)
+  },[selectedPet])
+
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
     setSelectedPet(item);
@@ -48,8 +54,7 @@ const imageLostPets: React.FC = () => {
     return (
       <PrimerContacto
         open={setPetFound}
-        idMascotaPerdida={selectedPet}
-        setSelectedImage={setSelectedImage}
+        action="petFound"
       />
     );
   }
@@ -75,7 +80,8 @@ const imageLostPets: React.FC = () => {
   }
   return (
     <>
-      <CarouselImg pets={pets} />
+    <IonContent>
+    <CarouselImg pets={pets} setSelectedPet={setSelectedPet} setPetFound={setPetFound} />
       <div className="imgListContainer">
         {/*   <ImageList
             sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
@@ -150,6 +156,8 @@ const imageLostPets: React.FC = () => {
           </IonModal>
         )}
       </div>
+    </IonContent>
+
     </>
   );
 };

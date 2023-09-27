@@ -39,7 +39,6 @@ import { defineCustomElements } from "@ionic/pwa-elements/loader";
 import ModalFindMyPet from "./components/MapFindMyPet";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import dogIcon from "./assets/SVG/6366331_animal_breed_dog_pedigree_pet_icon.svg"; // Importa y convierte el SVG en un componente React
-import Carousel from "./components/simple/Carousel";
 //core
 import "primereact/resources/primereact.min.css";
 import LoginForm from "./components/simple/LoginForm";

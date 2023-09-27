@@ -3,6 +3,8 @@ import { useIonActionSheet } from "@ionic/react";
 import { useDispatch } from "react-redux";
 import { formValue, refreshThis } from "../../features/dataReducer/dataReducer";
 import { PetServiceWeb } from "../../services/PetServiceWeb";
+import { MensajesService } from "../../services/MsjService";
+
 
 interface ActionSheetExampleProps {
   header: string; // Cambia 'string' al tipo correcto si el tipo real es diferente
@@ -21,8 +23,11 @@ const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
   const dispatch = useDispatch();
   const handleActionSheet = async (actionType: any) => {
     const uploadNewPet = new PetServiceWeb();
+    const msgService = new MensajesService
 
     switch (actionType) {
+    
+
       case "delete":
         uploadNewPet.deletePet(petToDelete.idMascota).then((data) => {
           dispatch(formValue({} || 10));

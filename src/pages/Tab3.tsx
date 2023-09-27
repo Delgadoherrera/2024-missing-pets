@@ -16,8 +16,8 @@ const Tab3 = () => {
   const isMapOpen = useSelector((isOpen: any) => isOpen.counter.isOpened);
   return (
     <IonPage>
-      <AppBar />
-      <IonContent className="UserPetsContainer">
+{/*       <AppBar />
+ */}      <IonContent className="UserPetsContainer">
         <UserPets />
       </IonContent>
     </IonPage>

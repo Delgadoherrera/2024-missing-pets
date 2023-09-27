@@ -27,14 +27,15 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
     <MDBContainer className="frontCommandCard">
       <div className="commandContainerI">
         <IonBadge>
-          {pet.nombre ? pet.nombre.slice(0, 3).toUpperCase() : ""}...
+          {pet.nombre ? pet.nombre.slice(0, 6).toUpperCase() : ""}
+          {pet.nombre.length > 6 ? <>...</> : null}
         </IonBadge>
       </div>
       <div className="commandContainerII">
         {pet.status === 4 ? (
-          <IonBreadcrumb> En adopcion...</IonBreadcrumb>
+          <IonBreadcrumb> En adopción</IonBreadcrumb>
         ) : pet.status === 1 ? (
-          <IonBreadcrumb> Buscando...</IonBreadcrumb>
+          <IonBreadcrumb> Buscando</IonBreadcrumb>
         ) : null}
       </div>
       <div className="commandContainerIII">
@@ -45,7 +46,7 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
               icon={gpsFront}
               size="large"
               onClick={() => activeFrontMap(pet)}
-              style={{height:'25px'}}
+              style={{ height: "25px" }}
             />
           )}
           {pet.status === 4 && (
