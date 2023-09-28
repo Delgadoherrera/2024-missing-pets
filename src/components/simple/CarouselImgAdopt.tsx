@@ -4,18 +4,43 @@ import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
 import { Tag } from "primereact/tag";
 import { Typography } from "@mui/material";
 import { Pet } from "../../interfaces/types";
-import PrimerContacto from "../PrimerContacto";
+import { useDispatch } from "react-redux";
 import { petSelected } from "../../features/dataReducer/dataReducer";
-import { useDispatch, useSelector } from "react-redux";
 import {
+  IonBreadcrumb,
   IonBreadcrumbs,
   IonButton,
+  IonContent,
   IonIcon,
   IonItem,
   IonModal,
+  IonPage,
 } from "@ionic/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import {
+  Autoplay,
+  Keyboard,
+  Pagination,
+  Scrollbar,
+  Zoom,
+  Navigation,
+  A11y,
+} from "swiper/modules";
+import { EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/keyboard";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import "swiper/css/zoom";
+import "@ionic/react/css/ionic-swiper.css";
+
+import {
+  arrowBackCircle,
+  arrowBackCircleSharp,
+  arrowForwardCircle,
+} from "ionicons/icons";
 import { MDBContainer } from "mdb-react-ui-kit";
-import { arrowBackCircleSharp, arrowUndoCircle } from "ionicons/icons";
 interface FrontCommandProps {
   pets: Pet;
   setSelectedPet: any;
@@ -28,49 +53,16 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
 }) => {
   const [allPets, setAllPets] = React.useState<Pet | null>(null);
   const [thisPet, setThisPet] = React.useState<Pet | null>(null);
-  const [petAdopt, setPetAdopt] = React.useState(false);
+  const swiper = useSwiper();
   const [selectedImage, setSelectedImage] = React.useState(null); // State variable to track the clicked image
   const selectedImageURL = selectedImage as unknown as string;
   const dispatch = useDispatch();
-
-  const handleImageClick = (imgUrl: any, item: any) => {
-    setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
-    setThisPet(item);
-  };
-  const responsiveOptions: CarouselResponsiveOption[] = [
-    /*     {
-      breakpoint: "1199px",
-      numVisible: 1,
-      numScroll: 1,
-    },
-    {
-      breakpoint: "991px",
-      numVisible: 2,
-      numScroll: 1,
-    }, */
-    {
-      breakpoint: "767px",
-      numVisible: 1,
-      numScroll: 1,
-    },
-  ];
   useEffect(() => {
     setAllPets(pets);
   }, [pets]);
-  const getSeverity = (pets: any) => {
-    switch (pets.inventoryStatus) {
-      case "INSTOCK":
-        return "success";
-
-      case "LOWSTOCK":
-        return "warning";
-
-      case "OUTOFSTOCK":
-        return "danger";
-
-      default:
-        return null;
-    }
+  const handleImageClick = (imgUrl: any, item: any) => {
+    setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
+    setThisPet(item);
   };
   function capitalizeFirstLetter(str: any) {
     // Verifica si la cadena está vacía o es nula
@@ -79,63 +71,23 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
     }
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
-
-  const petsTemplate = (pets: any) => {
-    return (
-      <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 petLostCarouselDesc">
-        <div className="mb-3">
-          <img
-            src={`data:image/jpeg;base64,${pets.fotoMascota}`}
-            alt={pets.name}
-            className="w-6 shadow-2"
-            onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
-          />
-        </div>
-        <Button
-          onClick={(e) => {
-            setSelectedPet(pets);
-            setPetAdopt(true);
-            dispatch(petSelected(pets));
-          }}
-        >
-          Quiero adoptar!
-        </Button>
-        <Typography>
-          <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
-        </Typography>
-        <Typography>
-          <b> Peso:</b>
-          {pets.pesoAproximado}
-        </Typography>
-        <Typography>
-          <b> Color principal</b> {capitalizeFirstLetter(pets.colorPrimario)}
-        </Typography>
-        <Typography>
-          <b> Color secundario: </b>
-          {capitalizeFirstLetter(pets.colorSecundario)}
-        </Typography>
-        <Typography>
-          <b> Descripcion:</b> {capitalizeFirstLetter(pets.descripcion)}
-        </Typography>
-      </div>
-    );
-  };
   if (selectedImage) {
     return (
       <IonModal
         isOpen={!!selectedImage}
         onDidDismiss={() => setSelectedImage(null)}
       >
-        <div style={{ display: "flex", justifyContent: "end" }}>
-          <IonIcon
-            onClick={() => setSelectedImage(null)}
-            size="large"
-            icon={arrowBackCircleSharp}
-            slot="end"
-          ></IonIcon>
-        </div>
-        <MDBContainer className="petLostCarouselDesc">
-          <IonItem>
+        <IonContent>
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            <IonIcon
+              onClick={() => setSelectedImage(null)}
+              size="large"
+              icon={arrowBackCircleSharp}
+              slot="end"
+            ></IonIcon>
+          </div>
+          <MDBContainer className="petLostCarouselDesc">
+            {/*       <IonItem>
             <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
             <b>{capitalizeFirstLetter(thisPet!.nombre)}</b>
           </IonItem>
@@ -158,40 +110,111 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
           <IonItem>
             <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
             <b>{capitalizeFirstLetter(thisPet!.geoAdress)}</b>
-          </IonItem>
-          <IonButton onClick={() => setPetFound(true)}>
-            ¡Quiero adoptar!
-          </IonButton>
-          <img
-            src={
-              selectedImageURL && selectedImageURL.startsWith("http")
-                ? selectedImageURL
-                : `data:image/jpeg;base64,${selectedImageURL}`
-            }
-            alt="Selected"
-          />
-        </MDBContainer>
+          </IonItem> */}
+
+            <img
+              src={
+                selectedImageURL && selectedImageURL.startsWith("http")
+                  ? selectedImageURL
+                  : `data:image/jpeg;base64,${selectedImageURL}`
+              }
+              alt="Selected"
+            />
+            <Button onClick={() => setPetFound(true)}>
+              ¡Quiero adoptar a esta mascota!
+            </Button>
+          </MDBContainer>
+        </IonContent>
       </IonModal>
     );
   }
 
-  if (petAdopt) {
-    return <PrimerContacto open={setPetAdopt} action={"adopt"} />;
-  }
-
   return (
-    <div className="card">
-      {Array.isArray(allPets) && (
-        <Carousel
-          value={allPets}
-          numVisible={1}
-          numScroll={1}
-          responsiveOptions={responsiveOptions}
-          itemTemplate={petsTemplate}
-          showIndicators={false}
-        />
-      )}
-    </div>
+    <>
+      <IonContent className="carrouselImgContainer">
+        {Array.isArray(allPets) ? (
+          <div className="imageListsContainer">
+            <div className="arrowSwipButtons">
+              <IonIcon
+                slot="start"
+                size="large"
+                icon={arrowBackCircle}
+              ></IonIcon>
+              <IonBreadcrumb>
+                Mascotas en adopción: {allPets.length}
+              </IonBreadcrumb>
+              <IonIcon
+                slot="end"
+                size="large"
+                icon={arrowForwardCircle}
+              ></IonIcon>
+            </div>
+
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade]}
+              spaceBetween={50}
+              slidesPerView={1}
+              navigation
+              watchSlidesProgress
+              pagination={{ clickable: true }}
+              scrollbar={{ draggable: true }}
+              onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+            >
+              {allPets.map((pets: any, index: any) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="slidesContent petLostCarouselDesc">
+                      <img
+                        src={`data:image/jpeg;base64,${pets.fotoMascota}`}
+                        alt={pets.name}
+                        className="w-6 shadow-2"
+                        onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
+                      />
+                      <Button
+                        onClick={(e) => {
+                          setSelectedPet(pets);
+                          setPetFound(true);
+                          dispatch(petSelected(pets));
+                        }}
+                      >
+                        ¡Quiero adoptar a esta mascota!
+                      </Button>
+                      <Typography>
+                        <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
+                      </Typography>
+                      <Typography>
+                        <b>Perdida en:</b> {pets.geoAdress}
+                      </Typography>
+                      <Typography>
+                        <b> Peso:</b>
+                        {pets.pesoAproximado}
+                      </Typography>
+                      <Typography>
+                        <b> Color principal</b>
+                        {capitalizeFirstLetter(pets.colorPrimario)}
+                      </Typography>
+                      <Typography>
+                        {" "}
+                        <b> Color secundario: </b>
+                        {capitalizeFirstLetter(pets.colorSecundario)}
+                      </Typography>
+                      <Typography>
+                        {" "}
+                        <b> Descripcion:</b>
+                        {capitalizeFirstLetter(pets.descripcion)}
+                      </Typography>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        ) : (
+          <p> no hay mascotas</p>
+        )}
+      </IonContent>
+    </>
   );
 };
 

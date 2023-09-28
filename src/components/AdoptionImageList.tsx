@@ -18,6 +18,8 @@ import { Pet } from "../interfaces/types";
 import dogIcon from "../assets/SVG/dog-looking-up-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 import notFound from "../assets/SVG/location-not-found-svgrepo-com.svg"; // Importa y convierte el SVG en un componente React
 import CarouselImg from "./simple/CarouselImgAdopt";
+import { arrowBackCircle, arrowForwardCircle } from "ionicons/icons";
+import PrimerContacto from "./PrimerContacto";
 
 function srcset(image: string, size: number, rows = 1, cols = 1) {
   return {
@@ -33,6 +35,7 @@ export default function QuiltedImageList() {
   const adoptPets = useSelector(adoptPet);
   const selectedImageURL = selectedImage as unknown as string;
   const [selectedPet, setSelectedPet] = React.useState<Pet | null>(null);
+  const [petFound, setPetFound] = React.useState(false);
 
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
@@ -59,10 +62,20 @@ export default function QuiltedImageList() {
       </IonContent>
     );
   }
+  if (petFound) {
+    return (
+      <PrimerContacto
+        open={setPetFound}
+        action="petFound"
+      />
+    );
+  }
+
   return (
     <>
-      <CarouselImg pets={adoptPets} setPetFound={""} setSelectedPet={setSelectedPet}/>
+      <CarouselImg pets={adoptPets} setPetFound={setPetFound} setSelectedPet={setSelectedPet}/>
       <div className="imgListContainer">
+  
         {/*       <IonItem>
   <ImageList
     sx={{ width: "100%", height: "100%" }} //antes estaba en 100%

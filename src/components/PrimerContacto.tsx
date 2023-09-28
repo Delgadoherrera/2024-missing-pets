@@ -136,8 +136,8 @@ const Example: React.FC<ExampleProps> = ({ open, action }) => {
         <Typography>{selected.nombre}</Typography>
         <Typography>{selected.descripcion}</Typography> */}
 
-        <IonButton onClick={() => setSend(true)}>Enviar</IonButton>
-        <IonButton onClick={() => open(false)}> Cancelar</IonButton>
+        <Button onClick={() => setSend(true)}>Enviar</Button>
+        <Button onClick={() => open(false)}> Cancelar</Button>
       </IonContent>
     </IonModal>
   );

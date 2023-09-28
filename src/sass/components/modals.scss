@@ -18,14 +18,14 @@
 }
 
 .petLostCarouselDesc {
-    display: flex;
-    flex-direction: column;
-    text-align: left !important;
+    text-align: center !important;
 
-    ion-breadcrumbs{
+
+    ion-breadcrumbs {
         width: 100px;
         margin: 10px;
     }
+
     button {
         margin: 10px;
         margin-bottom: 15px;
@@ -38,7 +38,7 @@
     p {
         margin: 2px;
         max-width: 300px;
-        
+
     }
 
     b {
@@ -47,9 +47,6 @@
 
     }
 
-    img{
-        padding: 5%;
-    }
 }
 
 
@@ -87,6 +84,8 @@
 
     }
 
+
+
 }
 
 
@@ -100,25 +99,47 @@
 
     }
 
-    ion-button {
+    ion-button {}
 
+    button {
         height: 40px;
-        width: 100%;
+        width: 80%;
         padding: 0px;
+        margin: 10px;
+        margin-bottom: 15px;
+        border-radius: 10px !important;
+        background-color: $secondary !important;
+        color: $primary !important;
+
     }
+
 }
 
 
 .slidesContent {
     padding: 40px;
-    img{
+
+    img {
         border-radius: 30px;
         margin-bottom: 20px;
         width: 300px !important;
         height: 300px !important;
         object-fit: cover;
     }
-    button{
+
+    button {
         margin-bottom: 20px;
     }
+}
+.arrowSwipButtons{
+    display: flex;
+    justify-content: space-between;
+
+    ion-icon{
+        width: 40px;
+        height: 40px;
+        color: $primary!important;
+    }
+ 
+
 }
