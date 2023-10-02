@@ -37,6 +37,8 @@ export default function QuiltedImageList() {
   const [selectedPet, setSelectedPet] = React.useState<Pet | null>(null);
   const [petFound, setPetFound] = React.useState(false);
 
+  console.log('adoptPets',adoptPets)
+
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
     setSelectedPet(item);

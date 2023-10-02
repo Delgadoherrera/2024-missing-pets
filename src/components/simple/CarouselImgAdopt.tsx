@@ -121,14 +121,14 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
               alt="Selected"
             />
             <Button onClick={() => setPetFound(true)}>
-              ¡Quiero adoptar a esta mascota!
+              ¡Adoptar a esta mascota!
             </Button>
           </MDBContainer>
         </IonContent>
       </IonModal>
     );
   }
-
+  console.log("all pets", allPets);
   return (
     <>
       <IonContent className="carrouselImgContainer">
@@ -178,32 +178,34 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
                           dispatch(petSelected(pets));
                         }}
                       >
-                        ¡Quiero adoptar a esta mascota!
+                        ¡Adoptar a esta mascota!
                       </Button>
-                      <Typography>
-                        <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
-                      </Typography>
-                      <Typography>
+                      <div className="petsDescriptionContent">
+                        <Typography>
+                          <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
+                        </Typography>
+                        {/*               <Typography>
                         <b>Perdida en:</b> {pets.geoAdress}
-                      </Typography>
-                      <Typography>
-                        <b> Peso:</b>
-                        {pets.pesoAproximado}
-                      </Typography>
-                      <Typography>
-                        <b> Color principal</b>
-                        {capitalizeFirstLetter(pets.colorPrimario)}
-                      </Typography>
-                      <Typography>
-                        {" "}
-                        <b> Color secundario: </b>
-                        {capitalizeFirstLetter(pets.colorSecundario)}
-                      </Typography>
-                      <Typography>
-                        {" "}
-                        <b> Descripcion:</b>
-                        {capitalizeFirstLetter(pets.descripcion)}
-                      </Typography>
+                      </Typography> */}
+                        <Typography>
+                          <b> Peso:</b>
+                          {pets.pesoAproximado}
+                        </Typography>
+                        <Typography>
+                          <b> Color principal</b>
+                          {capitalizeFirstLetter(pets.colorPrimario)}
+                        </Typography>
+                        <Typography>
+                          {" "}
+                          <b> Color secundario: </b>
+                          {capitalizeFirstLetter(pets.colorSecundario)}
+                        </Typography>
+                        <Typography>
+                          {" "}
+                          <b> Descripcion:</b>
+                          {capitalizeFirstLetter(pets.descripcion)}
+                        </Typography>
+                      </div>
                     </div>
                   </SwiperSlide>
                 );

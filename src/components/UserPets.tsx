@@ -11,6 +11,7 @@ import ModalAddMyPet from "./ModalAddMyPet";
 import ActionSheet from "./simple/ActionSheet";
 import FrontCommand from "./simple/UserPetCommandCard";
 import { Pet } from "../interfaces/types";
+import OffScreen from "./simple/OffScreen";
 import {
   isOpen,
   mapOpen,
@@ -18,7 +19,7 @@ import {
   selectCount,
   userPet,
 } from "../features/dataReducer/dataReducer";
-import { IonContent, IonItem, IonText } from "@ionic/react";
+import { IonButton, IonContent, IonItem, IonText } from "@ionic/react";
 import { InputText } from "primereact/inputtext";
 
 export default function InteractiveList() {
@@ -44,6 +45,7 @@ export default function InteractiveList() {
   const [petsToMap, setPetsToMap] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPets, setFilteredPets] = useState([]);
+  const [showOffScreen, setShowOffScreen] = useState(false);
 
   useEffect(() => {
     setPetsToMap(myPets);
@@ -61,6 +63,7 @@ export default function InteractiveList() {
       setIsSelected(false);
       setShowGMap(false);
       setShowAdditionals(null);
+      setShowOffScreen(false);
     }
   }, [actionSheet]);
 
@@ -74,6 +77,7 @@ export default function InteractiveList() {
   useEffect(() => {
     if (isSelected === false) {
       setShowAdditionals(null);
+      setShowOffScreen(false);
     }
   }, []);
 
@@ -138,100 +142,100 @@ export default function InteractiveList() {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
-  const handleShowAdditionals = (index: any, pet: any) => {
-    setIsSelected(true);
+  const handleShowAdditionals = (pet: any) => {
     dispatch(petSelected(pet));
-    setShowAdditionals((prevIndex) => (prevIndex === index ? null : index));
+    setShowOffScreen(true);
   };
   const Additionals = (index: any) => {
     return (
-      <div className="additionalsUserPets" key={index}>
-        <img
-          src={`data:image/jpeg;base64,${pet!.fotoMascota}`}
-          alt={pet!.nombre}
-        ></img>
-        <div className="buttonsAdditionals">
-          {pet!.status === 0 ? (
-            <Button
-              size="medium"
-              onClick={() => {
-                handleAction(index, pet, "petLost");
-              }}
-            >
-              Mascota perdida
-            </Button>
-          ) : null}
-          {pet!.status === 1 ? (
-            <Button
-              size="medium"
-              onClick={() => {
-                handleAction(index, pet, "stopSearch");
-              }}
-            >
-              Quitar de busqueda
-            </Button>
-          ) : null}
-          <Button
-            size="medium"
-            onClick={() => {
-              handleAction(index, pet, "editPet");
-            }}
-          >
-            Editar
-          </Button>
-          {pet!.status === 4 ? (
-            <Button
-              size="medium"
-              onClick={() => {
-                handleAction(index, pet, "quitAdoptPet");
-              }}
-            >
-              Quitar de adopción
-            </Button>
-          ) : (
-            pet!.status !== 1 && (
+      <p> a</p>
+      /*       <div className="additionalsUserPets" key={index}>
+          <img
+            src={`data:image/jpeg;base64,${pet!.fotoMascota}`}
+            alt={pet!.nombre}
+          ></img>
+          <div className="buttonsAdditionals">
+            {pet!.status === 0 ? (
               <Button
                 size="medium"
                 onClick={() => {
-                  handleAction(index, pet, "adoptPet");
+                  handleAction(index, pet, "petLost");
                 }}
               >
-                Poner en adopción
+                Mascota perdida
               </Button>
-            )
-          )}
-          <Button
-            size="medium"
-            onClick={() => {
-              handleAction(index, pet, "deletePet");
-            }}
-          >
-            Eliminar
-          </Button>
-        </div>
-        <div className="petDetailAdditionals">
-          <IonText>
-            <b>Nombre:</b> {capitalizeFirstLetter(pet.nombre)}
-          </IonText>
-          <IonText>
-            <b> Tipo:</b> {capitalizeFirstLetter(pet.tipoMascota)}
-          </IonText>
-          <IonText>
-            <b>Color primario:</b> {capitalizeFirstLetter(pet.colorPrimario)}
-          </IonText>
-          <IonText>
-            <b>Color secundario:</b>{" "}
-            {capitalizeFirstLetter(pet.colorSecundario)}
-          </IonText>
-          <IonText>
-            <b> Peso aproximado:</b> {pet.pesoAproximado}
-          </IonText>
-
-          <IonText style={{ textAlign: "center", width: "80%" }}>
-            <b> Descripción:</b> {capitalizeFirstLetter(pet.descripcion)}
-          </IonText>
-        </div>
-      </div>
+            ) : null}
+            {pet!.status === 1 ? (
+              <Button
+                size="medium"
+                onClick={() => {
+                  handleAction(index, pet, "stopSearch");
+                }}
+              >
+                Quitar de busqueda
+              </Button>
+            ) : null}
+            <Button
+              size="medium"
+              onClick={() => {
+                handleAction(index, pet, "editPet");
+              }}
+            >
+              Editar
+            </Button>
+            {pet!.status === 4 ? (
+              <Button
+                size="medium"
+                onClick={() => {
+                  handleAction(index, pet, "quitAdoptPet");
+                }}
+              >
+                Quitar de adopción
+              </Button>
+            ) : (
+              pet!.status !== 1 && (
+                <Button
+                  size="medium"
+                  onClick={() => {
+                    handleAction(index, pet, "adoptPet");
+                  }}
+                >
+                  Poner en adopción
+                </Button>
+              )
+            )}
+            <Button
+              size="medium"
+              onClick={() => {
+                handleAction(index, pet, "deletePet");
+              }}
+            >
+              Eliminar
+            </Button>
+          </div>
+          <div className="petDetailAdditionals">
+            <IonText>
+              <b>Nombre:</b> {capitalizeFirstLetter(pet.nombre)}
+            </IonText>
+            <IonText>
+              <b> Tipo:</b> {capitalizeFirstLetter(pet.tipoMascota)}
+            </IonText>
+            <IonText>
+              <b>Color primario:</b> {capitalizeFirstLetter(pet.colorPrimario)}
+            </IonText>
+            <IonText>
+              <b>Color secundario:</b>{" "}
+              {capitalizeFirstLetter(pet.colorSecundario)}
+            </IonText>
+            <IonText>
+              <b> Peso aproximado:</b> {pet.pesoAproximado}
+            </IonText>
+  
+            <IonText style={{ textAlign: "center", width: "80%" }}>
+              <b> Descripción:</b> {capitalizeFirstLetter(pet.descripcion)}
+            </IonText>
+          </div>
+        </div> */
     );
   };
 
@@ -253,6 +257,8 @@ export default function InteractiveList() {
 
   return (
     <>
+      {showOffScreen && <OffScreen close={setShowOffScreen} />}
+
       <IonContent className="addPetUserPets">
         {!isSelected && (
           <InputText
@@ -337,7 +343,6 @@ export default function InteractiveList() {
                 margin: 2,
                 display: "flex",
                 justifyContent: "space-around",
-                backgroundColor: "rgba(0, 0, 0, 0.075)",
               }}
               className="petsContainer"
             >
@@ -362,8 +367,7 @@ export default function InteractiveList() {
                 <MenuOutlinedIcon />
               </Button>
             </MDBContainer>
-
-            <Additionals />
+            {isSelected && showAdditionals && showOffScreen && <Additionals />}
           </>
         ) : (
           <>
@@ -377,32 +381,24 @@ export default function InteractiveList() {
                         margin: 2,
                         display: "flex",
                         justifyContent: "space-around",
-                        backgroundColor: "rgba(0, 0, 0, 0.075)",
                       }}
                       className="petsContainer"
                       key={index}
+                      onClick={() => {
+                        handleShowAdditionals(pet);
+                      }}
                     >
-                      <Avatar
-                        style={{ width: "55px", height: "55px" }}
-                        className="userPetsPhoto"
-                        src={
-                          pet.fotoMascota !== ""
-                            ? `data:image/jpeg;base64,${pet.fotoMascota}`
-                            : ""
-                        }
-                      >
-                        {!pet.fotoMascota && <FolderIcon />}
-                      </Avatar>
                       <FrontCommand pet={pet} activeFrontMap={activeFrontMap} />
-                      <Button
+
+                  {/*     <Button
                         onClick={() => {
-                          handleShowAdditionals(index, pet);
+                          handleShowAdditionals(pet);
                         }}
                       >
                         <MenuOutlinedIcon />
-                      </Button>
+                      </Button> */}
                     </MDBContainer>
-                    {showAdditionals === index && isSelected && <Additionals />}
+                    {showAdditionals === index && <Additionals />}
                   </div>
                 );
               })}

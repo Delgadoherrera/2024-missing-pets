@@ -44,6 +44,7 @@
     "primeicons": "^6.0.1",
     "primereact": "^9.6.2",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.0",
     "react-dom": "^18.2.0",
     "react-final-form": "^6.5.9",
     "react-flip-toolkit": "^7.1.0",

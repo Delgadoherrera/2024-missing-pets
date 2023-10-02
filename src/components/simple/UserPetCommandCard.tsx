@@ -1,9 +1,11 @@
 import React from "react";
 import { MDBContainer } from "mdb-react-ui-kit";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { petSelected } from "../../features/dataReducer/dataReducer";
 import { Pet } from "../../interfaces/types";
+import FolderIcon from "@mui/icons-material/Folder";
+
 import {
   IonAlert,
   IonBackButton,
@@ -26,20 +28,23 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
   return (
     <MDBContainer className="frontCommandCard">
       <div className="commandContainerI">
+        <img
+          className="userPetsPhoto"
+          src={
+            pet.fotoMascota !== ""
+              ? `data:image/jpeg;base64,${pet.fotoMascota}`
+              : ""
+          }
+        >
+        </img>
+      </div>
+
+      <div className="commandContainerII">
         <IonBadge>
           {pet.nombre ? pet.nombre.slice(0, 6).toUpperCase() : ""}
           {pet.nombre.length > 6 ? <>...</> : null}
         </IonBadge>
-      </div>
-      <div className="commandContainerII">
-        {pet.status === 4 ? (
-          <IonBreadcrumb> En adopción</IonBreadcrumb>
-        ) : pet.status === 1 ? (
-          <IonBreadcrumb> Buscando</IonBreadcrumb>
-        ) : null}
-      </div>
-      <div className="commandContainerIII">
-        <Button>
+        {/*         <Button>
           {pet.status === 1 && (
             <IonIcon
               aria-hidden="true"
@@ -52,7 +57,14 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
           {pet.status === 4 && (
             <IonIcon aria-hidden="true" icon={adoptIcon} size="large" />
           )}
-        </Button>
+        </Button> */}
+      </div>
+      <div className="commandContainerII">
+        {pet.status === 4 ? (
+          <IonBreadcrumb> En adopción</IonBreadcrumb>
+        ) : pet.status === 1 ? (
+          <IonBreadcrumb> Buscando</IonBreadcrumb>
+        ) : null}
       </div>
     </MDBContainer>
   );

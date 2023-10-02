@@ -26,9 +26,9 @@ const LoginButton: React.FC = () => {
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
           />
         </div>
-        <p className="btn-text">
+        <div className="btn-text">
           <p>Entrar con Google</p>
-        </p>
+        </div>
       </div>
     </>
   );

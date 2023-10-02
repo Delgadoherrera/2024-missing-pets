@@ -24,18 +24,21 @@
     }
 }
 
-
+.userPetsPhoto{
+    border-radius: 10px !important;
+}
 .buttonAddMyPet {
     width: 100%;
     background-color: $secondary !important;
     padding: 50px !important;
+    height: 30px;
 }
 
 .petsContainer {
     display: flex;
     align-items: center;
     align-content: center;
-    height: 80px;
+    height: 120px;
     border-radius: 10px;
     background-color: $secondary !important;
 }
@@ -51,12 +54,25 @@
     display: flex;
     justify-content: center;
     width: 80px;
+    img{
+        padding:4px;
+        height: 100px;
+        width: 100px;
+        object-fit: contain;
+        border-radius: 40px;
+    }
+
+    ion-badge{
+        width: 50px;
+    }
+
 }
 
 .commandContainerII {
     display: flex;
     justify-content: center;
     width: 120px;
+
 
     ion-breadcrumb {
         color: $primary !important;
@@ -68,6 +84,7 @@
     display: flex;
     justify-content: center;
     width: 20px;
+    
 }
 
 .petDetailAdditionals {

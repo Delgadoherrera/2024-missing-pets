@@ -96,6 +96,7 @@ const RoutingComp: React.FC = () => {
             },
           })
           .then((res) => {
+            console.log('res,res.data.data',res.data.data)
             dispatch(adoptPets(res.data.data || {}));
             dispatch(
               positionValue({
@@ -157,6 +158,7 @@ const RoutingComp: React.FC = () => {
       console.log("BUSCANDO DATA");
       dispatch(userData(user || {}));
       getMyPets.getMyPets(user.email).then((data) => {
+        console.log('todasmascotas',data)
         setUserPet(data);
         dispatch(userPets(data || []));
       });

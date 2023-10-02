@@ -1,5 +1,3 @@
-
-
 .noPetFoundContainer {
 
 
@@ -13,4 +11,53 @@
         height: 70%;
     }
 
+}
+
+.petLostCarouselDesc {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1rem !important;
+
+    p {
+        font-size: 0.9rem;
+        width: 100%
+    }
+
+    img {
+        padding: 5px !important;
+        box-shadow: $third 0px 5px 50px -12px !important;
+        height: 250px !important;
+        width: 250px !important;
+    }
+
+    .petsDescriptionContent {
+        border-radius: 10px;
+        width: 100vw;
+        margin-bottom: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: $fourth;
+
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 }

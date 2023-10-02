@@ -132,7 +132,7 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   return (
     <>
       {Array.isArray(allPets) ? (
-        <div className="imageListsContainer">
+        <div className="carrouselImgContainer">
           <div className="arrowSwipButtons">
             <IonIcon slot="start" size="large" icon={arrowBackCircle}></IonIcon>
             <IonBreadcrumb>
@@ -175,17 +175,18 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
                     >
                       Encontré a esta mascota
                     </Button>
+                    <div className="petsDescriptionContent">
                     <Typography>
                       <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
                     </Typography>
                     <Typography>
                       <b>Perdida en:</b> {pets.geoAdress}
                     </Typography>
-                    <Typography>
+{/*                     <Typography>
                       <b> Peso:</b>
                       {pets.pesoAproximado}
-                    </Typography>
-                    <Typography>
+                    </Typography> */}
+                   {/*  <Typography>
                       <b> Color principal</b>
                       {capitalizeFirstLetter(pets.colorPrimario)}
                     </Typography>
@@ -193,12 +194,14 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
                       {" "}
                       <b> Color secundario: </b>
                       {capitalizeFirstLetter(pets.colorSecundario)}
-                    </Typography>
+                    </Typography> */}
                     <Typography>
                       {" "}
                       <b> Descripcion:</b>
                       {capitalizeFirstLetter(pets.descripcion)}
                     </Typography>
+                    </div>
+           
                   </div>
                 </SwiperSlide>
               );
