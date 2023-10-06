@@ -7,8 +7,7 @@ import AppBar from "../components/simple/AppBar";
 const Tab1 = ({ setPetDistance }: { setPetDistance: (value: any) => void }) => {
   return (
     <IonPage>
-      {/*       <AppBar />
-       */}{" "}
+      <AppBar/>
       <KnobDistanceLostPet setPetDistance={setPetDistance} />
       <ImageList />
     </IonPage>

@@ -1,52 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
-$white: #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #868e96;
-$gray-700: #495057;
-$gray-800: #373a3c;
-$gray-900: #212529;
-$black: #000;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-$blue: #2780E3;
-$indigo: #6610f2;
-$purple: #613d7c;
-$pink: #e83e8c;
-$red: #FF0039;
-$orange: #F2661F;
-$yellow: #BED32B;
-$green: #3FB618;
-$teal: #20c997;
-$cyan: #9954BB;
-$purple-unum: #d200a5 !default;
-$green-unum: #00d22d !default;
-$gray-unum: #363636 !default;
-$lightblue: lighten($blue, 20%);
+$five: hsla(0, 0%, 10%, 1); // Negro profundo
+$fourh: rgb(32, 31, 30); // Gris oscuro
+$third: hsla(30, 100%, 90%, 1); // Amarillo claro
+$secondary: rgb(48, 116, 194); // Gris claro
+$primary: rgb(49, 150, 233); // Blanco
+$soft: rgb(241, 238, 238); // Gris claro
+$note: #677483;
 
-$primary: #1976d2;
-$secondary: #90c5f366;
-$third: hwb(83 54% 31% / 0.263);
-$fourth: #b4e81aa0;
-$success: $green;
-$info: $lightblue;
-$warning: $yellow;
-$danger: $red;
-$light: $gray-100;
-$dark: $gray-800;
-$tooltip-bg: $gray-unum !default;
 
-* {
-    font-family: 'Comfortaa', cursive !important;
+/* ion-button,
+button {
+    background: $primary !important;
+    color: $soft!important
+} */
+
+ion-icon {
+    color: $secondary;
 }
 
+/* *{
+    font-family: 'Ubuntu Mono', monospace !important;
+} */
 
-.tooltip-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
+ion-content,
+ion-page {
+    background-color: transparent !important;
 }

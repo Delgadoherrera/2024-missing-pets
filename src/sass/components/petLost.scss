@@ -1,0 +1,121 @@
+.knobContainer {
+
+    background-color: $secondary;
+    border-radius: 0px !important;
+    display: flex;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly !important;
+
+
+    ion-list {
+        background-color: $secondary;
+        font-size: 1.1rem !important;
+        width: 100% !important;
+        display: flex;
+        width: fit-content;
+        font-size: 1rem;
+        color: $third;
+    }
+
+    ion-breadcrumb {
+        font-size: 0.9rem;
+        color: $third !important;
+        font-size: 1.1rem;
+        width: 90px !important;
+    }
+
+    .MuiSlider-rail {
+        background-color: $fourh;
+    }
+
+    .MuiSlider-track {
+        background-color: $fourh;
+    }
+
+    .css-eg0mwd-MuiSlider-thumb {
+        background-color: $fourh !important;
+    }
+
+    ion-slide {
+        .topPanelKnobDistance {}
+    }
+
+
+    .lineSlider {
+        width: 120px;
+    }
+}
+
+.carouselContent {
+
+    height: 100%;
+    padding: 20px;
+
+    p {
+        width: 70%;
+        margin: 10px;
+        color: $note;
+    }
+
+    .arrowSwipButtons {
+        display: flex;
+        flex-direction: flex;
+        justify-content: space-around;
+        margin: 10px;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+ 
+
+    .petLostCarouselDesc {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.1rem !important;
+
+        img{
+            width: 270px !important;
+            height: 270px !important;
+            object-fit: cover !important;
+            border-radius: 20px;
+            margin: 20px;
+        }
+
+    }
+
+    button {}
+
+    .petsDescriptionContent {
+        margin: 15px;
+    }
+
+    ion-icon {
+        color: $primary;
+    }
+}
+
+.contactModalContainer {
+    display: flex !important;
+    justify-content: space-around !important;
+    text-align: center;
+
+    ion-icon {
+        color: $primary;
+    }
+
+    img {
+        border-radius: 10px;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+
+    button {
+        margin-top: 10px;
+        margin-bottom: 10px ;
+    }
+
+}

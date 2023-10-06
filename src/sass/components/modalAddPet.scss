@@ -1,0 +1,53 @@
+.formsContainer {
+
+
+ 
+
+    button {
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        padding: 10px;
+    
+    }
+
+    ion-select,
+    ion-input,
+    ion-textarea {
+        width: 100%;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        border-radius: 10px;
+        padding: 5px;
+        margin: 2px;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        height: 60px;
+
+
+    }
+
+    ion-textarea {
+        height: 80px !important;
+    }
+
+    input {
+        margin: 5px;
+    }
+
+
+}
+
+
+.modal-container {
+    .imageCard {
+        padding: 30px;
+    }
+
+
+}
+.sendButton{
+    display: flex;
+    justify-content: center;
+}

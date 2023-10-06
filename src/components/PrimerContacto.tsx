@@ -13,7 +13,8 @@ import {
   IonItem,
   IonIcon,
 } from "@ionic/react";
-import { Button, Typography } from "@mui/material";
+import {  Typography } from "@mui/material";
+import {Button} from 'primereact/button'
 import { usersData } from "../features/dataReducer/dataReducer";
 import { useSelector } from "react-redux";
 import { Pet } from "../interfaces/types";
@@ -108,7 +109,9 @@ const Example: React.FC<ExampleProps> = ({ open, action }) => {
   }, [send]);
 
   return (
-    <IonModal isOpen={isOpen}>
+    <IonModal isOpen={isOpen} >
+      <div className="firstContactModal">
+
       <IonIcon
         style={{ alignSelf: "flex-end" }}
         size="large"
@@ -135,10 +138,15 @@ const Example: React.FC<ExampleProps> = ({ open, action }) => {
 {/* 
         <Typography>{selected.nombre}</Typography>
         <Typography>{selected.descripcion}</Typography> */}
-
+        <div style={{display:'flex', justifyContent:'center'}}>
         <Button onClick={() => setSend(true)}>Enviar</Button>
         <Button onClick={() => open(false)}> Cancelar</Button>
+        </div>
+
+     
       </IonContent>
+      </div>
+
     </IonModal>
   );
 };

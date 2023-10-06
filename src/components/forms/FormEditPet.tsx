@@ -130,13 +130,13 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
       ) : null}
       <form onSubmit={handleSubmit(onSubmit)} className="formEditPet">
         <div className="pictureModal">
-        <img
-          style={{ width: "150px", height: "150px", objectFit: "cover" }}
-          src={`data:image/jpeg;base64,${pet?.fotoMascota}`}
-          alt={pet?.nombre}
-        ></img>
+          <img
+            style={{ width: "150px", height: "150px", objectFit: "cover" }}
+            src={`data:image/jpeg;base64,${pet?.fotoMascota}`}
+            alt={pet?.nombre}
+          ></img>
         </div>
- 
+
         <IonBreadcrumb>
           <Controller
             render={({ field }) => (
@@ -266,9 +266,8 @@ const ModalEditPet: React.FC<FrontCommandProps> = ({
         />
         {/* === ION INPUT === */}
         <IonBreadcrumb>
-          <IonText>Descripcion:</IonText>
           <IonTextarea
-            placeholder={"   " + pet!.descripcion}
+            placeholder={`Descripcion: ${pet!.descripcion}`}
             {...register("descripcion")}
             aria-label="descripcion"
           />

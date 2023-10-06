@@ -37,28 +37,26 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
 
   return (
     <IonModal isOpen={isOpen} className="modal-container">
-      <IonIcon
-        onClick={() => {
-          setIsOpen(false);
-          setAddPet(false);
-          dispatch(imageValue("" || 10));
-        }}
-        icon={closeCircle}
-        size="large"
-        className="close-icon"
-      ></IonIcon>
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <IonIcon
+          onClick={() => {
+            setIsOpen(false);
+            setAddPet(false);
+            dispatch(imageValue("" || 10));
+          }}
+          icon={closeCircle}
+          size="large"
+          className="close-icon"
+        ></IonIcon>
+      </div>
+      <IonContent>
+
+
       {value ? (
         value.length > 1 ? (
           <IonImg
             className="imageCard"
-            src={`data:image/jpeg;base64,${value}`}
-            style={{
-              width: "100vw",
-              height: "15vh",
-              objectFit: "contain",
-              marginTop: "2%",
-              zoom: "100%",
-            }}
+            src={`data:image/jpeg;base64,${value}`}       
           />
         ) : null
       ) : null}
@@ -67,6 +65,8 @@ const ModalEditPet = ({ setAddPet }: { setAddPet: (value: any) => void }) => {
         Adjuntar imagen
       </IonBreadcrumb>
       <FormAddMyPet setAddPet={setAddPet} />
+
+      </IonContent>
     </IonModal>
   );
 };

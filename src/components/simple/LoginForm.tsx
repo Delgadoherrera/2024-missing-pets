@@ -4,8 +4,8 @@ import { IonInput } from "@ionic/react";
 import { Password } from "primereact/password";
 import { Button } from "@mui/material";
 import LoginButton from "../LoginButton";
-import dogIcon from "../../assets/SVG/cat-symbol-svgrepo-com.svg"
- // Importa y convierte el SVG en un componente React
+import dogIcon from "../../assets/SVG/cat-symbol-svgrepo-com.svg";
+// Importa y convierte el SVG en un componente React
 
 export default function LoginForm() {
   const [value, setValue] = useState({
@@ -19,8 +19,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="loginForm">
-        <img className="imgIconHome" src={dogIcon}>
-        </img>
+        <img className="imgIconHome" src={dogIcon}></img>
         <InputText
           onChange={(e) =>
             setValue({ usuario: e.target.value, password: value.password })

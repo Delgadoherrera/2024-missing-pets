@@ -31,7 +31,7 @@ const KnobDistanceLostPet = ({
   setPetDistance: (value: any) => void;
 }) => {
   const [value, setValue] = useState<any>(1);
-  const [temp,setTemp]=useState<any>(value)
+  const [temp, setTemp] = useState<any>(value);
   const [selectedCities, setSelectedCities] = useState(null);
 
   const cities = [
@@ -52,8 +52,9 @@ const KnobDistanceLostPet = ({
     setPetDistance(value);
   }, [value]);
   return (
-    <MDBContainer style={{ textAlign: "center" }} className="knobContainer">
-      <IonList>
+    <MDBContainer className="knobContainer">
+      <div className="topPanelKnobDistance">
+        <IonList>
           <IonSelect placeholder="Filtrar " multiple={true}>
             <IonSelectOption value="apples">Perro</IonSelectOption>
             <IonSelectOption value="oranges">Gato</IonSelectOption>
@@ -68,23 +69,30 @@ const KnobDistanceLostPet = ({
             <IonSelectOption value="bananas">Adulto</IonSelectOption>
             <IonSelectOption value="bananas">Viejito</IonSelectOption>
           </IonSelect>
-      </IonList>
-      <IonBreadcrumb
-        style={{
-          margin: "1%",
-          width: "180px",
-          textAlign: "center",
-          justifyContent: "center",
-        }}
-      >
-        Distancia: {temp} Km.
-      </IonBreadcrumb>
-      <Slider
-        max={100}
-        min={1}
-        onChange={(e, newValue) => setTemp(newValue)} // Usa newValue en lugar de e.current.value        onDragEnd={() => setPetDistance(value)}
-        onChangeCommitted={(e, newValue) => setValue(newValue)} // Usa newValue en lugar de e.current.value        onDragEnd={() => setPetDistance(value)}
-      />
+        </IonList>
+      </div>
+      <div>
+        <IonBreadcrumb
+          style={{
+            margin: "1%",
+            width: "180px",
+            textAlign: "center",
+            justifyContent: "center",
+          }}
+        >
+          {temp} Km.
+        </IonBreadcrumb>
+      </div>
+
+      <div>
+        <Slider
+          max={100}
+          min={1}
+          onChange={(e, newValue) => setTemp(newValue)} // Usa newValue en lugar de e.current.value        onDragEnd={() => setPetDistance(value)}
+          onChangeCommitted={(e, newValue) => setValue(newValue)} // Usa newValue en lugar de e.current.value        onDragEnd={() => setPetDistance(value)}
+          className="lineSlider"
+        />
+      </div>
     </MDBContainer>
   );
 };

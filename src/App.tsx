@@ -74,9 +74,7 @@ const App: React.FC = (pageProps: any) => {
           <DataRoutingApp />
         ) : (
           <IonContent>
-            
-
-      {/*       <img
+            {/*       <img
               src={dogIcon}
               style={{
                 objectFit: "cover",
@@ -87,7 +85,7 @@ const App: React.FC = (pageProps: any) => {
               }}
               className="imagenInicial"
             ></img> */}
-            <div className="containerLoginButton">
+            <div>
               {isAuthenticated ? null : <LoginForm />}
             </div>
           </IonContent>

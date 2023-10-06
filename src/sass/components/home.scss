@@ -1,68 +1,101 @@
-.imagenInicial {
-    width: 100%;
-}
-
-.appBarContainer {
-    background-color: $primary !important;
-}
-
-ion-header {
-    background-color: $primary !important;
-}
-
-.p-button {
-    background-color: $primary !important;
-    padding: 2%;
-
-}
-
-ion-badge {
-    background-color: $primary !important;
-    fill: none !important;
-}
-
-ion-icon {
-    color: #1976d2 !important;
-}
-
-ion-toolbar {
-    --background: none !important;
-    color: $white !important;
-
-}
-
-
 .loginForm {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    justify-content:space !important;
-    position: relative;
-    bottom: 40px;
 
+    img {
+        width: 250px;
+        height: 250px;
+        margin: 30px;
+    }
 
     input {
-        width: 100%;
-        text-align: center;
-        margin:5px;
-
+        margin: 5px;
+        width: 250px;
     }
-    button{
-        margin: 4px;
-    }
-  
-    .imgIconHome{
-        height: 150px;
-        color: red !important;
-        margin-bottom: 40px;
 
+
+    $white: #fff;
+    $google-blue: #4285f4;
+    $button-active-blue: #1669f2;
+
+    .google-btn {
+        cursor: pointer;
+        margin-top: 5px;
+        width: 220px;
+        height: 42px;
+        background-color: $google-blue;
+        border-radius: 2px;
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+
+        transition: box-shadow .3s ease;
+
+        .google-icon-wrapper {
+            position: absolute;
+            margin-top: 1px;
+            margin-left: 1px;
+            width: 40px;
+            height: 40px;
+            border-radius: 2px;
+            background-color: $white;
+        }
+
+        .google-icon {
+            position: absolute;
+            margin-top: 11px;
+            margin-left: 11px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-text {
+            float: right;
+            margin: 11px 40px 0 0;
+            color: $white;
+            font-size: 14px;
+            letter-spacing: 0.2px;
+        }
+
+        &:hover {
+            box-shadow: 0 0 6px $google-blue;
+        }
+
+        &:active {
+            background: $button-active-blue;
+        }
     }
 }
 
+header {
+    background-color: $primary !important;
+}
 
-.containerLoginButton {
-    margin: 0;
+
+
+//MAPA
+
+@import url("https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@100;500;700&family=Space+Grotesk:wght@300&display=swap");
+
+capacitor-google-map {
+    display: inline-block;
+    width: 100%;
+    height: 50vh;
+    z-index: 999999;
+}
+
+ion-content {
+    --background: transparent !important;
+    background-color: transparent !important;
+    top: 0px;
+}
+
+ion-range {
+    max-height: 4rem !important;
+    max-width: 50%;
+}
+
+.gm-fullscreen-control,
+.gmnoprint {
+    display: none;
 }

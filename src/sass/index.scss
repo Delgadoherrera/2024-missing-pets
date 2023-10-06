@@ -1,12 +1,13 @@
 @import './styles.scss';
 @import '@ionic/react/css/ionic-swiper.css';//components
 
-@import './components/userPets.scss';
-@import './components/findMyPet.scss';
-@import './components/imgPanel.scss';
-@import './components/chat.scss';
-@import './components/forms.scss';
-@import './components/modals.scss';
-@import './components/buttons.scss';
 @import './components/home.scss';
-@import './components/imgLists.scss';
+@import './components/petLost.scss';
+@import './components/modalAddPet.scss';
+@import './components/modalFirstContact.scss';
+@import './components/userPets.scss';
+@import './components/imgCarousel.scss';
+
+
+
+

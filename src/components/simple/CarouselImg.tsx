@@ -39,6 +39,7 @@ import {
   arrowBackCircle,
   arrowBackCircleSharp,
   arrowForwardCircle,
+  close,
 } from "ionicons/icons";
 import { MDBContainer } from "mdb-react-ui-kit";
 interface FrontCommandProps {
@@ -53,7 +54,6 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
 }) => {
   const [allPets, setAllPets] = React.useState<Pet | null>(null);
   const [thisPet, setThisPet] = React.useState<Pet | null>(null);
-  const swiper = useSwiper();
   const [selectedImage, setSelectedImage] = React.useState(null); // State variable to track the clicked image
   const selectedImageURL = selectedImage as unknown as string;
   const dispatch = useDispatch();
@@ -77,41 +77,16 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
         isOpen={!!selectedImage}
         onDidDismiss={() => setSelectedImage(null)}
       >
-        <IonContent>
+        <IonContent className="contactModalContainer">
           <div style={{ display: "flex", justifyContent: "end" }}>
             <IonIcon
               onClick={() => setSelectedImage(null)}
               size="large"
-              icon={arrowBackCircleSharp}
+              icon={close}
               slot="end"
             ></IonIcon>
           </div>
-          <MDBContainer className="petLostCarouselDesc">
-            {/*       <IonItem>
-            <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
-            <b>{capitalizeFirstLetter(thisPet!.nombre)}</b>
-          </IonItem>
-          <IonItem>
-            <IonBreadcrumbs>Peso:</IonBreadcrumbs>
-            <b>{thisPet!.pesoAproximado}</b>
-          </IonItem>
-          <IonItem>
-            <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
-            <b>{capitalizeFirstLetter(thisPet!.colorPrimario)}</b>
-          </IonItem>
-          <IonItem>
-            <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
-            <b>{capitalizeFirstLetter(thisPet!.colorSecundario)}</b>
-          </IonItem>
-          <IonItem>
-            <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
-            <b>{capitalizeFirstLetter(thisPet!.descripcion)}</b>
-          </IonItem>
-          <IonItem>
-            <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
-            <b>{capitalizeFirstLetter(thisPet!.geoAdress)}</b>
-          </IonItem> */}
-
+          <MDBContainer>
             <img
               src={
                 selectedImageURL && selectedImageURL.startsWith("http")
@@ -120,9 +95,33 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
               }
               alt="Selected"
             />
-            <Button onClick={() => setPetFound(true)}>
+              <Button onClick={() => setPetFound(true)}>
               ¡Encontré a esta mascota!
             </Button>
+            <IonItem>
+              <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.nombre)}</b>
+            </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Peso:</IonBreadcrumbs>
+              <b>{thisPet!.pesoAproximado}</b>
+            </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Color principal:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.colorPrimario)}</b>
+            </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Color secundario:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.colorSecundario)}</b>
+            </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.descripcion)}</b>
+            </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.geoAdress)}</b>
+            </IonItem>
           </MDBContainer>
         </IonContent>
       </IonModal>
@@ -132,12 +131,10 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   return (
     <>
       {Array.isArray(allPets) ? (
-        <div className="carrouselImgContainer">
+        <div className="carouselContent">
           <div className="arrowSwipButtons">
             <IonIcon slot="start" size="large" icon={arrowBackCircle}></IonIcon>
-            <IonBreadcrumb>
-              Mascotas perdidas: {allPets.length}
-            </IonBreadcrumb>
+            <IonBreadcrumb>Mascotas perdidas: {allPets.length}</IonBreadcrumb>
             <IonIcon
               slot="end"
               size="large"
@@ -163,10 +160,14 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
                     <img
                       src={`data:image/jpeg;base64,${pets.fotoMascota}`}
                       alt={pets.name}
-                      className="w-6 shadow-2"
                       onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
+                      className="imgCarousel"
                     />
-                    <Button
+                    {/*               <Typography>
+                      <b> Perdida en : </b>
+                      {pets.geoAdress}
+                    </Typography> */}
+              {/*       <Button
                       onClick={(e) => {
                         setSelectedPet(pets);
                         setPetFound(true);
@@ -174,34 +175,8 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
                       }}
                     >
                       Encontré a esta mascota
-                    </Button>
-                    <div className="petsDescriptionContent">
-                    <Typography>
-                      <b>Nombre:</b> {capitalizeFirstLetter(pets.nombre)}
-                    </Typography>
-                    <Typography>
-                      <b>Perdida en:</b> {pets.geoAdress}
-                    </Typography>
-{/*                     <Typography>
-                      <b> Peso:</b>
-                      {pets.pesoAproximado}
-                    </Typography> */}
-                   {/*  <Typography>
-                      <b> Color principal</b>
-                      {capitalizeFirstLetter(pets.colorPrimario)}
-                    </Typography>
-                    <Typography>
-                      {" "}
-                      <b> Color secundario: </b>
-                      {capitalizeFirstLetter(pets.colorSecundario)}
-                    </Typography> */}
-                    <Typography>
-                      {" "}
-                      <b> Descripcion:</b>
-                      {capitalizeFirstLetter(pets.descripcion)}
-                    </Typography>
-                    </div>
-           
+                    </Button> */}
+                    <div className="petsDescriptionContent"></div>
                   </div>
                 </SwiperSlide>
               );

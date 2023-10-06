@@ -5,12 +5,12 @@ import { formValue, refreshThis } from "../../features/dataReducer/dataReducer";
 import { PetServiceWeb } from "../../services/PetServiceWeb";
 import { MensajesService } from "../../services/MsjService";
 
-
 interface ActionSheetExampleProps {
   header: string; // Cambia 'string' al tipo correcto si el tipo real es diferente
   action: any; // Cambia 'any' al tipo correcto si el tipo real es diferente
   petToDelete: any; // Cambia 'any' al tipo correcto si el tipo real es diferente
   setShowActionSheet: any;
+  cancelAction: any;
 }
 
 const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
@@ -18,16 +18,15 @@ const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
   action,
   petToDelete,
   setShowActionSheet,
+  cancelAction,
 }) => {
   const [result, setResult] = useState();
   const dispatch = useDispatch();
   const handleActionSheet = async (actionType: any) => {
     const uploadNewPet = new PetServiceWeb();
-    const msgService = new MensajesService
+    const msgService = new MensajesService();
 
     switch (actionType) {
-    
-
       case "delete":
         uploadNewPet.deletePet(petToDelete.idMascota).then((data) => {
           dispatch(formValue({} || 10));
@@ -86,7 +85,7 @@ const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
           text: "Cancel",
           role: "cancel",
           handler: () => {
-            setShowActionSheet(false);
+            cancelAction(false);
           },
         },
       ],

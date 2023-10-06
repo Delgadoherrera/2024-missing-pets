@@ -37,6 +37,7 @@ const Home = () => {
     },
   ];
 
+  console.log('markers',markers)
   useEffect(() => {
     if (showMaps) {
       const createMap = async () => {
