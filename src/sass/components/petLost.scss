@@ -1,6 +1,6 @@
 .knobContainer {
 
-    background-color: $secondary;
+    background-color: $fourh;
     border-radius: 0px !important;
     display: flex;
     align-items: center;
@@ -10,13 +10,13 @@
 
 
     ion-list {
-        background-color: $secondary;
+        background-color: $fourh;
         font-size: 1.1rem !important;
         width: 100% !important;
         display: flex;
         width: fit-content;
         font-size: 1rem;
-        color: $third;
+        color: $soft;
     }
 
     ion-breadcrumb {
@@ -27,15 +27,15 @@
     }
 
     .MuiSlider-rail {
-        background-color: $fourh;
+        background-color: $soft;
     }
 
     .MuiSlider-track {
-        background-color: $fourh;
+        background-color: $primary;
     }
 
     .css-eg0mwd-MuiSlider-thumb {
-        background-color: $fourh !important;
+        background-color: $soft !important;
     }
 
     ion-slide {
@@ -51,7 +51,8 @@
 .carouselContent {
 
     height: 100%;
-    padding: 20px;
+    padding: 0px;
+    margin:0px;
 
     p {
         width: 70%;
@@ -68,7 +69,7 @@
         margin-right: 0px;
     }
 
- 
+
 
     .petLostCarouselDesc {
         display: flex;
@@ -76,7 +77,7 @@
         align-items: center;
         font-size: 1.1rem !important;
 
-        img{
+        img {
             width: 270px !important;
             height: 270px !important;
             object-fit: cover !important;
@@ -84,6 +85,10 @@
             margin: 20px;
         }
 
+    }
+
+    .card-text {
+        height: 120px !important;
     }
 
     button {}
@@ -101,6 +106,18 @@
     display: flex !important;
     justify-content: space-around !important;
     text-align: center;
+    ion-item{
+        margin: 10px;
+        width: 100%;
+        padding: 0px;
+    }
+
+    b{
+        width: 100%;
+    }
+    ion-breadcrumbs{
+        width: 50%;
+    }
 
     ion-icon {
         color: $primary;
@@ -115,7 +132,7 @@
 
     button {
         margin-top: 10px;
-        margin-bottom: 10px ;
+        margin-bottom: 10px;
     }
 
 }

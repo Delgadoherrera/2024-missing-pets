@@ -35,8 +35,7 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
               ? `data:image/jpeg;base64,${pet.fotoMascota}`
               : ""
           }
-        >
-        </img>
+        ></img>
       </div>
 
       <div className="commandContainerII">

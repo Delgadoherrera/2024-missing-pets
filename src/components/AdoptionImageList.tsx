@@ -37,7 +37,7 @@ export default function QuiltedImageList() {
   const [selectedPet, setSelectedPet] = React.useState<Pet | null>(null);
   const [petFound, setPetFound] = React.useState(false);
 
-  console.log('adoptPets',adoptPets)
+  console.log("adoptPets", adoptPets);
 
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
@@ -65,19 +65,19 @@ export default function QuiltedImageList() {
     );
   }
   if (petFound) {
-    return (
-      <PrimerContacto
-        open={setPetFound}
-        action="petFound"
-      />
-    );
+    return <PrimerContacto open={setPetFound} action="petFound" />;
   }
 
   return (
     <>
-      <CarouselImg pets={adoptPets} setPetFound={setPetFound} setSelectedPet={setSelectedPet}/>
+      <IonContent>
+        <CarouselImg
+          pets={adoptPets}
+          setPetFound={setPetFound}
+          setSelectedPet={setSelectedPet}
+        />
+      </IonContent>
       <div className="imgListContainer">
-  
         {/*       <IonItem>
   <ImageList
     sx={{ width: "100%", height: "100%" }} //antes estaba en 100%
@@ -163,4 +163,3 @@ function capitalizeFirstLetter(str: any) {
   // Convierte la primera letra a mayúscula y el resto de la cadena a minúscula
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
-

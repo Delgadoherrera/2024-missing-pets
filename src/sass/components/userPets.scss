@@ -5,14 +5,19 @@
         border-radius: 10px;
         height: 100px;
         margin: 2px;
-        align-items: center;
         background-color: rgb(233, 238, 245);
+        align-items: center !important;
+
+        .commandContainerII {
+            width: 110px;
+            display: flex;
+        }
 
 
 
-
-
-
+        ion-breadcrumb {
+            width: 120px;
+        }
 
         img {
             width: 70px;
@@ -36,6 +41,7 @@
             display: flex;
             justify-content: center;
             height: 55px;
+            background-color: $fourh;
         }
 
     }
@@ -58,7 +64,7 @@
 
 .offCanvasBody {
 
-    b{
+    b {
         margin-left: 20px;
         margin-right: 20px;
 

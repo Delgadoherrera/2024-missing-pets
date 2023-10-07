@@ -1,13 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 $five: hsla(0, 0%, 10%, 1); // Negro profundo
-$fourh: rgb(32, 31, 30); // Gris oscuro
+$fourh: rgb(21, 24, 29); // Gris oscuro
 $third: hsla(30, 100%, 90%, 1); // Amarillo claro
 $secondary: rgb(48, 116, 194); // Gris claro
 $primary: rgb(49, 150, 233); // Blanco
-$soft: rgb(241, 238, 238); // Gris claro
-$note: #677483;
+/* $primary: #3b71ca; // Blanco
+$primary: rgb(63, 71, 163); // Blanco */
 
+
+
+
+$soft: rgb(241, 238, 238); // Gris clarou
+$note: #677483;
 
 /* ion-button,
 button {
@@ -26,4 +31,8 @@ ion-icon {
 ion-content,
 ion-page {
     background-color: transparent !important;
+}
+
+.btn-primary {
+    background-color: $primary;
 }

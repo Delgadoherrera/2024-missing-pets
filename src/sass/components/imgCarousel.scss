@@ -1,0 +1,52 @@
+.carouselItem {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    /* Oculta las partes difuminadas fuera del contenedor */
+
+
+    img {
+        height: 300px;
+        width: 350px;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .card-text {
+        width: 100%;
+        height: 90px;
+    }
+
+    .card-body {
+        margin: 10px;
+
+    }
+
+}
+
+.carousel-control-next-icon {
+    color: $primary;
+}
+
+.carousel-control-prev-icon {
+    color: $primary;
+
+
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    align-items: last baseline !important;
+}
+
+.carouselContent {
+    text-align: center;
+
+    p {
+        width: 100%;
+    }
+}

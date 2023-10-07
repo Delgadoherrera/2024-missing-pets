@@ -1,19 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "primereact/button";
+import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
 import { Tag } from "primereact/tag";
 import { Typography } from "@mui/material";
 import { Pet } from "../../interfaces/types";
 import { useDispatch } from "react-redux";
 import { petSelected } from "../../features/dataReducer/dataReducer";
-import Carousel from "react-bootstrap/Carousel";
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn,
-} from "mdb-react-ui-kit";
 import {
   IonBreadcrumb,
   IonBreadcrumbs,
@@ -68,7 +60,6 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   const swiperRef = useRef<SwiperType | null>(null);
   const [swiperReady, setSwiperReady] = useState(false);
   const swiper = useSwiper();
-  const [index, setIndex] = useState(1);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -79,7 +70,7 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
     setThisPet(item);
   };
   const handleSwiperReady = (swiper: SwiperType) => {
-    console.log("SwiperType", SwiperType);
+    console.log('SwiperType',SwiperType)
     setSwiperReady(true);
   };
   function capitalizeFirstLetter(str: any) {
@@ -150,13 +141,7 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
     <>
       {Array.isArray(allPets) ? (
         <div className="carouselContent">
-          <p>
-            Mascotas perdidas:
-            <b>
-              {index + 1} / {allPets.length}
-            </b>
-          </p>
-          {/*           <div className="arrowSwipButtons">
+          <div className="arrowSwipButtons">
             <IonIcon
               slot="start"
               size="large"
@@ -169,37 +154,49 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
               size="large"
               icon={arrowForwardCircle}
               onClick={() => swiper.slideNext()}
-            ></IonIcon>
-          </div> */}
-          <div style={{ textAlign: "center", width: "100%" }}></div>
-          <Carousel onSlide={(e) => setIndex(e)} fade interval={null}>
+              ></IonIcon>
+          </div>
+
+          <Swiper
+            modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade]}
+            spaceBetween={50}
+            slidesPerView={1}
+            navigation
+            watchSlidesProgress
+            pagination={{ clickable: true }}
+            scrollbar={{ draggable: true }}
+            onSwiper={handleSwiperReady} // Utiliza el evento onSwiper para saber cuándo Swiper está listo
+            onSlideChange={() => console.log("slide change")}
+          >
             {allPets.map((pets: any, index: any) => {
               return (
-                <Carousel.Item style={{ textAlign: "center" }}>
-                  <MDBCard className="carouselItem">
-                    <MDBCardImage
+                <SwiperSlide key={index}>
+                  <div className="slidesContent petLostCarouselDesc">
+                    <img
                       src={`data:image/jpeg;base64,${pets.fotoMascota}`}
                       alt={pets.name}
                       onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
                       className="imgCarousel"
                     />
-                    <MDBCardBody>
-                      <MDBCardTitle>{pets.nombre}</MDBCardTitle>
-                      <MDBCardText>
-                        <b> Encontrada en: </b> {pets.geoAdress}
-                      </MDBCardText>
-                   
-                    </MDBCardBody>
-                    <MDBBtn
-                        onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
-                      >
-                        Detalles
-                      </MDBBtn>
-                  </MDBCard>
-                </Carousel.Item>
+                    {/*               <Typography>
+                      <b> Perdida en : </b>
+                      {pets.geoAdress}
+                    </Typography> */}
+                    {/*       <Button
+                      onClick={(e) => {
+                        setSelectedPet(pets);
+                        setPetFound(true);
+                        dispatch(petSelected(pets));
+                      }}
+                    >
+                      Encontré a esta mascota
+                    </Button> */}
+                    <div className="petsDescriptionContent"></div>
+                  </div>
+                </SwiperSlide>
               );
             })}
-          </Carousel>
+          </Swiper>
         </div>
       ) : (
         <p> no hay mascotas</p>

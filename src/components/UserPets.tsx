@@ -244,7 +244,6 @@ export default function InteractiveList() {
     dispatch(mapOpen(true));
   };
 
-
   if (showOffScreen) {
     return <OffScreen close={setShowOffScreen} />;
   }
@@ -254,12 +253,23 @@ export default function InteractiveList() {
       <IonContent className="addPetUserPets">
         {!isSelected && (
           <div className="buscarUserPets">
+            <div className="addPetButtonContainer">
+              <Button
+                className="buttonAddMyPet"
+                onClick={() => {
+                  setAddPet(true);
+                  setActionSheet(true);
+                }}
+              >
+                Agregar mascota
+              </Button>
+            </div>
             <InputText
               type="text"
               placeholder="Buscar por nombre..."
               value={searchTerm}
               onChange={handleSearchChange}
-              style={{ width: "100%", height: "60px" }}
+              style={{ width: "100%", height: "60px", padding: "12px" }}
             />
           </div>
         )}
@@ -274,7 +284,7 @@ export default function InteractiveList() {
             borderRadius: "50px",
           }}
         >
-          {!isSelected && (
+          {/*           {!isSelected && (
             <div className="addPetButtonContainer">
               <Button
                 className="buttonAddMyPet"
@@ -286,7 +296,7 @@ export default function InteractiveList() {
                 Agregar mascota
               </Button>
             </div>
-          )}
+          )} */}
         </MDBContainer>
 
         {actionSheet && addPet && <ModalAddMyPet setAddPet={setAddPet} />}

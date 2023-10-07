@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "primereact/button";
-import { Carousel, CarouselResponsiveOption } from "primereact/carousel";
 import { Tag } from "primereact/tag";
 import { Typography } from "@mui/material";
 import { Pet } from "../../interfaces/types";
 import { useDispatch } from "react-redux";
 import { petSelected } from "../../features/dataReducer/dataReducer";
+import Carousel from "react-bootstrap/Carousel";
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardImage,
+  MDBBtn,
+} from "mdb-react-ui-kit";
 import {
   IonBreadcrumb,
   IonBreadcrumbs,
@@ -16,7 +24,8 @@ import {
   IonModal,
   IonPage,
 } from "@ionic/react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { SwiperSlide, useSwiper, Swiper } from "swiper/react";
+import { Swiper as SwiperType } from "swiper";
 import {
   Autoplay,
   Keyboard,
@@ -56,6 +65,11 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   const [thisPet, setThisPet] = React.useState<Pet | null>(null);
   const [selectedImage, setSelectedImage] = React.useState(null); // State variable to track the clicked image
   const selectedImageURL = selectedImage as unknown as string;
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [swiperReady, setSwiperReady] = useState(false);
+  const swiper = useSwiper();
+  const [index, setIndex] = useState(1);
+
   const dispatch = useDispatch();
   useEffect(() => {
     setAllPets(pets);
@@ -63,6 +77,10 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl); // Update the state variable with the clicked image URL
     setThisPet(item);
+  };
+  const handleSwiperReady = (swiper: SwiperType) => {
+    console.log("SwiperType", SwiperType);
+    setSwiperReady(true);
   };
   function capitalizeFirstLetter(str: any) {
     // Verifica si la cadena está vacía o es nula
@@ -95,9 +113,8 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
               }
               alt="Selected"
             />
-
             <Button onClick={() => setPetFound(true)}>
-              ¡Adoptar a esta mascota!
+              ¡Encontré a esta mascota!
             </Button>
             <IonItem>
               <IonBreadcrumbs>Nombre:</IonBreadcrumbs>
@@ -119,6 +136,10 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
               <IonBreadcrumbs>Descripción:</IonBreadcrumbs>
               <b>{capitalizeFirstLetter(thisPet!.descripcion)}</b>
             </IonItem>
+            <IonItem>
+              <IonBreadcrumbs>Lugar encontrada:</IonBreadcrumbs>
+              <b>{capitalizeFirstLetter(thisPet!.geoAdress)}</b>
+            </IonItem>
           </MDBContainer>
         </IonContent>
       </IonModal>
@@ -129,52 +150,56 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
     <>
       {Array.isArray(allPets) ? (
         <div className="carouselContent">
-          <div className="arrowSwipButtons">
-            <IonIcon slot="start" size="large" icon={arrowBackCircle}></IonIcon>
+          <p>
+            Mascotas perdidas:
+            <b>
+              {index + 1} / {allPets.length}
+            </b>
+          </p>
+          {/*           <div className="arrowSwipButtons">
+            <IonIcon
+              slot="start"
+              size="large"
+              onClick={() => swiper.slidePrev()}
+              icon={arrowBackCircle}
+            ></IonIcon>
             <IonBreadcrumb>Mascotas perdidas: {allPets.length}</IonBreadcrumb>
             <IonIcon
               slot="end"
               size="large"
               icon={arrowForwardCircle}
+              onClick={() => swiper.slideNext()}
             ></IonIcon>
-          </div>
-
-          <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y, EffectFade]}
-            spaceBetween={50}
-            slidesPerView={1}
-            navigation
-            watchSlidesProgress
-            pagination={{ clickable: true }}
-            scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
+          </div> */}
+          <div style={{ textAlign: "center", width: "100%" }}></div>
+          <Carousel onSlide={(e) => setIndex(e)} fade interval={null}>
             {allPets.map((pets: any, index: any) => {
               return (
-                <SwiperSlide key={index}>
-                  <div className="slidesContent petLostCarouselDesc">
-                    <img
+                <Carousel.Item style={{ textAlign: "center" }}>
+                  <MDBCard className="carouselItem">
+                    <MDBCardImage
                       src={`data:image/jpeg;base64,${pets.fotoMascota}`}
                       alt={pets.name}
                       onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
                       className="imgCarousel"
                     />
-           {/*          <Button
-                      onClick={(e) => {
-                        setSelectedPet(pets);
-                        setPetFound(true);
-                        dispatch(petSelected(pets));
-                      }}
-                    >
-                      Adoptar a esta mascota
-                    </Button> */}
-                    <div className="petsDescriptionContent"></div>
-                  </div>
-                </SwiperSlide>
+                    <MDBCardBody>
+                      <MDBCardTitle>{pets.nombre}</MDBCardTitle>
+                      <MDBCardText>
+                        <b> Descripción </b> {pets.descripcion}
+                      </MDBCardText>
+                   
+                    </MDBCardBody>
+                    <MDBBtn
+                        onClick={() => handleImageClick(pets.fotoMascota, pets)} // Add onClick event for image click
+                      >
+                        Detalles
+                      </MDBBtn>
+                  </MDBCard>
+                </Carousel.Item>
               );
             })}
-          </Swiper>
+          </Carousel>
         </div>
       ) : (
         <p> no hay mascotas</p>
