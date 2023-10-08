@@ -52,7 +52,8 @@
 
     height: 100%;
     padding: 0px;
-    margin:0px;
+    margin: 0px;
+
 
     p {
         width: 70%;
@@ -61,12 +62,14 @@
     }
 
     .arrowSwipButtons {
-        display: flex;
-        flex-direction: flex;
-        justify-content: space-around;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content:space-around !important ;
         margin: 10px;
         margin-left: 0px;
         margin-right: 0px;
+        position: relative;
+        padding: 20px;
     }
 
 
@@ -87,9 +90,6 @@
 
     }
 
-    .card-text {
-        height: 120px !important;
-    }
 
     button {}
 
@@ -106,16 +106,21 @@
     display: flex !important;
     justify-content: space-around !important;
     text-align: center;
-    ion-item{
+
+
+    ion-item {
         margin: 10px;
         width: 100%;
-        padding: 0px;
+    }
+    b{
+        max-height: 150px;
+        overflow: scroll;
+        text-align: center;
+
     }
 
-    b{
-        width: 100%;
-    }
-    ion-breadcrumbs{
+
+    ion-breadcrumbs {
         width: 50%;
     }
 
