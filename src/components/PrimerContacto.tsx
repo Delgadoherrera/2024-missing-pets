@@ -37,7 +37,6 @@ const Example: React.FC<ExampleProps> = ({ open, action }) => {
   const nowDate = new Date(objetoFecha);
   let fechaMensaje = nowDate.toLocaleDateString("en-ZA");
 
-  console.log("action", action);
 
   useEffect(() => {
     switch (action) {

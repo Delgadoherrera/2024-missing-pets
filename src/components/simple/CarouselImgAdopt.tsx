@@ -36,6 +36,7 @@ import {
   close,
 } from "ionicons/icons";
 import { MDBContainer } from "mdb-react-ui-kit";
+import { petSelected } from "../../features/dataReducer/dataReducer";
 interface FrontCommandProps {
   pets: Pet;
   setSelectedPet: any;
@@ -60,6 +61,8 @@ const BasicDemo: React.FC<FrontCommandProps> = ({
   const handleImageClick = (imgUrl: any, item: any) => {
     setSelectedImage(imgUrl);
     setThisPet(item);
+    dispatch(petSelected(item))
+
   };
   console.log("active index", index);
   function capitalizeFirstLetter(str: any) {

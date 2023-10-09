@@ -22,11 +22,19 @@ const ActionSheetExample: React.FC<ActionSheetExampleProps> = ({
 }) => {
   const [result, setResult] = useState();
   const dispatch = useDispatch();
+  console.log('petToDelete',petToDelete)
+
   const handleActionSheet = async (actionType: any) => {
     const uploadNewPet = new PetServiceWeb();
     const msgService = new MensajesService();
+    const getAllMsg = new MensajesService();
 
     switch (actionType) {
+      case "deleteConv":
+        getAllMsg.deleteConv(petToDelete).then(() => {
+          dispatch(refreshThis(true));
+        }); 
+        break;
       case "delete":
         uploadNewPet.deletePet(petToDelete.idMascota).then((data) => {
           dispatch(formValue({} || 10));

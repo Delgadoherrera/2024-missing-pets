@@ -19,7 +19,7 @@ import {
   mail,
   mailOpen,
 } from "ionicons/icons";
-
+import ActionSheet from "../simple/ActionSheet";
 const getAllMsg = new MensajesService();
 
 export default function Mensajes() {
@@ -32,6 +32,8 @@ export default function Mensajes() {
   const [nombreEmisario, setNombreEmisario] = useState("");
   const doRefresh = useSelector(refresh);
   const { user } = useAuth0();
+  const [deleteConversation, setDeleteConversation] = useState(false);
+  const [convToDelete, setConvToDelete] = useState({});
   const dispatch = useDispatch();
   const getAllMsg = new MensajesService();
   const emailToNameMap: { [key: string]: string } = {};
@@ -44,14 +46,16 @@ export default function Mensajes() {
   }
 
   const deleteConv = (e: any) => {
-    console.log("deleteConv", e);
+    setDeleteConversation(true);
     const data = {
       idReceptor: user?.email,
       idEmisor: e,
     };
+    setConvToDelete(data);
+    /* 
     getAllMsg.deleteConv(data).then((data) => {
       dispatch(refreshThis(true));
-    });
+    }); */
   };
 
   useEffect(() => {
@@ -62,7 +66,6 @@ export default function Mensajes() {
         return { ...mensaje, fotoMascota };
       });
       setAllMsg(mensajesConFoto);
-      console.log("data", data);
     });
   }, [doRefresh]);
 
@@ -97,6 +100,18 @@ export default function Mensajes() {
     setDisplayMessage(!displayMessage);
   };
   console.log("allmsg", allMsg);
+
+  if (deleteConversation) {
+    return (
+      <ActionSheet
+        setShowActionSheet={setDeleteConversation}
+        action={"deleteConv"}
+        header={"Eliminar conversacion?"}
+        petToDelete={convToDelete}
+        cancelAction={setDeleteConversation}
+      />
+    );
+  }
   return (
     <div className="divMsg">
       {filteredMessages.length === 0 ? (
