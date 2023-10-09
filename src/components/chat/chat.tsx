@@ -41,7 +41,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const lastMessageRef = useRef<HTMLDivElement | null>(null);
   const getAllMsg = new MensajesService();
   useEffect(() => {
+    console.log('idReceptor',idReceptor)
     getAllMsg.getMessages(user!.email, idReceptor).then((data) => {
+      console.log(',messagees',data)
+
       setAllMsg(data);
     });
   }, [messages]);
@@ -118,7 +121,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   const handleMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
-
+console.log('chat',allMsg)
   return (
     <div className="chat-container">
       <div className="chat-header">

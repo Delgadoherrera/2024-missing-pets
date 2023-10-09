@@ -81,13 +81,14 @@ export default function Mensajes() {
       }
     });
   }
-  console.log("idunicos", idUnicos);
   useEffect(() => {
     setFilteredMessages(idUnicos);
   }, [allMsg]);
   const clicOnMessages = (e: any) => {
     setDisplayMessage(!displayMessage);
     setEmisario(e.currentTarget.value);
+    console.log("ecurre", e.currentTarget.value);
+
     setNombreEmisario(e.currentTarget.ariaLabel);
     const nombreEmisor = emailToNameMap[e.currentTarget.value] || ""; // Si no se encuentra el nombre, asigna una cadena vacía
     setNombreEmisario(nombreEmisor);
@@ -129,7 +130,7 @@ export default function Mensajes() {
                     type="button"
                     aria-label={one}
                     value={idUnicos[index]}
-                    /*                     onClick={(e) => {
+                    /*        onClick={(e) => {
                       clicOnMessages(e);
                     }} */
                   >
@@ -140,20 +141,13 @@ export default function Mensajes() {
                   type="button"
                   aria-label={one}
                   value={idUnicos[index]}
+                  onClick={(e) => {
+                    clicOnMessages(e);
+                  }}
                 >
-                  <IonIcon
-                    size="large"
-                    onClick={(e) => {
-                      clicOnMessages(e);
-                    }}
-                    icon={mailOpen}
-                  ></IonIcon>
+                  <IonIcon size="large" icon={mailOpen}></IonIcon>
                 </Button>
-                <Button
-                  type="button"
-                  aria-label={one}
-                  value={idUnicos[index]}
-                >
+                <Button type="button" aria-label={one} value={idUnicos[index]}>
                   <IonIcon
                     size="large"
                     onClick={() => {
@@ -162,10 +156,11 @@ export default function Mensajes() {
                     icon={closeOutline}
                   ></IonIcon>
                 </Button>
-                <Avatar
+                {/*     <img
                   alt="Remy Sharp"
                   src={`data:image/jpeg;base64,${fotoMascota}`}
-                />
+                  className="imgCardMsg"
+                /> */}
               </MDBContainer>
             </IonItem>
           );
