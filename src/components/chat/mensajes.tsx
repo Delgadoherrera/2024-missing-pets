@@ -9,7 +9,7 @@ import {
   formValue,
 } from "../../features/dataReducer/dataReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { IonIcon, IonImg, IonItem } from "@ionic/react";
+import { IonBreadcrumb, IonIcon, IonImg, IonItem } from "@ionic/react";
 import Avatar from "@mui/material/Avatar";
 import { MDBContainer } from "mdb-react-ui-kit";
 import {
@@ -126,16 +126,9 @@ export default function Mensajes() {
             <IonItem key={index}>
               <MDBContainer className="frontCommandCard">
                 <div className="buttonChatIndex">
-                  <Button
-                    type="button"
-                    aria-label={one}
-                    value={idUnicos[index]}
-                    /*        onClick={(e) => {
-                      clicOnMessages(e);
-                    }} */
-                  >
+                  <IonBreadcrumb aria-label={one}>
                     {emailToNameMap[one] || one}
-                  </Button>
+                  </IonBreadcrumb>
                 </div>
                 <Button
                   type="button"

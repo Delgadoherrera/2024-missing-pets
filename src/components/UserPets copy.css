@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* background-color: blue; */
+     background-color: blue !important;
 
 
 }
@@ -32,9 +32,7 @@
 
 }
 
-.userPetsPhoto{
-    background-color: rgba(0, 0, 0, 0.622);
-}
+
 .searchButtonUserPet{
     /* background-color: green; */
     height: 10%;

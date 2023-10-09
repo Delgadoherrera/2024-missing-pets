@@ -28,6 +28,19 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
   return (
     <MDBContainer className="frontCommandCard">
       <div className="commandContainerI">
+        <IonBadge>
+          {pet.nombre ? pet.nombre.slice(0, 6).toUpperCase() : ""}
+          {pet.nombre.length > 6 ? <>...</> : null}
+        </IonBadge>
+      </div>
+      <div className="commandContainerII">
+        {pet.status === 4 ? (
+          <IonBreadcrumb> En adopción</IonBreadcrumb>
+        ) : pet.status === 1 ? (
+          <IonBreadcrumb> Buscando</IonBreadcrumb>
+        ) : null}
+      </div>
+      <div className="commandContainerIII">
         <img
           className="userPetsPhoto"
           src={
@@ -36,34 +49,6 @@ const FrontCommand: React.FC<FrontCommandProps> = ({ pet, activeFrontMap }) => {
               : ""
           }
         ></img>
-      </div>
-
-      <div className="commandContainerII">
-        <IonBadge>
-          {pet.nombre ? pet.nombre.slice(0, 6).toUpperCase() : ""}
-          {pet.nombre.length > 6 ? <>...</> : null}
-        </IonBadge>
-        {/*         <Button>
-          {pet.status === 1 && (
-            <IonIcon
-              aria-hidden="true"
-              icon={gpsFront}
-              size="large"
-              onClick={() => activeFrontMap(pet)}
-              style={{ height: "25px" }}
-            />
-          )}
-          {pet.status === 4 && (
-            <IonIcon aria-hidden="true" icon={adoptIcon} size="large" />
-          )}
-        </Button> */}
-      </div>
-      <div className="commandContainerII">
-        {pet.status === 4 ? (
-          <IonBreadcrumb> En adopción</IonBreadcrumb>
-        ) : pet.status === 1 ? (
-          <IonBreadcrumb> Buscando</IonBreadcrumb>
-        ) : null}
       </div>
     </MDBContainer>
   );

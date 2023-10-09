@@ -8,7 +8,6 @@
     flex-direction: row;
     justify-content: space-evenly !important;
 
-
     ion-list {
         background-color: $fourh;
         font-size: 1.1rem !important;
@@ -38,9 +37,10 @@
         background-color: $soft !important;
     }
 
-    ion-slide {
-        .topPanelKnobDistance {}
+    .topPanelKnobDistance {
+
     }
+
 
 
     .lineSlider {
@@ -64,7 +64,7 @@
     .arrowSwipButtons {
         display: flex !important;
         flex-direction: row !important;
-        justify-content:space-around !important ;
+        justify-content: space-around !important;
         margin: 10px;
         margin-left: 0px;
         margin-right: 0px;
@@ -112,7 +112,8 @@
         margin: 10px;
         width: 100%;
     }
-    b{
+
+    b {
         max-height: 150px;
         overflow: scroll;
         text-align: center;
@@ -141,3 +142,4 @@
     }
 
 }
+

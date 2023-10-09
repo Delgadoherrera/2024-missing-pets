@@ -145,22 +145,31 @@
 
 .divMsg {
     height: 100%;
-    background-color: $soft;
+    background-color: white;
+    display: flex;
+
 
     ion-item {
-        --border-style: none !important;
-
+        --background: transparent !important;
     }
 
     ion-icon {
-        color: $primary !important;
+        color: $fourh !important;
+
     }
 
     .frontCommandCard {
-        background-color: rgba(54, 49, 95, 0.119) !important;
+        background-color: $primary !important;
         padding: 20px;
+        align-items: center !important;
         border-radius: 40px;
+        justify-content: space-around;
     }
+
+    button {
+        color: $fourh;
+    }
+
 
 }
 
